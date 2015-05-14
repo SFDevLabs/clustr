@@ -24,7 +24,9 @@ var Home = React.createClass({
 var Header = React.createClass({
   render: function () {
     return <header>
-      <h2>Clust</h2>
+
+      <img src="/img/logo_clustr_font.png" />
+      <h2>Clustr</h2>
       <Link to="home">Home</Link>
     </header>;
   }
@@ -33,8 +35,8 @@ var Header = React.createClass({
 var App = React.createClass({
   render:function() {
     return (
-
       <div>
+        <Header />
         <RouteHandler/>
       </div>
     )

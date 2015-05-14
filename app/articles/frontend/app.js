@@ -13,6 +13,14 @@ var React = require('react');
 
 var TodoApp = require('./components/TodoApp.react');
 
+// var AppHeader = require('./components/AppHeader.react');
+
+// var AppHeaderClass = React.createClass({
+//   render: function () {
+//     return <div><AppHeader /></div>;
+//   }
+// });
+
 
 var TodoAppClass = React.createClass({
   render: function () {
@@ -23,3 +31,9 @@ var TodoAppClass = React.createClass({
 });
 
 module.exports = TodoAppClass;
+// module.exports.AppHeaderClass = AppHeaderClass;
+
+// module.exports = {
+//   TodoAppClass: TodoAppClass,
+//   AppHeaderClass: AppHeaderClass
+// }
