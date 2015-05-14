@@ -25,11 +25,11 @@ var Header = React.createClass({
   render: function () {
     return <header>
       <div className="homeBox">
-        <img src="/img/logo_clustr_icon.png" />
-        <img src="/img/logo_clustr_font.png" />
+        <Link to="home"><img className="homeIcon" src="/img/logo_clustr_icon.png" /></Link>
+        <Link to="home"><img className="homeFont" src="/img/logo_clustr_font.png" /></Link>
       </div>
-      <h2>Clustr</h2>
-      <Link to="home">Home</Link>
+      <div className="statusBox">
+      </div>
     </header>;
   }
 });
