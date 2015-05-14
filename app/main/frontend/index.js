@@ -23,11 +23,14 @@ var Home = React.createClass({
 
 var Header = React.createClass({
   render: function () {
-    return <header className="stuff">
-            <img src="/img/logo_clustr_font.png" />
-            <h2>Clustr</h2>
-            <Link to="home">Home</Link>
-          </header>;
+    return <header>
+      <div className="homeBox">
+        <Link to="home"><img className="homeIcon" src="/img/logo_clustr_icon.png" /></Link>
+        <Link to="home"><img className="homeFont" src="/img/logo_clustr_font.png" /></Link>
+      </div>
+      <div className="statusBox">
+      </div>
+    </header>;
   }
 });
 
