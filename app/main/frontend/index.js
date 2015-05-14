@@ -13,7 +13,7 @@ var Route = Router.Route;
 var Link = Router.Link;
 
 //Import the modules of the different app components
-var Verts = require('../../articles/frontend/app');
+var VertsRoutes = require('../../articles/frontend/routes');
 
 var Home = React.createClass({
   render: function () {
@@ -49,7 +49,6 @@ var App = React.createClass({
 var routes = (
   <Route handler={App} location="history" strict="false">
     <Route name="home" path="/" handler={Home}/>
-    <Route name="verts" path="/verts" handler={Verts}/>
   </Route>
 );
 
@@ -57,9 +56,8 @@ var routes = (
 var RouteHandler = Router.RouteHandler;
 
 
-
-
-
-Router.run([routes,], Router.HistoryLocation, function(Root){
+Router.run([routes,VertsRoutes], Router.HistoryLocation, function(Root){
   React.render(<Root/>, document.getElementById('todoapp'));
 });
+
+module.exports = App;
