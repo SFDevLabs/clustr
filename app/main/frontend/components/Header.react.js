@@ -10,13 +10,13 @@ var Header = React.createClass({
   render: function () {
     return <header>
       <div className="homeBox">
-        <Link to="home"><img className="homeIcon" src="/img/logo_clustr_icon.png" /></Link>
-        <Link to="home"><img className="homeFont" src="/img/logo_clustr_font.png" /></Link>
+        <Link to="home"><img className="homeIcon" src="/img/logo_clustr_icon.png" title="home" /></Link>
+        <Link to="home"><img className="homeFont" src="/img/logo_clustr_font.png" title="home" /></Link>
       </div>
       <div className="statusBox">
-        <img className="statusBoxAddNode" src="img/addIcon_Color.png" />
-        <img className="statusBoxActivity" src="img/activity.png" />
-        <img className="statusBoxProfile" src="/img/eoin_profile.jpg" />
+        <img className="statusBoxAddNode" src="img/addIcon_Color.png" title="add a node" />
+        <img className="statusBoxActivity" src="img/activity.png" title="check activity" />
+        <img className="statusBoxProfile" title="profile" src="/img/eoin_profile.jpg" />
       </div>
     </header>;
   }
