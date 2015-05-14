@@ -2,22 +2,12 @@
 "use strict";
 
 var React = require('react');
-var Router = require('react-router');
-var Route = Router.Route;
-var Link = Router.Link;
-var App = require('./components/App.react');
-
-
-var Home = React.createClass({
-  render: function () {
-    return <div><Link to="verts">Dashboard</Link><h2>Home</h2></div>;
-  }
-});
+var Route = require('react-router').Route;
 
 // declare our routes and their hierarchy
 var routes = (
-  <Route handler={App} location="history" strict="false">
-  	<Route name="home" path="/" handler={Home}/>
+  <Route handler={require('./components/App.react')} location="history" strict="false">
+  	<Route name="home" path="/" handler={require('./components/Home.react')}/>
   </Route>
 );
 

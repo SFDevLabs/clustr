@@ -1,3 +1,8 @@
+/**
+ * @jsx Header.react
+ */
+"use strict";
+
 var React = require('react');
 var Link = require('react-router').Link;
 
