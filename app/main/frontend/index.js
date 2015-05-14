@@ -15,8 +15,6 @@ var Link = Router.Link;
 //Import the modules of the different app components
 var VertsRoutes = require('../../articles/frontend/routes');
 
-
-
 var Home = React.createClass({
   render: function () {
     return <div><Link to="verts">Dashboard</Link><h2>Home</h2></div>;
@@ -25,12 +23,11 @@ var Home = React.createClass({
 
 var Header = React.createClass({
   render: function () {
-    return <header>
-
-      <img src="/img/logo_clustr_font.png" />
-      <h2>Clustr</h2>
-      <Link to="home">Home</Link>
-    </header>;
+    return <header className="stuff">
+            <img src="/img/logo_clustr_font.png" />
+            <h2>Clustr</h2>
+            <Link to="home">Home</Link>
+          </header>;
   }
 });
 
