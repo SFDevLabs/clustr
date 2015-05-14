@@ -33,8 +33,8 @@ var Header = React.createClass({
 var App = React.createClass({
   render:function() {
     return (
-
       <div>
+        <Header/>
         <RouteHandler/>
       </div>
     )
@@ -44,8 +44,8 @@ var App = React.createClass({
 // declare our routes and their hierarchy
 var routes = (
   <Route handler={App} location="history" strict="false">
-    <Route name="verts" path="/verts" handler={Verts}/>
     <Route name="home" path="/" handler={Home}/>
+    <Route name="verts" path="/verts" handler={Verts}/>
   </Route>
 );
 
@@ -56,6 +56,6 @@ var RouteHandler = Router.RouteHandler;
 
 
 
-Router.run(routes, Router.HistoryLocation, function(Root){
+Router.run([routes,], Router.HistoryLocation, function(Root){
   React.render(<Root/>, document.getElementById('todoapp'));
 });
