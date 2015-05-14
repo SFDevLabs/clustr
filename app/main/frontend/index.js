@@ -21,6 +21,25 @@ var Home = React.createClass({
   }
 });
 
+var Header = React.createClass({
+  render: function () {
+    return <header>
+      <h2>Clust</h2>
+      <Link to="home">Home</Link>
+    </header>;
+  }
+});
+
+var App = React.createClass({
+  render:function() {
+    return (
+
+      <div>
+        <RouteHandler/>
+      </div>
+    )
+  }
+});
 
 // declare our routes and their hierarchy
 var routes = (
@@ -34,15 +53,7 @@ var routes = (
 var RouteHandler = Router.RouteHandler;
 
 
-var App = React.createClass({
-  render:function() {
-    return (
-      <div>
-        <RouteHandler/>
-      </div>
-    )
-  }
-});
+
 
 
 Router.run(routes, Router.HistoryLocation, function(Root){
