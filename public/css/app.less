@@ -6,13 +6,15 @@ body {
 
 header{
   height: 70px;
-  background: blue;
+  border-bottom: 1px solid #222222;
+  // background: blue;
   .homeBox{
+    // background: red;
+    float: left;
     display: inline-block;
     margin-top: 10px;
     margin-left: 10px;
     height: 50px;
-    background: red;
     img {
       height: 100%;
     }
@@ -25,7 +27,25 @@ header{
     }
   } // end homeBox
   .statusBox{
-
+    float: right;
+    display: inline-block;
+    margin-top: 10px;
+    margin-right: 10px;
+    .statusBoxProfile{
+      height: 46px;
+      width: auto;
+      border-radius: 25px;
+    }
+    .statusBoxActivity{
+      height: 45px;
+      width: auto;
+      margin-right: 10px;
+    }
+    .statusBoxAddNode{
+      height: 45px;
+      width: auto;
+      margin-right: 10px;
+    }
   }
 } // end header
 
