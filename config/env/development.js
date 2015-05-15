@@ -24,7 +24,8 @@ if (fs.existsSync(envFile)) {
  */
 
 module.exports = {
-  bundle: '/js/bundle.js',
+  bundlejs: '/js/bundle.js',
+  bundlecss: '/css/bundle.css',
   db: 'mongodb://localhost/dasein',
   facebook: {
     clientID: process.env.FACEBOOK_CLIENTID,
