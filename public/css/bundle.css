@@ -6,4 +6,130 @@ html,
 body {
   height: 100%;
 }
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-something: antialiased;
+}
+.row {
+  float: left;
+  clear: both;
+  width: 100%;
+  padding: 0;
+}
+.columns {
+  float: left;
+  margin: 0;
+  text-align: center;
+}
+.one {
+  width: 6.25%;
+}
+.two {
+  width: 12.5%;
+}
+.three {
+  width: 18.75%;
+}
+.four {
+  width: 25%;
+}
+.five {
+  width: 31.25%;
+}
+.six {
+  width: 37.5%;
+}
+.seven {
+  width: 43.75%;
+}
+.eight {
+  width: 50%;
+}
+.nine {
+  width: 56.25%;
+}
+.ten {
+  width: 62.5%;
+}
+.eleven {
+  width: 68.75%;
+}
+.twelve {
+  width: 75%;
+}
+.thirteen {
+  width: 81.25%;
+}
+.fourteen {
+  width: 87.5%;
+}
+.fifteen {
+  width: 93.75%;
+}
+.sixteen {
+  width: 100%;
+}
+header {
+  height: 70px;
+  border-bottom: 1px solid rgba(1, 0, 0, 0.05);
+}
+header .homeBox {
+  float: left;
+  display: inline-block;
+  margin-top: 10px;
+  margin-left: 10px;
+  height: 50px;
+}
+header .homeBox img {
+  height: 100%;
+}
+header .homeBox .homeFont {
+  padding-left: 20px;
+  height: 75%;
+}
+header .homeBox .homeLogo {
+  padding-left: 15px;
+}
+header .statusBox {
+  float: right;
+  display: inline-block;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+header .statusBox .statusBoxProfile {
+  height: 47px;
+  width: auto;
+  border-radius: 25px;
+}
+header .statusBox .statusBoxActivity {
+  height: 45px;
+  width: auto;
+  margin-right: 10px;
+}
+header .statusBox .statusBoxAddNode {
+  height: 45px;
+  width: auto;
+  margin-right: 10px;
+}
+.mainBody {
+  margin-top: 30px;
+}
+.mainBody .queryForm .queryBox {
+  font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+  padding-left: 20px;
+  border-radius: 0px;
+  height: 60px;
+  width: 75%;
+}
+.mainBody .queryForm .querySubmit {
+  font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+  margin-left: 3.5px;
+  margin-top: -10px;
+  height: 60px;
+  width: 20%;
+}
 /* App Specific less import*/
