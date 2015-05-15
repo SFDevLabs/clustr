@@ -14,21 +14,21 @@
 
 var React = require('react');
 var ArticleStore = require('../stores/ArticleStore');
-var MainSection = require('./MainSection.react');
+
 /**
  * Retrieve the current TODO data from the ArticleStore
  */
-function getArticleState() {
+function getTodoState() {
   return {
-    allPosts: ArticleStore.getAll(),
+    allTodos: ArticleStore.getAll(),
+    areAllComplete: ArticleStore.areAllComplete()
   };
 }
 
-
-var ArticleApp = React.createClass({
+var TodoApp = React.createClass({
 
   getInitialState: function() {
-    return getArticleState();
+    return getTodoState();
   },
 
   componentDidMount: function() {
@@ -46,10 +46,7 @@ var ArticleApp = React.createClass({
   render: function() {
   	return (
       <div>
-        <h1>App</h1>
-        <MainSection
-        allPosts={this.state.allPosts}
-        />
+        <h1>Ya</h1>
       </div>
   	);
   },
@@ -58,9 +55,9 @@ var ArticleApp = React.createClass({
    * Event handler for 'change' events coming from the ArticleStore
    */
   _onChange: function() {
-    this.setState(getArticleState());
+    this.setState(getTodoState());
   }
 
 });
 
-module.exports = ArticleApp;
+module.exports = TodoApp;
