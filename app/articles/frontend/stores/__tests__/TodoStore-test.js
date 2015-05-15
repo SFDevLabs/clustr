@@ -10,7 +10,7 @@
  */
 
 jest.dontMock('../../constants/TodoConstants');
-jest.dontMock('../TodoStore');
+jest.dontMock('../ArticleStore');
 jest.dontMock('object-assign');
 
 describe('TodoStore', function() {
@@ -32,7 +32,7 @@ describe('TodoStore', function() {
 
   beforeEach(function() {
     AppDispatcher = require('../../dispatcher/AppDispatcher');
-    TodoStore = require('../TodoStore');
+    TodoStore = require('../ArticleStore');
     callback = AppDispatcher.register.mock.calls[0][0];
   });
 
