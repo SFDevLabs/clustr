@@ -46,7 +46,7 @@ var TodoApp = React.createClass({
   render: function() {
   	return (
       <div>
-        <h1>Ya</h1>
+        <h1>Ya!</h1>
       </div>
   	);
   },
