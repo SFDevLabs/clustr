@@ -42,7 +42,6 @@ function create(text) {
     data: {text:text,_csrf:csrfToken}
   })
   .done(function( result ) {
-    debugger
     _todos = _todos.set(result._id, new TodoRecord({id : result._id, text : result.text}));
     TodoStore.emitChange();
   });

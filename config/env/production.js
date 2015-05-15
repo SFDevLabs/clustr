@@ -4,7 +4,7 @@
  */
 
 module.exports = {
-  bundle: 'js/bundle.min.js',
+  bundle: '/js/bundle.min.js',
   db: process.env.MONGOLAB_URI,
   facebook: {
     clientID: process.env.FACEBOOK_CLIENTID,
