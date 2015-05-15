@@ -14,39 +14,28 @@
 
 var React = require('react');
 var ArticleStore = require('../stores/ArticleStore');
+var ReactPropTypes = React.PropTypes;
 
 /**
  * Retrieve the current TODO data from the ArticleStore
  */
-function getTodoState() {
-  return {
-    allTodos: ArticleStore.getAll(),
-    areAllComplete: ArticleStore.areAllComplete()
-  };
-}
 
 var TodoApp = React.createClass({
 
-  getInitialState: function() {
-    return getTodoState();
+  propTypes: {
+    postData: ReactPropTypes.object.isRequired,
   },
 
-  componentDidMount: function() {
-    ArticleStore.addChangeListener(this._onChange);
-    ArticleStore.fetchAll();
-  },
-
-  componentWillUnmount: function() {
-    ArticleStore.removeChangeListener(this._onChange);
-  },
 
   /**
    * @return {object}
    */
   render: function() {
+    var postItem = this.props.postData;
+
   	return (
       <div>
-        <h1>Ya!</h1>
+        <h1>{postItem.text}</h1>
       </div>
   	);
   },

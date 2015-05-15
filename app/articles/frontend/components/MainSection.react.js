@@ -49,8 +49,9 @@ var MainSection = React.createClass({
     var allPosts = this.props.allPosts;
     var posts = [];
 
+
     for (var key in allPosts) {
-      posts.push(<h1>Ya!</h1>);
+      posts.push(<PostItem postData={allPosts[key]}/>);
     }
 
     return (
