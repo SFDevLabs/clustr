@@ -4,6 +4,33 @@ body {
   height: 100%;
 }
 
+// @font-face {
+//   font-family: 'HelveticaNeueLTStd-Bd';
+//   src: url('../assets/fonts/HelveticaNeueLTStd/HelveticaNeueLTStd-Bd.otf');
+// }
+
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin:0;
+  padding:0;
+  -webkit-font-something: antialiased;
+}
+
+.row {
+  float:left;
+  clear:both;
+  width:100%;
+  padding:0;
+}
+
+.columns {
+  float: left;
+  margin: 0;
+  text-align: center;
+}
+
 .one { width: 6.25%; }
 .two { width: 12.5%; }
 .three { width: 18.75%; }
@@ -23,7 +50,7 @@ body {
 
 header{
   height: 70px;
-  border-bottom: 1px solid #222222;
+  border-bottom: 1px solid rgba(1, 0, 0, .05);
   // background: blue;
   .homeBox{
     // background: red;
@@ -63,10 +90,22 @@ header{
       width: auto;
       margin-right: 10px;
     }
-  }
-
-  .main{
-
-  }
+  } // end statusBox
 } // end header
 
+.mainBody{
+  margin-top: 30px;
+  .queryForm{
+    .queryBox{
+      height: 60px;
+      width: 75%;
+    }
+    .querySubmit{
+      // margin-left: 5px;
+      margin-top: -10px;
+      height: 60px;
+      width: 25%;
+    }
+  }
+
+} // end MainBody

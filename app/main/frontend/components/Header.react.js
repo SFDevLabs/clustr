@@ -11,7 +11,6 @@ var Header = React.createClass({
     return <header>
       <div className="homeBox">
         <Link to="home"><img className="homeIcon" src="/img/logo_clustr_icon.png" title="home" /></Link>
-        <Link to="home"><img className="homeFont" src="/img/logo_clustr_font.png" title="home" /></Link>
       </div>
       <div className="statusBox">
         <img className="statusBoxAddNode" src="img/addIcon_Color.png" title="add a node" />
