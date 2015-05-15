@@ -9,22 +9,19 @@
 
 /**
  * This component operates as a "Controller-View".  It listens for changes in
- * the TodoStore and passes the new data to its children.
+ * the ArticleStore and passes the new data to its children.
  */
 
-var Footer = require('./Footer.react');
-var Header = require('./Header.react');
-var MainSection = require('./MainSection.react');
 var React = require('react');
-var TodoStore = require('../stores/TodoStore');
+var ArticleStore = require('../stores/ArticleStore');
 
 /**
- * Retrieve the current TODO data from the TodoStore
+ * Retrieve the current TODO data from the ArticleStore
  */
 function getTodoState() {
   return {
-    allTodos: TodoStore.getAll(),
-    areAllComplete: TodoStore.areAllComplete()
+    allTodos: ArticleStore.getAll(),
+    areAllComplete: ArticleStore.areAllComplete()
   };
 }
 
@@ -35,12 +32,12 @@ var TodoApp = React.createClass({
   },
 
   componentDidMount: function() {
-    TodoStore.addChangeListener(this._onChange);
-    TodoStore.fetchAll();
+    ArticleStore.addChangeListener(this._onChange);
+    ArticleStore.fetchAll();
   },
 
   componentWillUnmount: function() {
-    TodoStore.removeChangeListener(this._onChange);
+    ArticleStore.removeChangeListener(this._onChange);
   },
 
   /**
@@ -49,18 +46,13 @@ var TodoApp = React.createClass({
   render: function() {
   	return (
       <div>
-        <Header />
-        <MainSection
-          allTodos={this.state.allTodos}
-          areAllComplete={this.state.areAllComplete}
-        />
-        <Footer allTodos={this.state.allTodos} />
+        <h1>App</h1>
       </div>
   	);
   },
 
   /**
-   * Event handler for 'change' events coming from the TodoStore
+   * Event handler for 'change' events coming from the ArticleStore
    */
   _onChange: function() {
     this.setState(getTodoState());

@@ -26,8 +26,6 @@ exports.load = function (req, res, next, id){
 /**
  * List
  */
-
-
 exports.index = function (req, res){
     res.render('verts/views/index', {
         title: 'Articles'

@@ -24,7 +24,7 @@ module.exports = function (app, passport, auth) {
   /**
    * Route middlewares
    */
-  app.get('/verts', main.index);
+  app.get('/articles', main.index);
 
   // Holder logic for working with uniqu links per route
   // app.param('id', articles.load);
