@@ -7,46 +7,66 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-/**
- * This component operates as a "Controller-View".  It listens for changes in
- * the ArticleStore and passes the new data to its children.
- */
-
 var React = require('react');
-var ArticleStore = require('../stores/ArticleStore');
 var ReactPropTypes = React.PropTypes;
+var ArticleActions = require('../actions/ArticleActions');
 
-/**
- * Retrieve the current TODO data from the ArticleStore
- */
+var cx = require('react/lib/cx');
 
-var TodoApp = React.createClass({
+var ArticleItem = React.createClass({
 
   propTypes: {
-    postData: ReactPropTypes.object.isRequired,
+   item: ReactPropTypes.object.isRequired
   },
 
+  getInitialState: function() {
+    return {
+      isEditing: false
+    };
+  },
 
   /**
    * @return {object}
    */
   render: function() {
-    var postItem = this.props.postData;
+    var item = this.props.item;
 
-  	return (
-      <div>
-        <h1>{postItem.text}</h1>
-      </div>
-  	);
+
+
+    // List items should get the class 'editing' when editing
+    // and 'completed' when marked as completed.
+    // Note that 'completed' is a classification while 'complete' is a state.
+    // This differentiation between classification and state becomes important
+    // in the naming of view actions toggleComplete() vs. destroyCompleted().
+    return (
+      <li
+        className={cx({
+          'completed': item.complete,
+          'editing': this.state.isEditing
+        })}
+        key={item.id}>
+        {item.text}
+        <button className="destroy" onClick={this._onDestroyClick} />
+      </li>
+    );
   },
 
+
   /**
-   * Event handler for 'change' events coming from the ArticleStore
+   * Event handler called within TodoTextInput.
+   * Defining this here allows TodoTextInput to be used in multiple places
+   * in different ways.
+   * @param  {string} text
    */
-  _onChange: function() {
-    this.setState(getTodoState());
+  _onSave: function(text) {
+    ArticleActions.updateText(this.props.item.id, text);
+    this.setState({isEditing: false});
+  },
+
+  _onDestroyClick: function() {
+    ArticleActions.destroy(this.props.item.id);
   }
 
 });
 
-module.exports = TodoApp;
+module.exports = ArticleItem;

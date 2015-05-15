@@ -15,6 +15,9 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var PostItem = require('./PostItem.react');
+var ItemInput = require('./ItemInput.react');
+var ArticleAction = require('../actions/ArticleActions');
+
 /**
  * Retrieve the current TODO data from the ArticleStore
  */
@@ -42,26 +45,41 @@ var MainSection = React.createClass({
    * @return {object}
    */
   render: function() {
-    if (Object.keys(this.props.allPosts).length < 1) {
-      return null;
-    }
+    // if (Object.keys(this.props.allPosts).length < 1) {
+    //   return null;
+    // }
 
     var allPosts = this.props.allPosts;
     var posts = [];
 
-
     for (var key in allPosts) {
-      posts.push(<PostItem postData={allPosts[key]}/>);
+      posts.push(<PostItem item={allPosts[key]} />);
     }
 
     return (
       <div>
-        <PostItem/>
+        <ItemInput
+          id="new-todo"
+          placeholder="What needs to be done?"
+          onSave={this._onSave}
+        />
         <ul id="todo-list">{posts}</ul>
       </div>
     );
   },
 
+  /**
+   * Event handler called within TodoTextInput.
+   * Defining this here allows TodoTextInput to be used in multiple places
+   * in different ways.
+   * @param {string} text
+   */
+  _onSave: function(text) {
+    if (text.trim()){
+      ArticleAction.create(text);
+    }
+
+  }
 
 });
 
