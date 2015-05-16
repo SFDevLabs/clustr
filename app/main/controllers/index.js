@@ -38,4 +38,12 @@ exports.index = function (req, res){
   // });
 };
 
+/**
+ * Updates the session return to variable for proper sendback after login.
+ */
+exports.returnTo = function (req, res){
+    req.session.returnTo=req.body.returnURL
+    return res.status(200).send({status:'ok'});
+};
+
 

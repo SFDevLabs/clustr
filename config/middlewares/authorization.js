@@ -10,6 +10,17 @@ exports.requiresLogin = function (req, res, next) {
 }
 
 /*
+ *  Generic require login routing middleware
+ */
+
+exports.requiresLoginAPI = function (req, res, next) {
+  if (req.isAuthenticated()) return next()
+  req.session.returnTo = req.originalUrl
+  console.log(req.session.returnTo)
+  res.status(401).send({'error': {'message': 'Requires Authorization'},redirect:'/login' })
+}
+
+/*
  *  User authorization routing middleware
  */
 

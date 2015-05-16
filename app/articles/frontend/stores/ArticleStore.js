@@ -20,13 +20,30 @@ var csrfToken = csrfTag ? csrfTag.dataset.csrf:null;
 var CHANGE_EVENT = 'change';
 var _history = [];
 var _todos = Immutable.OrderedMap();
-var urlBase = '/verts/api/'
+var urlBase = '/articles/api/'
 
 var TodoRecord = Immutable.Record({
   id : null,
   complete : false,
   text : 'A brand new thing to do!'
 });
+
+var errHandle = function(errObj,type,status){
+  if (errObj.responseJSON && errObj.responseJSON.redirect){
+    var returnURL = window.location.pathname
+    $.ajax({
+      method: "POST",
+      url: "returnto",
+      data: {returnURL:returnURL,_csrf:csrfToken}
+    })
+    .done(function( result ) {
+      window.location.href=errObj.responseJSON.redirect;
+    })
+    .error(function( result ) {
+      window.location.href=errObj.responseJSON.redirect;
+    });
+  }
+}
 
 /**
  * Create a TODO item.
@@ -108,7 +125,7 @@ function destroy(id) {
   .done(function( msg ) {
     _todos = _todos.delete(id);
     TodoStore.emitChange();
-  });
+  }).error(errHandle);
 
 }
 

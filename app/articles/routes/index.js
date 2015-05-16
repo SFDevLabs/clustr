@@ -25,7 +25,6 @@ module.exports = function (app, passport, auth) {
    * Route middlewares
    */
   app.get('/articles', main.index);
-
   // Holder logic for working with uniqu links per route
   // app.param('id', articles.load);
   // app.get('/vert/:id', articles.show); 
@@ -35,6 +34,6 @@ module.exports = function (app, passport, auth) {
   /**
    * Crud Operations With User Auth
    */
-  crudUtils.initRoutesForModel(app, VertsModel, auth, '/verts/api')
+  crudUtils.initRoutesForModel(app, VertsModel, auth, '/articles/api')
   
 }

@@ -22,6 +22,9 @@ module.exports = function (app, passport, auth) {
 
   // home route
   app.get('/', main.index);
+  
+  //Resets the session return to controller
+  app.post('/returnto', main.returnTo);
 
   app.use('/main',express.static(__dirname+'/../public'));
 
