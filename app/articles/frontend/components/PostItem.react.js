@@ -50,7 +50,6 @@ var ArticleItem = React.createClass({
         <button className="destroy" onClick={this._onDestroyClick} />
         <span>{item.username}</span>
         <Link to="article" params={{id: item.text}} >Link</Link>
-
       </li>
     );
   },

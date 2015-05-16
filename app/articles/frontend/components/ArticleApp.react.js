@@ -18,23 +18,23 @@ var MainSection = require('./MainSection.react');
 /**
  * Retrieve the current TODO data from the ArticleStore
  */
-function getArticleState() {
+function getArticleState(id) {
   return {
-    allPosts: ArticleStore.getAll(),
+    post: ArticleStore.getOneById(id),
   };
 }
 
 
 var ArticleApp = React.createClass({
 
-  // getInitialState: function() {
-  //   return getArticleState();
-  // },
+  getInitialState: function() {
+    return getArticleState(this.props.params.id);
+  },
 
-  // componentDidMount: function() {
-  //   ArticleStore.addChangeListener(this._onChange);
-  //   ArticleStore.fetchAll();
-  // },
+  componentDidMount: function() {
+    ArticleStore.addChangeListener(this._onChange);
+    ArticleStore.fetchOne(this.props.params.id);
+  },
 
   // componentWillUnmount: function() {
   //   ArticleStore.removeChangeListener(this._onChange);
@@ -44,11 +44,10 @@ var ArticleApp = React.createClass({
    * @return {object}
    */
   render: function() {
-    console.log(this.props.params.id)
   	return (
       <div>
         <h1>App</h1>
-        <h2>{this.props.params.id}</h2>
+        <h2>{this.state.post}</h2>
       </div>
   	);
   },

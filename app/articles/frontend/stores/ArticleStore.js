@@ -168,6 +168,13 @@ var TodoStore = assign({}, EventEmitter.prototype, {
   getAll: function() {
     return _todos.toObject();
   },
+  /**
+   * Get the entire collection of TODOs.
+   * @return {object}
+   */
+  getOneById: function() {
+    return {text:'jeff'}
+  },
 
   /**
    * Get the entire collection of from server.
@@ -187,7 +194,23 @@ var TodoStore = assign({}, EventEmitter.prototype, {
       })
   },
 
+  /**
+   * Get the entire collection of from server.
+   * @return {object}
+   */
+  fetchOne: function(id) {
+      var that= this
+      return console.log('fix this')
+      $.get(urlBase+id, function(results) {
 
+        _todos = _todos.set(id, new TodoRecord({
+            id : item._id, 
+            text : item.text,
+            username: item.user.username
+          }));
+        that.emitChange();
+      })
+  },
 
   getHistory : function () {
     return _history;
