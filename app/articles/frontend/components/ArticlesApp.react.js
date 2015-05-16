@@ -44,11 +44,12 @@ var ArticleApp = React.createClass({
    * @return {object}
    */
   render: function() {
-    console.log(this.context.router.getCurrentParams())
   	return (
       <div>
         <h1>App</h1>
-        
+        <MainSection
+        allPosts={this.state.allPosts}
+        />
       </div>
   	);
   },
