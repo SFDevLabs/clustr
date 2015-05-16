@@ -27,28 +27,28 @@ function getArticleState() {
 
 var ArticleApp = React.createClass({
 
-  getInitialState: function() {
-    return getArticleState();
-  },
+  // getInitialState: function() {
+  //   return getArticleState();
+  // },
 
-  componentDidMount: function() {
-    ArticleStore.addChangeListener(this._onChange);
-    ArticleStore.fetchAll();
-  },
+  // componentDidMount: function() {
+  //   ArticleStore.addChangeListener(this._onChange);
+  //   ArticleStore.fetchAll();
+  // },
 
-  componentWillUnmount: function() {
-    ArticleStore.removeChangeListener(this._onChange);
-  },
+  // componentWillUnmount: function() {
+  //   ArticleStore.removeChangeListener(this._onChange);
+  // },
 
   /**
    * @return {object}
    */
   render: function() {
-    console.log(this.context.router.getCurrentParams())
+    console.log(this.props.params.id)
   	return (
       <div>
         <h1>App</h1>
-        
+        <h2>{this.props.params.id}</h2>
       </div>
   	);
   },

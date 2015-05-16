@@ -36,6 +36,6 @@ module.exports = function (app, passport, auth) {
   /**
    * Crud Operations With User Auth
    */
-  crudUtils.initRoutesForModel(app, ArticlesModel, auth, '/articles/api')
+  crudUtils.initRoutesForModel(app, ArticlesModel, auth, '/api/articles')
   
 }

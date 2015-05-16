@@ -20,7 +20,7 @@ var csrfToken = csrfTag ? csrfTag.dataset.csrf:null;
 var CHANGE_EVENT = 'change';
 var _history = [];
 var _todos = Immutable.OrderedMap();
-var urlBase = '/articles/api/'
+var urlBase = '/api/articles/'
 
 var TodoRecord = Immutable.Record({
   id : null,
