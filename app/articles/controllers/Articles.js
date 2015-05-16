@@ -4,7 +4,7 @@
  */
 
 var mongoose = require('mongoose')
-var Article = mongoose.model('Verts')
+var Article = mongoose.model('Articles')
 //var utils = require('../../lib/utils')
 var extend = require('util')._extend
 

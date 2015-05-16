@@ -45,8 +45,9 @@ var ArticleItem = React.createClass({
           'editing': this.state.isEditing
         })}
         key={item.id}>
-        {item.text}
+        <span>{item.text}</span>
         <button className="destroy" onClick={this._onDestroyClick} />
+        <span>{item.username}</span>
       </li>
     );
   },

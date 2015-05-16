@@ -25,7 +25,8 @@ var urlBase = '/articles/api/'
 var TodoRecord = Immutable.Record({
   id : null,
   complete : false,
-  text : 'A brand new thing to do!'
+  text : 'A brand new thing to do!',
+  username: null
 });
 
 var errHandle = function(errObj,type,status){
@@ -59,7 +60,7 @@ function create(text) {
     data: {text:text,_csrf:csrfToken}
   })
   .done(function( result ) {
-    _todos = _todos.set(result._id, new TodoRecord({id : result._id, text : result.text}));
+    _todos = _todos.set(result._id, new TodoRecord({id : result._id, text : result.text, username: 'holderStuff'}));
     TodoStore.emitChange();
   });
 }
@@ -176,7 +177,11 @@ var TodoStore = assign({}, EventEmitter.prototype, {
       var that= this
       $.get(urlBase, function(results) {
         results.forEach(function(item){
-           _todos = _todos.set(item._id, new TodoRecord({id : item._id, text : item.text}));
+           _todos = _todos.set(item._id, new TodoRecord({
+            id : item._id, 
+            text : item.text,
+            username: item.user.username
+          }));
         })
         that.emitChange();
       })

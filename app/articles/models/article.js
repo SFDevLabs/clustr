@@ -189,4 +189,4 @@ ArticleSchema.statics = {
   }
 }
 
-mongoose.model('Verts', ArticleSchema);
+mongoose.model('Articles', ArticleSchema);
