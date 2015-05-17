@@ -53,7 +53,7 @@ var MainSection = React.createClass({
     var posts = [];
 
     for (var key in allPosts) {
-      posts.push(<PostItem item={allPosts[key]} />);
+      posts.push(<PostItem key={key} item={allPosts[key]} />);
     }
 
     return (

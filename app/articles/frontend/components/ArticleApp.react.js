@@ -14,7 +14,8 @@
 
 var React = require('react');
 var ArticleStore = require('../stores/ArticleStore');
-var MainSection = require('./MainSection.react');
+var PostItem = require('./PostItem.react');
+var Link = require('react-router').Link;
 /**
  * Retrieve the current TODO data from the ArticleStore
  */
@@ -36,18 +37,20 @@ var ArticleApp = React.createClass({
     ArticleStore.fetchOne(this.props.params.id);
   },
 
-  // componentWillUnmount: function() {
-  //   ArticleStore.removeChangeListener(this._onChange);
-  // },
+  componentWillUnmount: function() {
+    ArticleStore.removeChangeListener(this._onChange);
+  },
 
   /**
    * @return {object}
    */
   render: function() {
+    var post = this.state.post.id? <PostItem item={this.state.post} />:null;
   	return (
       <div>
         <h1>App</h1>
-        <h2>{this.state.post}</h2>
+        <Link to="articles">Back</Link>
+        {post}
       </div>
   	);
   },
@@ -56,7 +59,7 @@ var ArticleApp = React.createClass({
    * Event handler for 'change' events coming from the ArticleStore
    */
   _onChange: function() {
-    this.setState(getArticleState());
+    this.setState(getArticleState(this.props.params.id));
   }
 
 });

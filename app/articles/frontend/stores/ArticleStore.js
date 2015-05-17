@@ -172,8 +172,10 @@ var TodoStore = assign({}, EventEmitter.prototype, {
    * Get the entire collection of TODOs.
    * @return {object}
    */
-  getOneById: function() {
-    return {text:'jeff'}
+  getOneById: function(id) {
+    var record = _todos.get(id)
+    if (!id || !record ) return {}; ///return nothing if there is not record.
+    return record.toObject()
   },
 
   /**
@@ -200,13 +202,13 @@ var TodoStore = assign({}, EventEmitter.prototype, {
    */
   fetchOne: function(id) {
       var that= this
-      return console.log('fix this')
+      if (!id) return {}; ///return nothing if there is not record.
       $.get(urlBase+id, function(results) {
 
         _todos = _todos.set(id, new TodoRecord({
-            id : item._id, 
-            text : item.text,
-            username: item.user.username
+            id : results._id, 
+            text : results.text,
+            username: results.user.username
           }));
         that.emitChange();
       })
