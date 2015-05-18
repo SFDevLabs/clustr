@@ -89,7 +89,6 @@ var ArticleApp = React.createClass({
               className="queryBox"
               name = "query"
             />
-            <input className="querySubmit" type="submit" value="Search" />
           </div>
         </span>
       </div>

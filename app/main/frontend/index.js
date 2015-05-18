@@ -16,6 +16,7 @@ var ArticleRoutes = require('../../articles/frontend/routes');
 //remove all trailing slash
 window.history.pushState({}, '', window.location.pathname.replace(/(\/)+$/,""))
 
-Router.run([ArticleRoutes], Router.HistoryLocation, function(Root){
+//This is where we pass in our frontend routes files that structure the applicaiton.
+Router.run([ArticleRoutes, MainRoutes], Router.HistoryLocation, function(Root){
   React.render(<Root/>, document.getElementById('todoapp'));
 });

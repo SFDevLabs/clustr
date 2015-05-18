@@ -62,7 +62,7 @@ function create(text) {
   .done(function( result ) {
     _todos = _todos.set(result._id, new TodoRecord({id : result._id, text : result.text, username: 'holderStuff'}));
     TodoStore.emitChange();
-  });
+  }).error(errHandle);
 }
 
 function addHistoryEntry() {
@@ -92,7 +92,7 @@ function update(id, updates) {
     delete result.__v
     _todos = _todos.set(id, _todos.get(id).merge(updates));
     TodoStore.emitChange();
-  });
+  }).error(errHandle);
 }
 
 function updateWithHistory(id, updates) {
