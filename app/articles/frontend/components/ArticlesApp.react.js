@@ -14,7 +14,10 @@
 
 var React = require('react');
 var ArticleStore = require('../stores/ArticleStore');
-var MainSection = require('./MainSection.react');
+var ItemInput = require('./ItemInput.react');
+var ArticleAction = require('../actions/ArticleActions');
+var PostItem = require('./PostItem.react');
+
 /**
  * Retrieve the current TODO data from the ArticleStore
  */
@@ -43,21 +46,56 @@ var ArticleApp = React.createClass({
   /**
    * @return {object}
    */
+  // render: function() {
+  // 	return (
+  //     <div>
+  //       <MainSection
+  //       allPosts={this.state.allPosts}
+  //       />
+  //     </div>
+  // 	);
+  // },
+
   render: function() {
-  	return (
-      <div>
-        <MainSection
-        allPosts={this.state.allPosts}
-        />
-      </div>
-  	);
-  },
+      // if (Object.keys(this.props.allPosts).length < 1) {
+      //   return null;
+      // }
+
+      var allPosts = this.state.allPosts;
+      var posts = [];
+
+      for (var key in allPosts) {
+        posts.push(<PostItem key={key} item={allPosts[key]} />);
+      }
+
+      return (
+        <div>
+          <ItemInput
+            id="new-todo"
+            placeholder="What needs to be done?"
+            onSave={this._onSave}
+          />
+          <ul id="todo-list">{posts}</ul>
+        </div>
+      );
+    },
 
   /**
    * Event handler for 'change' events coming from the ArticleStore
    */
   _onChange: function() {
     this.setState(getArticleState());
+  },
+  /**
+   * Event handler called within TodoTextInput.
+   * Defining this here allows TodoTextInput to be used in multiple places
+   * in different ways.
+   * @param {string} text
+   */
+  _onSave: function(text) {
+    if (text.trim()){
+      ArticleAction.create(text);
+    }
   }
 
 });
