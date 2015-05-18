@@ -81,7 +81,7 @@ var ArticleApp = React.createClass({
       <div className="row sixteen searchArea">
         <span className="columns four"><img src="/img/blank.png" /></span>
         <span className="columns eight">
-          <form className = "queryForm">
+          <div className = "queryForm">
              <ItemInput
               id=""
               placeholder="Enter URL"
@@ -90,7 +90,7 @@ var ArticleApp = React.createClass({
               name = "query"
             />
             <input className="querySubmit" type="submit" value="Search" />
-          </form>
+          </div>
         </span>
       </div>
       <div className="row">
