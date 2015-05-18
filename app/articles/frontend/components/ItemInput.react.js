@@ -34,6 +34,8 @@ var TodoTextInput = React.createClass({
   render: function() /*object*/ {
     return (
       <input
+        type="text" 
+        name={this.props.name}
         className={this.props.className}
         id={this.props.id}
         placeholder={this.props.placeholder}

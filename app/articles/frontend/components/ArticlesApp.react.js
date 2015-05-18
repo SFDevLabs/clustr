@@ -69,14 +69,34 @@ var ArticleApp = React.createClass({
       }
 
       return (
-        <div>
-          <ItemInput
-            id="new-todo"
-            placeholder="What needs to be done?"
-            onSave={this._onSave}
-          />
-          <ul id="todo-list">{posts}</ul>
-        </div>
+           
+
+    <div className="mainBody">
+      <div className="row sixteen logoArea">
+        <span className="columns four"><img src="/img/blank.png" /></span>
+        <span className="columns eight mainLogo"><img src="/img/logo_clustr.png" /></span>
+        <span className="columns four"><img src="/img/blank.png" /></span>
+      </div>
+
+      <div className="row sixteen searchArea">
+        <span className="columns four"><img src="/img/blank.png" /></span>
+        <span className="columns eight">
+          <form className = "queryForm">
+             <ItemInput
+              id=""
+              placeholder="Enter URL"
+              onSave={this._onSave}
+              className="queryBox"
+              name = "query"
+            />
+            <input className="querySubmit" type="submit" value="Search" />
+          </form>
+        </span>
+      </div>
+      <div className="row">
+        <ul id="todo-list">{posts}</ul>
+      </div>
+    </div>
       );
     },
 
