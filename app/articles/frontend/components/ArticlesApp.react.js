@@ -65,7 +65,7 @@ var ArticleApp = React.createClass({
       var posts = [];
 
       for (var key in allPosts) {
-        posts.push(<PostItem key={key} item={allPosts[key]} />);
+        posts.unshift(<PostItem key={key} item={allPosts[key]} />);
       }
 
       return (
