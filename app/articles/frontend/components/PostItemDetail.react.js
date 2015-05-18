@@ -47,7 +47,7 @@ var ArticleItem = React.createClass({
         })}
         key={item.id}>
         <span>{item.text}</span>
-        <button  className="destroy" onClick={this._onDestroyClick} >Delete</button>
+        <button className="destroy" onClick={this._onDestroyClick} />
         <span>{item.username}</span>
         <Link to="article" params={{id: item.id}} >Link</Link>
       </li>

@@ -46,7 +46,6 @@ var ArticleApp = React.createClass({
   render: function() {
   	return (
       <div>
-        <h1>App</h1>
         <MainSection
         allPosts={this.state.allPosts}
         />

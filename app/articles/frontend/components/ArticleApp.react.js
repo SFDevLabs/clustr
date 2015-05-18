@@ -14,7 +14,7 @@
 
 var React = require('react');
 var ArticleStore = require('../stores/ArticleStore');
-var PostItem = require('./PostItem.react');
+var PostItemDetail = require('./PostItemDetail.react');
 var Link = require('react-router').Link;
 /**
  * Retrieve the current TODO data from the ArticleStore
@@ -45,10 +45,9 @@ var ArticleApp = React.createClass({
    * @return {object}
    */
   render: function() {
-    var post = this.state.post.id? <PostItem item={this.state.post} />:null;
+    var post = this.state.post.id? <PostItemDetail item={this.state.post} />:null;
   	return (
       <div>
-        <h1>App</h1>
         <Link to="articles">Back</Link>
         {post}
       </div>
