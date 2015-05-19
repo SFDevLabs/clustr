@@ -69,33 +69,31 @@ var ArticleApp = React.createClass({
       }
 
       return (
-           
-
-    <div className="mainBody">
-      <div className="row sixteen logoArea">
-        <span className="columns four"><img src="/img/blank.png" /></span>
-        <span className="columns eight mainLogo"><img src="/img/logo_clustr.png" /></span>
-        <span className="columns four"><img src="/img/blank.png" /></span>
-      </div>
-
-      <div className="row sixteen searchArea">
-        <span className="columns four"><img src="/img/blank.png" /></span>
-        <span className="columns eight">
-          <div className = "queryForm">
-             <ItemInput
-              id=""
-              placeholder="Enter URL"
-              onSave={this._onSave}
-              className="queryBox"
-              name = "query"
-            />
+        <div className="mainBody">
+          <div className="row sixteen logoArea">
+            <span className="columns four"><img src="/img/blank.png" /></span>
+            <span className="columns eight mainLogo"><img src="/img/logo_clustr.png" /></span>
+            <span className="columns four"><img src="/img/blank.png" /></span>
           </div>
-        </span>
-      </div>
-      <div className="row">
-        <ul id="todo-list">{posts}</ul>
-      </div>
-    </div>
+
+          <div className="row sixteen searchArea">
+            <span className="columns four"><img src="/img/blank.png" /></span>
+            <span className="columns eight">
+              <div className = "queryForm">
+                 <ItemInput
+                  id=""
+                  placeholder="Enter URL"
+                  onSave={this._onSave}
+                  className="queryBox"
+                  name = "query"
+                />
+              </div>
+            </span>
+          </div>
+          <div className="row">
+            <ul id="todo-list">{posts}</ul>
+          </div>
+        </div>
       );
     },
 
