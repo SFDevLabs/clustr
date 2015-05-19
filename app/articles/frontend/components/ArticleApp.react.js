@@ -14,7 +14,6 @@
 
 var React = require('react');
 var ArticleStore = require('../stores/ArticleStore');
-var PostItemDetail = require('./PostItemDetail.react');
 var Link = require('react-router').Link;
 var ArticleActions = require('../actions/ArticleActions');
 
@@ -64,7 +63,7 @@ var ArticleApp = React.createClass({
    * Event handler for 'change' events coming from the ArticleStore
    */
   _onChange: function() {
-    this.setState(getArticleState(this.state.post.id));
+    this.setState(getArticleState(this.props.params.id));
   },
   /**
    * Event handler called within TodoTextInput.
@@ -73,12 +72,12 @@ var ArticleApp = React.createClass({
    * @param  {string} text
    */
   _onSave: function(text) {
-    ArticleActions.updateText(this.state.post.id, text);
+    ArticleActions.updateText(this.props.params.id, text);
     this.setState({isEditing: false});
   },
 
   _onDestroyClick: function() {
-    ArticleActions.destroy(this.state.post.id);
+    ArticleActions.destroy(this.props.params.id);
   }
 
 });
