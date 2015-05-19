@@ -31,31 +31,25 @@ var ArticleItem = React.createClass({
    */
   render: function() {
     var item = this.props.item;
-    return (
-      <div>
-        <div className={cx({
-              'completed': item.complete,
-              'editing': this.state.isEditing,
-              'columns': 'columns',
-              'ten': 'ten',
-              'recentClustrSearch': 'recentClustrSearch'
-            })}
-        key={item.id}>
-          <div><img className="clustrArticleThumbnail" src="img/fender.jpg" /></div>
-          <ul className="clustrTextBox">
-            <li className="clustrSearchText">Title: {item.text}</li>
-            <li><Link className="linkToClustrArticle" to="article" params={{id: item.id}} >{item.text}</Link>
-            </li>
-          </ul>
-          <div className="clustrSearchUserBox">
-            <ul className="clustrSearchUser">
-              <li className="clustrSearchUserImg"><img className="clustrSearchUserImg" src="/img/eoin_profile.jpg"/></li>
-              <li className="clustrSearchUsername">{item.username}</li>
-            </ul>
-          </div>
 
-        </div>
-      </div>
+
+    // List items should get the class 'editing' when editing
+    // and 'completed' when marked as completed.
+    // Note that 'completed' is a classification while 'complete' is a state.
+    // This differentiation between classification and state becomes important
+    // in the naming of view actions toggleComplete() vs. destroyCompleted().
+    return (
+      <li
+        className={cx({
+          'completed': item.complete,
+          'editing': this.state.isEditing
+        })}
+        key={item.id}>
+        <span>{item.text}</span>
+        <button className="destroy" onClick={this._onDestroyClick} />
+        <span>{item.username}</span>
+        <Link to="article" params={{id: item.id}} >Link</Link>
+      </li>
     );
   },
 

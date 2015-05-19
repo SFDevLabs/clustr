@@ -29,6 +29,7 @@ body {
   float: left;
   margin: 0;
   text-align: center;
+  list-style-type: none;
 }
 
 .one { width: 6.25%; }
@@ -114,3 +115,70 @@ header{
   }
 
 } // end MainBody
+
+.recentClustrSearches{
+  border-top: 1px solid rgba(1, 0, 0, .05);
+  margin: 0;
+  margin-top: 50px;
+  font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+  .recentSearchesTitle{
+    text-align: center;
+    font-size: 28px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+  }
+  .noMarginContainer{
+    margin: 0;
+  }
+
+  .clustrSearches{
+    margin: 0;
+    margin-left: 10px;
+    .recentClustrSearch{
+      border: 1px solid rgba(1, 0, 0, .05);
+      text-align: left;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      height: 80px;
+    }
+    .clustrTextBox{
+      float: left;
+      list-style-type: none;
+      .clustrSearchText{
+        margin-top: 5px;
+        padding-left: 10px;
+        font-size: 16px;
+      }
+      .linkToClustrArticle{
+        margin-top: 5px;
+        padding: 0px;
+        padding-left: 10px;
+      }
+    }
+    .clustrArticleThumbnail{
+      float: left;
+      height: 70px;
+      width: auto;
+      margin-top: 5px;
+      margin-left: 5px;
+    }
+    .clustrSearchUserBox{
+      .clustrSearchUser{
+        list-style-type: none;
+        float: right;
+        padding-top: 2px;
+        padding-right: 2px;
+        .clustrSearchUserImg{
+          border-radius: 25px;
+          height: 30px;
+          width: 30px;
+          text-align: center;
+        }
+        .clustrSearchUsername{
+          text-align: center;
+        }
+      }
+    }
+  }
+} // end .recentClustrSearches

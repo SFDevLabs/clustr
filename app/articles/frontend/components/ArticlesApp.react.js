@@ -69,31 +69,36 @@ var ArticleApp = React.createClass({
       }
 
       return (
-        <div className="mainBody">
-          <div className="row sixteen logoArea">
-            <span className="columns four"><img src="/img/blank.png" /></span>
-            <span className="columns eight mainLogo"><img src="/img/logo_clustr.png" /></span>
-            <span className="columns four"><img src="/img/blank.png" /></span>
-          </div>
 
-          <div className="row sixteen searchArea">
-            <span className="columns four"><img src="/img/blank.png" /></span>
-            <span className="columns eight">
-              <div className = "queryForm">
-                 <ItemInput
-                  id=""
-                  placeholder="Enter URL"
-                  onSave={this._onSave}
-                  className="queryBox"
-                  name = "query"
-                />
-              </div>
-            </span>
+    <div className="mainBody">
+      <div className="row sixteen logoArea">
+        <span className="columns four"><img src="/img/blank.png" /></span>
+        <span className="columns eight mainLogo"><img src="/img/logo_clustr.png" /></span>
+        <span className="columns four"><img src="/img/blank.png" /></span>
+      </div>
+
+      <div className="row sixteen searchArea">
+        <span className="columns four"><img src="/img/blank.png" /></span>
+        <span className="columns eight">
+          <div className = "queryForm">
+             <ItemInput
+              id=""
+              placeholder="Enter URL"
+              onSave={this._onSave}
+              className="queryBox"
+              name = "query"
+            />
           </div>
-          <div className="row">
-            <ul id="todo-list">{posts}</ul>
-          </div>
+        </span>
+      </div>
+      <div className="row recentClustrSearches">
+        <div className="recentSearchesTitle">Recent Searches:</div>
+        <div className="row sixteen noMarginContainer">
+          <span className="columns four"><img src="/img/blank.png" /></span>
+          <span className="columns eleven clustrSearches">{posts}</span>
         </div>
+      </div>
+    </div>
       );
     },
 
