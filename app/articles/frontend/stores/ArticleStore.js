@@ -189,17 +189,21 @@ var TodoStore = assign({}, EventEmitter.prototype, {
    */
   fetchAll: function() {
       var that= this
-      $.get(urlBase, function(results) {
-        results.forEach(function(item){
-           _todos = _todos.set(item._id, new ArticleRecord({
-            id : item._id, 
-            title : item.title,
-            url : item.url,
-            username: item.user.username
-          }));
-        })
-        that.emitChange();
+      $.ajax({
+        method: "GET",
+        url: urlBase,
       })
+      .done(function( results ) {
+        results.forEach(function(item){
+                _todos = _todos.set(item._id, new ArticleRecord({
+                id : item._id, 
+                title : item.title,
+                url : item.url,
+                username: item.user.username
+                }));
+        });           
+        TodoStore.emitChange();
+      }).error(errHandle);
   },
 
   /**
@@ -210,7 +214,6 @@ var TodoStore = assign({}, EventEmitter.prototype, {
       var that= this
       if (!id) return {}; ///return nothing if there is not record.
       $.get(urlBase+id, function(results) {
-
         _todos = _todos.set(id, new ArticleRecord({
             id : results._id, 
             url : results.url,
