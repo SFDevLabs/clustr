@@ -18,15 +18,11 @@ module.exports = function (app, passport, auth) {
    * Route middlewares
    */
 
-  //var vertAuth = [auth.requiresLogin, auth.article.hasAuthorization];
-
   // home route
-  app.get('/', main.index);
+  //app.get('/', main.index);
   
   //Resets the session return to controller
   app.post('/returnto', main.returnTo);
-
-  app.use('/main',express.static(__dirname+'/../public'));
 
   /**
    * Error handling

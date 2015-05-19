@@ -15,7 +15,7 @@
 var React = require('react');
 var ArticleStore = require('../stores/ArticleStore');
 var ItemInput = require('./ItemInput.react');
-var ArticleAction = require('../actions/ArticleActions');
+var ArticleActions = require('../actions/ArticleActions');
 var PostItem = require('./PostItem.react');
 
 /**
@@ -113,7 +113,7 @@ var ArticleApp = React.createClass({
    */
   _onSave: function(text) {
     if (text.trim()){
-      ArticleAction.create(text);
+      ArticleActions.create(text);
     }
   }
 
