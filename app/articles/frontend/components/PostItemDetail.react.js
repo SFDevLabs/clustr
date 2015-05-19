@@ -33,7 +33,6 @@ var ArticleItem = React.createClass({
     var item = this.props.item;
 
 
-
     // List items should get the class 'editing' when editing
     // and 'completed' when marked as completed.
     // Note that 'completed' is a classification while 'complete' is a state.

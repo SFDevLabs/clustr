@@ -40,17 +40,30 @@ var ArticleItem = React.createClass({
     // This differentiation between classification and state becomes important
     // in the naming of view actions toggleComplete() vs. destroyCompleted().
     return (
-      <li
-        className={cx({
-          'completed': item.complete,
-          'editing': this.state.isEditing
-        })}
+      <div>
+        <div className={cx({
+              'completed': item.complete,
+              'editing': this.state.isEditing,
+              'columns': 'columns',
+              'ten': 'ten',
+              'recentClustrSearch': 'recentClustrSearch'
+            })}
         key={item.id}>
-        <span>{item.text}</span>
-        <button  className="destroy" onClick={this._onDestroyClick} >Delete</button>
-        <span>{item.username}</span>
-        <Link to="article" params={{id: item.id}} >Link</Link>
-      </li>
+          <div><img className="clustrArticleThumbnail" src="img/fender.jpg" /></div>
+          <ul className="clustrTextBox">
+            <li className="clustrSearchText">Title: {item.text}</li>
+            <li><Link className="linkToClustrArticle" to="article" params={{id: item.id}} >{item.text}</Link>
+            </li>
+          </ul>
+          <div className="clustrSearchUserBox">
+            <ul className="clustrSearchUser">
+              <li className="clustrSearchUserImg"><img className="clustrSearchUserImg" src="/img/eoin_profile.jpg"/></li>
+              <li className="clustrSearchUsername">{item.username}</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
     );
   },
 
