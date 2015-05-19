@@ -65,7 +65,7 @@ function create(text) {
     data: {url:text,_csrf:csrfToken}
   })
   .done(function( result ) {
-    _todos = _todos.set(result._id, new ArticleRecord({id : result._id, text : result.text, username: 'holderStuff'}));
+    _todos = _todos.set(result._id, new ArticleRecord({id : result._id, url : result.url, username: 'userHolder'}));
     TodoStore.emitChange();
   }).error(errHandle);
 }
