@@ -22,28 +22,34 @@ var _history = [];
 var _todos = Immutable.OrderedMap();
 var urlBase = '/api/articles/'
 
-var TodoRecord = Immutable.Record({
+var ArticleRecord = Immutable.Record({
   id : null,
-  complete : false,
-  text : 'A brand new thing to do!',
-  username: null
+  title : null,
+  username: null,
+  url: null,
+  description:null,
+  user: null,
+  tags:null
 });
 
 var errHandle = function(errObj,type,status){
-  if (errObj.responseJSON && errObj.responseJSON.redirect){
-    var returnURL = window.location.pathname
-    $.ajax({
-      method: "POST",
-      url: "returnto",
-      data: {returnURL:returnURL,_csrf:csrfToken}
-    })
-    .done(function( result ) {
-      window.location.href=errObj.responseJSON.redirect;
-    })
-    .error(function( result ) {
-      window.location.href=errObj.responseJSON.redirect;
-    });
-  }
+  if (errObj.responseJSON && errObj.responseJSON.redirect){loginRedirect()};
+
+}
+
+var loginRedirect = function(){
+  var returnURL = window.location.pathname
+  $.ajax({
+    method: "POST",
+    url: "returnto",
+    data: {returnURL:returnURL,_csrf:csrfToken}
+  })
+  .done(function( result ) {
+    window.location.href=errObj.responseJSON.redirect;
+  })
+  .error(function( result ) {
+    window.location.href=errObj.responseJSON.redirect;
+  });
 }
 
 /**
@@ -52,15 +58,14 @@ var errHandle = function(errObj,type,status){
  */
 function create(text) {
   // Hand waving here -- not showing how this interacts with XHR or persistent
-  // server-side storage.
   // Using the current timestamp + random number in place of a real id.
   $.ajax({
     method: "POST",
     url: urlBase,
-    data: {text:text,_csrf:csrfToken}
+    data: {url:text,_csrf:csrfToken}
   })
   .done(function( result ) {
-    _todos = _todos.set(result._id, new TodoRecord({id : result._id, text : result.text, username: 'holderStuff'}));
+    _todos = _todos.set(result._id, new ArticleRecord({id : result._id, text : result.text, username: 'holderStuff'}));
     TodoStore.emitChange();
   }).error(errHandle);
 }
@@ -186,7 +191,7 @@ var TodoStore = assign({}, EventEmitter.prototype, {
       var that= this
       $.get(urlBase, function(results) {
         results.forEach(function(item){
-           _todos = _todos.set(item._id, new TodoRecord({
+           _todos = _todos.set(item._id, new ArticleRecord({
             id : item._id, 
             text : item.text,
             username: item.user.username
@@ -205,7 +210,7 @@ var TodoStore = assign({}, EventEmitter.prototype, {
       if (!id) return {}; ///return nothing if there is not record.
       $.get(urlBase+id, function(results) {
 
-        _todos = _todos.set(id, new TodoRecord({
+        _todos = _todos.set(id, new ArticleRecord({
             id : results._id, 
             text : results.text,
             username: results.user.username

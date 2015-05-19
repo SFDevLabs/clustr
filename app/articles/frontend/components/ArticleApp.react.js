@@ -14,8 +14,9 @@
 
 var React = require('react');
 var ArticleStore = require('../stores/ArticleStore');
-var PostItemDetail = require('./PostItemDetail.react');
 var Link = require('react-router').Link;
+var ArticleActions = require('../actions/ArticleActions');
+
 /**
  * Retrieve the current TODO data from the ArticleStore
  */
@@ -44,12 +45,16 @@ var ArticleApp = React.createClass({
   /**
    * @return {object}
    */
+  
   render: function() {
-    var post = this.state.post.id? <PostItemDetail item={this.state.post} />:null;
+    //var post = this.state.post.id? <PostItemDetail item={this.state.post} />:null;
+    var post  = this.state.post;
   	return (
       <div>
         <Link to="articles">Back</Link>
-        {post}
+        <span>{post.text}</span>
+        <button  className="destroy" onClick={this._onDestroyClick} >Delete</button>
+        <span>{post.username}</span>
       </div>
   	);
   },
@@ -59,6 +64,20 @@ var ArticleApp = React.createClass({
    */
   _onChange: function() {
     this.setState(getArticleState(this.props.params.id));
+  },
+  /**
+   * Event handler called within TodoTextInput.
+   * Defining this here allows TodoTextInput to be used in multiple places
+   * in different ways.
+   * @param  {string} text
+   */
+  _onSave: function(text) {
+    ArticleActions.updateText(this.props.params.id, text);
+    this.setState({isEditing: false});
+  },
+
+  _onDestroyClick: function() {
+    ArticleActions.destroy(this.props.params.id);
   }
 
 });

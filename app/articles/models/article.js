@@ -33,9 +33,12 @@ var setTags = function (tags) {
  */
 
 var ArticleSchema = new Schema({
-  text: {type : String, default : '', trim : true},
+  protocol: {type : String, default : '', trim : true},
+  subDomain: {type : String, default : '', trim : true},
+  topLevelDomain : {type : String, default : '', trim : true},
+  url: {type : String, default : '', trim : true},
   title: {type : String, default : '', trim : true},
-  body: {type : String, default : '', trim : true},
+  description: {type : String, default : '', trim : true},
   user: {type : Schema.ObjectId, ref : 'User'},
   comments: [{
     body: { type : String, default : '' },

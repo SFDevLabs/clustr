@@ -10,6 +10,7 @@ var crudUtils = require('../../../lib/crudUtils');
 var ArticlesModel = mongoose.model('Articles');
 
 var main = require('../../main/controllers/index');
+var articles = require('../controllers/index');
 var auth = require('../../../config/middlewares/authorization');
 
 /**
@@ -21,11 +22,11 @@ module.exports = function (app, passport, auth) {
   /**
    * Route middlewares
    */
-  app.get('/articles', main.index);
-  app.get('/articles/*', main.index);
+  app.get('/', main.index);
+  app.param('id', articles.load);
 
   // Holder logic for working with uniqu links per route
-  // app.param('id', articles.load);
+  // 
   // app.get('/vert/:id', articles.show); 
   // app.param('id', articles.load);
   // app.get('/vert/:id', articles.show);
@@ -35,4 +36,7 @@ module.exports = function (app, passport, auth) {
    */
   crudUtils.initRoutesForModel(app, ArticlesModel, auth, '/api/articles')
   
+  //Register Catch all after Crud
+  app.get('/:id', main.index);
+
 }

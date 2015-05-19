@@ -31,7 +31,7 @@ var TodoTextInput = React.createClass({
   /**
    * @return {object}
    */
-  render: function() /*object*/ {
+  render: function() {
     return (
       <div>
         <input
