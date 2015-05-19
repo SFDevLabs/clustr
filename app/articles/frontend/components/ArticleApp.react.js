@@ -52,7 +52,7 @@ var ArticleApp = React.createClass({
   	return (
       <div>
         <Link to="articles">Back</Link>
-        <span>{post.text}</span>
+        <span>{post.url}</span>
         <button  className="destroy" onClick={this._onDestroyClick} >Delete</button>
         <span>{post.username}</span>
       </div>

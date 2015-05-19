@@ -56,13 +56,13 @@ var loginRedirect = function(){
  * Create a TODO item.
  * @param  {string} text The content of the TODO
  */
-function create(text) {
+function create(url) {
   // Hand waving here -- not showing how this interacts with XHR or persistent
   // Using the current timestamp + random number in place of a real id.
   $.ajax({
     method: "POST",
     url: urlBase,
-    data: {url:text,_csrf:csrfToken}
+    data: {url:url,_csrf:csrfToken}
   })
   .done(function( result ) {
     _todos = _todos.set(result._id, new ArticleRecord({id : result._id, url : result.url, username: 'userHolder'}));
@@ -193,7 +193,8 @@ var TodoStore = assign({}, EventEmitter.prototype, {
         results.forEach(function(item){
            _todos = _todos.set(item._id, new ArticleRecord({
             id : item._id, 
-            text : item.text,
+            title : item.title,
+            url : item.url,
             username: item.user.username
           }));
         })
@@ -212,7 +213,8 @@ var TodoStore = assign({}, EventEmitter.prototype, {
 
         _todos = _todos.set(id, new ArticleRecord({
             id : results._id, 
-            text : results.text,
+            url : results.url,
+            title : results.title,
             username: results.user.username
           }));
         that.emitChange();
