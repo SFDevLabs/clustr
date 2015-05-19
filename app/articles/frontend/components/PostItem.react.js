@@ -44,7 +44,7 @@ var ArticleItem = React.createClass({
           <div><img className="clustrArticleThumbnail" src="img/fender.jpg" /></div>
           <ul className="clustrTextBox">
             <li className="clustrSearchText">Title: {item.url}</li>
-            <li><Link className="linkToClustrArticle" to="article" params={{id: item.id}} >{item.url}</Link>
+            <li className="linkToClustrArticle"><Link  to="article" params={{id: item.id}} >{item.url}</Link>
             </li>
           </ul>
           <div className="clustrSearchUserBox">

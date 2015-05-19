@@ -94,8 +94,8 @@ var ArticleApp = React.createClass({
       <div className="row recentClustrSearches">
         <div className="recentSearchesTitle">Recent Searches:</div>
         <div className="row sixteen noMarginContainer">
-          <span className="columns four"><img src="/img/blank.png" /></span>
-          <span className="columns eleven clustrSearches">{posts}</span>
+          <span className="columns one"><img src="/img/blank.png" /></span>
+          <span className="columns fourteen clustrSearches">{posts}</span>
         </div>
       </div>
     </div>
