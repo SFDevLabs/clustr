@@ -13,7 +13,6 @@ var MainRoutes = require('./routes');
 //Other Routers
 var ArticleRoutes = require('../../articles/frontend/routes');
 
-debugger
 //remove all trailing slash
 window.history.pushState({}, '', window.location.pathname.replace(/(\/)+$/,"")+window.location.search+window.location.hash)
 
