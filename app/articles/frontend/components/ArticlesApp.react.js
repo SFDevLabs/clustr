@@ -64,41 +64,49 @@ var ArticleApp = React.createClass({
       var allPosts = this.state.allPosts;
       var posts = [];
 
+
+
+      var search = (
+        <div className="mainBody">
+          Site Search
+        </div>
+      );
+
       for (var key in allPosts) {
         posts.unshift(<PostItem key={key} item={allPosts[key]} />);
       }
-
-      return (
-
-    <div className="mainBody">
-      <div className="row sixteen logoArea">
-        <span className="columns four"><img src="/img/blank.png" /></span>
-        <span className="columns eight mainLogo"><img src="/img/logo_clustr.png" /></span>
-        <span className="columns four"><img src="/img/blank.png" /></span>
-      </div>
-
-      <div className="row sixteen searchArea">
-        <span className="columns four"><img src="/img/blank.png" /></span>
-        <span className="columns eight">
-          <div className = "queryForm">
-             <ItemInput
-              id=""
-              placeholder="Enter URL"
-              onSave={this._onSave}
-              className="queryBox"
-              name = "query"
-            />
+      var home = (
+        <div className="mainBody">
+          <div className="row sixteen logoArea">
+            <span className="columns four"><img src="/img/blank.png" /></span>
+            <span className="columns eight mainLogo"><img src="/img/logo_clustr.png" /></span>
+            <span className="columns four"><img src="/img/blank.png" /></span>
           </div>
-        </span>
-      </div>
-      <div className="row recentClustrSearches">
-        <div className="recentSearchesTitle">Recent Searches:</div>
-        <div className="row sixteen noMarginContainer">
-          <div className="columns fourteen clustrSearches">{posts}</div>
+
+          <div className="row sixteen searchArea">
+            <span className="columns four"><img src="/img/blank.png" /></span>
+            <span className="columns eight">
+              <div className = "queryForm">
+                 <ItemInput
+                  id=""
+                  placeholder="Enter URL"
+                  onSave={this._onSave}
+                  className="queryBox"
+                  name = "query"
+                />
+              </div>
+            </span>
+          </div>
+          <div className="row recentClustrSearches">
+            <div className="recentSearchesTitle">Recent Searches:</div>
+            <div className="row sixteen noMarginContainer">
+              <div className="columns fourteen clustrSearches">{posts}</div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
       );
+
+      return home
     },
 
   /**

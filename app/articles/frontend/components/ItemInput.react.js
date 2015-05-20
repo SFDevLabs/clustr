@@ -9,11 +9,14 @@
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
-
 var ENTER_KEY_CODE = 13;
+var Navigation = require('react-router').Navigation;
+
+ 
 
 var TodoTextInput = React.createClass({
 
+  mixins: [Navigation],
   propTypes: {
     className: ReactPropTypes.string,
     id: ReactPropTypes.string,
@@ -75,7 +78,7 @@ var TodoTextInput = React.createClass({
    */
   _onKeyDown: function(event) {
     if (event.keyCode === ENTER_KEY_CODE) {
-      this._save();
+      this.transitionTo('articles',{showAge2: false},{showAge: true})
     }
   }
 
