@@ -45,15 +45,15 @@ var ArticleApp = React.createClass({
   /**
    * @return {object}
    */
-  
+
   render: function() {
     //var post = this.state.post.id? <PostItemDetail item={this.state.post} />:null;
     var post  = this.state.post;
   	return (
-      <div>
-        <Link to="articles">Back</Link>
-        <span>{post.url}</span>
-        <button  className="destroy" onClick={this._onDestroyClick} >Delete</button>
+      <div className="row searchResults">
+        <div className="columns sixteen resultsFor">{post.url}</div>
+        <div className="resultsText">results:</div>
+        <div>By: {post.username} post.username not working</div>
         <span>{post.username}</span>
       </div>
   	);
