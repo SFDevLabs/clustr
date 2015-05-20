@@ -41,19 +41,23 @@ var ArticleItem = React.createClass({
               'recentClustrSearch': 'recentClustrSearch'
             })}
         key={item.id}>
-          <div><img className="clustrArticleThumbnail" src="img/fender.jpg" /></div>
+          <div>
+            <img className="clustrArticleThumbnail" src="img/fender.jpg" />
+          </div>
           <ul className="clustrTextBox">
             <li className="clustrSearchText">Title: {item.url}</li>
-            <li className="linkToClustrArticle"><Link  to="article" params={{id: item.id}} >{item.url}</Link>
+            <li className="linkToClustrArticle">
+              <Link  to="article" params={{id: item.id}} >{item.url}</Link>
             </li>
           </ul>
-          <div className="clustrSearchUserBox">
-            <ul className="clustrSearchUser">
-              <li className="clustrSearchUserImg"><img className="clustrSearchUserImg" src="/img/eoin_profile.jpg"/></li>
-              <li className="clustrSearchUsername">{item.username}</li>
-            </ul>
-          </div>
+   
 
+        </div>
+        <div className="clustrSearchUserBox">
+          <ul className="clustrSearchUser">
+            <li className="clustrSearchUserImg"><img className="clustrSearchUserImg" src="/img/eoin_profile.jpg"/></li>
+            <li className="clustrSearchUsername">{item.username}</li>
+          </ul>
         </div>
       </div>
     );

@@ -116,11 +116,13 @@ header{
 
 } // end MainBody
 
+//Floating items left wiull need to be removed when we get a real sccofolding in place (like bootstrap). For nwo this will do.
 .recentClustrSearches{
   border-top: 1px solid rgba(1, 0, 0, .05);
   margin: 0;
   margin-top: 50px;
   font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+  overflow: hidden;//overflow and margin left 20% is a hack.See comment above
   .recentSearchesTitle{
     text-align: center;
     font-size: 28px;
@@ -129,14 +131,14 @@ header{
     padding-left: 10px;
   }
   .noMarginContainer{
-    margin: 0;
+      margin-left: 20%;//overflow and margin left 20% is a hack. See comment above
   }
 
   .clustrSearches{
     margin: 0;
     margin-left: 10px;
     .recentClustrSearch{
-      border: 1px solid rgba(1, 0, 0, .05);
+      border: 1px solid rgba(1, 0, 0, .05); //Duplicated CSS remove this and unify l8tr
       text-align: left;
       margin-top: 10px;
       margin-bottom: 10px;
@@ -160,7 +162,6 @@ header{
         overflow: hidden;
         margin-top: 5px;
         padding: 0px;
-        padding-left: 10px;
       }
     }
     .clustrArticleThumbnail{
@@ -171,11 +172,16 @@ header{
       margin-left: 5px;
     }
     .clustrSearchUserBox{
+       float:left;
+       border: 1px solid rgba(1, 0, 0, .05); //Duplicated CSS remove this and unify l8tr
+       border-left: 0px solid;
+       margin-top: 10px;
+       margin-bottom: 10px;
+       height: 80px;
       .clustrSearchUser{
         list-style-type: none;
-        float: right;
-        padding-top: 2px;
-        padding-right: 2px;
+        padding-top: 15px;
+        padding-right: 15px;
         .clustrSearchUserImg{
           border-radius: 25px;
           height: 30px;
