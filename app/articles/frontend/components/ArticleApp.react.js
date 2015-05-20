@@ -50,12 +50,32 @@ var ArticleApp = React.createClass({
     //var post = this.state.post.id? <PostItemDetail item={this.state.post} />:null;
     var post  = this.state.post;
   	return (
-      <div className="row searchResults">
-        <div className="columns sixteen resultsFor">{post.url}</div>
-        <div className="resultsText">results:</div>
-        <div>By: {post.username} post.username not working</div>
-        <span>{post.username}</span>
-      </div>
+        <div className="row searchResults">
+          <div className="columns sixteen resultsFor">{post.url}</div>
+          <div className="resultsText">results:</div>
+          <div>By: {post.username} post.username not working</div>
+          <span>{post.username}</span>
+
+          <div className="searchResultBox">
+            <ul className="row marginZero">
+              <li className="columns four marginZero"><img src="img/blank.png" /></li>
+              <li className="columns eight searchResult">
+                <div className="columns sixteen">
+                  <ul className="row sixteen marginZero">
+                    <li className="columns three"><img className="searchResultImg" src="img/fender.jpg" />
+                    </li>
+                    <li className="columns eleven searchResultText">
+                      <div className="searchResultTitle">Result Title Goes Here</div>
+                      <div className="searchResultURL">Result URL Goes Here</div>
+                    </li>
+                    <li className="columns two userSubmission"><img className="userSubmissionImg" src="/img/eoin_profile.jpg"/></li>
+                  </ul>
+                </div>
+              </li>
+              <li className="columns four"><img src="img/blank.png" /></li>
+            </ul>
+          </div>
+        </div>
   	);
   },
 
