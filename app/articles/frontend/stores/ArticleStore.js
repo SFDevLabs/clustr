@@ -95,7 +95,7 @@ function update(id, updates) {
     var id = result._id;
     delete result._id
     delete result.__v
-    _todos = _todos.set(id, _todos.get(id).merge(updates));
+    _todos = _todos.set(id, _todos.get(id).merge(result));
     TodoStore.emitChange();
   }).error(errHandle);
 }
@@ -195,12 +195,8 @@ var TodoStore = assign({}, EventEmitter.prototype, {
       })
       .done(function( results ) {
         results.forEach(function(item){
-                _todos = _todos.set(item._id, new ArticleRecord({
-                id : item._id, 
-                title : item.title,
-                url : item.url,
-                username: item.user.username
-                }));
+                item.id=item._id /// Copy over _id to id.
+                _todos = _todos.set(item._id, new ArticleRecord(item));
         });           
         TodoStore.emitChange();
       }).error(errHandle);
@@ -213,13 +209,9 @@ var TodoStore = assign({}, EventEmitter.prototype, {
   fetchOne: function(id) {
       var that= this
       if (!id) return {}; ///return nothing if there is not record.
-      $.get(urlBase+id, function(results) {
-        _todos = _todos.set(id, new ArticleRecord({
-            id : results._id, 
-            url : results.url,
-            title : results.title,
-            username: results.user.username
-          }));
+      $.get(urlBase+id, function(result) {
+        result.id=result._id /// Copy over _id to id.
+        _todos = _todos.set(id, new ArticleRecord(result));
         that.emitChange();
       })
   },
@@ -259,45 +251,20 @@ AppDispatcher.register(function(action) {
       }
       break;
 
-    case TodoConstants.TODO_TOGGLE_COMPLETE_ALL:
-      if (TodoStore.areAllComplete()) {
-        updateAll({complete: false});
-      } else {
-        updateAll({complete: true});
-      }
-      TodoStore.emitChange();
-      break;
-
-    case TodoConstants.TODO_UNDO_COMPLETE:
-      updateWithHistory(action.id, {complete: false});
-      TodoStore.emitChange();
-      break;
-
-    case TodoConstants.TODO_COMPLETE:
-      updateWithHistory(action.id, {complete: true});
-      TodoStore.emitChange();
-      break;
-
     case TodoConstants.TODO_HISTORY_SET:
       goToHistory(action.index);
       TodoStore.emitChange();
       break;
-    case TodoConstants.TODO_UPDATE_TEXT:
+
+    case TodoConstants.TODO_UPDATE:
       text = action.text.trim();
       if (text !== '') {
         updateWithHistory(action.id, {text: text});
       }
-      TodoStore.emitChange();
       break;
 
     case TodoConstants.TODO_DESTROY:
       destroyWithHistory(action.id);
-      TodoStore.emitChange();
-      break;
-
-    case TodoConstants.TODO_DESTROY_COMPLETED:
-      destroyCompleted();
-      TodoStore.emitChange();
       break;
 
     default:
