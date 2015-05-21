@@ -59,7 +59,7 @@ var ArticleApp = React.createClass({
         <div className="row searchResults">
           <div className="columns sixteen resultsFor">{post.url}</div>
           <div className="resultsText">results:</div>
-          <div>By: {post.username} post.username not working</div>
+          <div>Search By: {post.username}</div>
           <span>{post.username}</span>
 
           <div className="searchResultBox">
