@@ -9,11 +9,14 @@
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
-
 var ENTER_KEY_CODE = 13;
+var Navigation = require('react-router').Navigation;
+
+ 
 
 var TodoTextInput = React.createClass({
 
+  mixins: [Navigation],
   propTypes: {
     className: ReactPropTypes.string,
     id: ReactPropTypes.string,
@@ -55,10 +58,9 @@ var TodoTextInput = React.createClass({
    * used in different ways.
    */
   _save: function() {
-    this.props.onSave(this.state.value);
-    this.setState({
-      value: ''
-    });
+    if (this.state.value && this.state.value.length>0){
+      this.transitionTo('articles',{},{q: this.state.value});
+    };
   },
 
   /**

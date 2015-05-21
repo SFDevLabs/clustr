@@ -27,6 +27,7 @@ module.exports = {
   bundlejs: '/js/bundle.js',
   bundlecss: '/css/bundle.css',
   db: 'mongodb://localhost/clustr',
+  graphdb:'http://localhost:7474',
   facebook: {
     clientID: process.env.FACEBOOK_CLIENTID,
     clientSecret: process.env.FACEBOOK_SECRET,

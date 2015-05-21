@@ -14,7 +14,7 @@ var Header = React.createClass({
   render: function () {
     return <header>
       <div className="homeBox">
-        <Link to="articles"><img className="homeIcon" src="/img/logo_clustr_icon.png" title="home" /></Link>
+        <Link to="/"><img className="homeIcon" src="/img/logo_clustr_icon.png" title="home" /></Link>
         <span>{userName}</span>
       </div>
       <div className="statusBox">
