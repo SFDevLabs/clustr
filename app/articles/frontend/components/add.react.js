@@ -16,15 +16,13 @@ var React = require('react');
 var ArticleStore = require('../stores/ArticleStore');
 var ItemInput = require('./ItemInput.react');
 var ArticleActions = require('../actions/ArticleActions');
-var NoQuery = require('./NoQuery.react');
-var Query = require('./Query.react');
+
 
 
 
 var MainSearch = React.createClass({
   render: function() {
-    var Render = this.props.query.q? Query:NoQuery;
-    return (<Render query={this.props.query} />)
+    return (<div>placeHolder Add<div>)
     }
 });
 
