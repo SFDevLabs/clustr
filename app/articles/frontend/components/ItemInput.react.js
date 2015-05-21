@@ -58,10 +58,9 @@ var TodoTextInput = React.createClass({
    * used in different ways.
    */
   _save: function() {
-    this.props.onSave(this.state.value);
-    this.setState({
-      value: ''
-    });
+    if (this.state.value && this.state.value.length>0){
+      this.transitionTo('articles',{},{q: this.state.value});
+    };
   },
 
   /**
@@ -78,7 +77,7 @@ var TodoTextInput = React.createClass({
    */
   _onKeyDown: function(event) {
     if (event.keyCode === ENTER_KEY_CODE) {
-      this.transitionTo('articles',{showAge2: false},{showAge: true})
+      this._save();
     }
   }
 
