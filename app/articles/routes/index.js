@@ -7,7 +7,7 @@
 // set the NODE_PATH to be ./app/controllers (package.json # scripts # start)
 var mongoose = require('mongoose')
 var crudUtils = require('../../../lib/crudUtils');
-//var crudUtilsGraph = require('../../../lib/crudUtilsGraph');
+var crudUtilsGraph = require('../../../lib/crudUtilsGraph');
 var ArticlesModel = mongoose.model('Articles');
 
 var main = require('../../main/controllers/index');
@@ -22,11 +22,16 @@ var GraphModel = require('../models/graph');
 module.exports = function (app, passport, auth) {
 
   /**
-   * Route middlewares
+   * Route main middlewares
    */
   app.get('/', main.index);
-  app.param('id', articles.load);
   app.get('/add', main.index);
+
+  /**
+   * Route in local middlewares
+   */
+  app.get('/api/articles/urlsearch', articles.urlsearch);
+
 
   // Holder logic for working with uniqu links per route
   //
@@ -37,9 +42,13 @@ module.exports = function (app, passport, auth) {
   /**
    * Crud Operations With User Auth
    */
+  app.param('id', articles.load);
 
-  crudUtils.initRoutesForModel(app, ArticlesModel, auth, '/api/articles')
 
+
+
+  crudUtils.initRoutesForModel(app, ArticlesModel, auth, 'id', '/api/articles')
+  //crudUtilsGraph.initRoutesForModel(app, GraphModel, auth, '/:id', '/api/articles')
 
   //crudUtilsGraph.initRoutesForModel(app, ArticlesModel, auth, '/api/articles')
 

@@ -173,6 +173,22 @@ ArticleSchema.statics = {
   },
 
   /**
+   * Find article by id
+   *
+   * @param {ObjectId} id
+   * @param {Function} cb
+   * @api private
+   */
+
+  loadURL: function (url, cb) {
+    this.findOne({ url : url })
+      .populate('user', 'name email username')
+      .populate('comments.user')
+      .exec(cb);
+  },
+
+
+  /**
    * List articles
    *
    * @param {Object} options

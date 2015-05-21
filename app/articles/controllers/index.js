@@ -5,7 +5,7 @@
 
  var mongoose = require('mongoose')
  var Article = mongoose.model('Articles')
-// //var utils = require('../../lib/utils')
+ var utils = require('../../../lib/utils')
 // var extend = require('util')._extend
 
 /**
@@ -14,7 +14,6 @@
 
 exports.load = function (req, res, next, id){
   var User = mongoose.model('User');
-
   Article.load(id, function (err, article) {
     if (err) return next(err);
     if (!article) return next(new Error('not found'));
@@ -23,6 +22,19 @@ exports.load = function (req, res, next, id){
   });
 };
 
+
+exports.urlsearch = function (req, res){
+  console.log(req.param('url'));
+  var url = req.param('url');
+
+  if (!url) return res.send(utils.errMsg('No URL to Query.'))
+
+  Article.loadURL(url, function (err, article) {
+    if (err) return next(err);
+    if (!article) return res.send({});
+    res.send(article)
+  });
+};
 // /**
 //  * List
 //  */
