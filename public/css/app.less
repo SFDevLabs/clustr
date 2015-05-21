@@ -244,4 +244,50 @@ header{
       }
     }
   }
-}
+} // end searchResults
+
+.addPageContainer{
+  font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+    margin: 0;
+  .connection{
+    margin-top: 20px;
+  }
+  .leftBox{
+    border: 1px solid rgba(1, 0, 0, .05);
+    height: 80px;
+  }
+  .rightBox{
+    border: 1px solid rgba(1, 0, 0, .05);
+    height: 80px;
+  }
+  .nodeTitleBox{
+    // border-right: 1px solid rgba(1, 0, 0, .05);
+    // margin-right: -1px;
+    height: 80px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    .nodeTitle{
+      text-align: left;
+      font-size: 20px;
+      padding-left: 10px;
+      padding-top: 5px;
+    }
+    .nodeUrl{
+      text-align: left;
+      padding-left: 10px;
+    }
+  }
+  .addIconBox{
+    height: 80px;
+    border-right: 1px solid rgba(1, 0, 0, .05);
+    margin-right: -1px;
+    .addIcon{
+      height: 80px;
+    }
+  }
+  .connectMetaphor{
+    width: 80%;
+    margin-top: 30px;
+  }
+} // end addPageContainer

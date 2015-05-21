@@ -18,7 +18,7 @@ var Header = React.createClass({
         <span>{userName}</span>
       </div>
       <div className="statusBox">
-        <img className="statusBoxAddNode" src="img/circleAddButton.png" title="add a node" />
+        <Link to="/add"><img className="statusBoxAddNode" src="img/circleAddButton.png" title="add a node" /></Link>
         <img className="statusBoxActivity" src="img/activity.png" title="check activity" />
         <img className="statusBoxProfile" title="profile" src="/img/eoin_profile.jpg" />
       </div>
