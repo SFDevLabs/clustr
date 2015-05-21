@@ -22,7 +22,9 @@ var ArticleActions = require('../actions/ArticleActions');
 
 var MainSearch = React.createClass({
   render: function() {
-    return (<div>placeHolder Add<div>)
+    return (
+      <div>placeHolder Add</div>
+      );
     }
 });
 

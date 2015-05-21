@@ -50,7 +50,7 @@ var ArticleItem = React.createClass({
               <Link  to="/" params={{id: item.id}} >{item.url}</Link>
             </li>
           </ul>
-   
+
 
         </div>
         <div className="clustrSearchUserBox">

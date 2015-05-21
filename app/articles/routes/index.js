@@ -25,10 +25,11 @@ module.exports = function (app, passport, auth) {
   app.get('/', main.index);
   app.param('id', articles.load);
   app.get('/site', main.index);
+  app.get('/add', main.index);
 
   // Holder logic for working with uniqu links per route
-  // 
-  // app.get('/vert/:id', articles.show); 
+  //
+  // app.get('/vert/:id', articles.show);
   // app.param('id', articles.load);
   // app.get('/vert/:id', articles.show);
 
@@ -36,7 +37,7 @@ module.exports = function (app, passport, auth) {
    * Crud Operations With User Auth
    */
   crudUtils.initRoutesForModel(app, ArticlesModel, auth, '/api/articles')
-  
+
   //Register Catch all after Crud
   app.get('/:id', main.index);
 
