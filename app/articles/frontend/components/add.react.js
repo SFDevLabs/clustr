@@ -53,10 +53,11 @@ var MainSearch = React.createClass({
 	*/
 	_save: function() {
 		if (this.state.value && this.state.value.length>0){
-		  this.transitionTo('articles',{},{q: this.state.value});
+		//here is where I bounce.
+		  //this.transitionTo('articles',{},{q: this.state.value});
 		};
 	},
-  
+
 
 	/**
 	* @param {object} event
