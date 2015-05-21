@@ -26,8 +26,6 @@ module.exports = function (app, passport, auth) {
    */
   app.get('/', main.index);
   app.param('id', articles.load);
-
-  app.get('/site', main.index);
   app.get('/add', main.index);
 
   // Holder logic for working with uniqu links per route
