@@ -11,7 +11,7 @@ var db = new neo4j.GraphDatabase(
 
 // private constructor:
 
-var User = module.exports = function User(_node) {
+var User = function User(_node) {
     // all we'll really store is the node; the rest of our properties will be
     // derivable or just pass-through properties (see below).
     this._node = _node;
@@ -181,3 +181,5 @@ User.getAll(function(err, users){
   }
   
 })
+
+module.exports = User;
