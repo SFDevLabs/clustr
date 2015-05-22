@@ -14,7 +14,7 @@
 
 var React = require('react');
 var ArticleStore = require('../stores/ArticleStore');
-var URLInput = require('./URLInput.react');
+var AddURLInput = require('./AddURLInput.react');
 var ArticleActions = require('../actions/ArticleActions');
 var ReactPropTypes = React.PropTypes;
 
@@ -34,7 +34,7 @@ var MainSearch = React.createClass({
 	render: function() {
 	return (
 	  <div className="addPageContainer">
-	   <URLInput
+	   <AddURLInput
 	   	  onSave={this._onSave}
 	      type="text"
 	      placeholder="Input a URL"
@@ -43,7 +43,7 @@ var MainSearch = React.createClass({
 	      value={this.state.value}
 	      autoFocus={true}
 	    />
-     <URLInput
+     <AddURLInput
         onSave={this._onSave}
         type="text"
         placeholder="Input a URL"
