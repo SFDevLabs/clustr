@@ -17,7 +17,7 @@ var Header = React.createClass({
     return <header>
       <div className="homeBox">
         <Link to="articles"><img className="homeIcon" src="/img/logo_clustr_icon.png" title="home" /></Link>
-        <span>{userName}</span>
+        <span><img className="homeLogoFont" src="/img/logo_clustr_font.png"/></span>
       </div>
      <div className = "headerSearch">
          <URLSearchInput
