@@ -34,9 +34,6 @@ var QueryResult = React.createClass({
     var post = this.props.post;
       return (<div>
             <div className="columns sixteen resultsFor">{post.url}</div>
-            <div className="resultsText">results:</div>
-            <div>Search By: {post.username}</div>
-            <span>{post.username}</span>
 
             <div className="searchResultBox">
               <ul className="row marginZero">

@@ -46,7 +46,8 @@ exports.getAll = function (req, res){
   GraphModel.getAll(function(err, results){
     var responseObj = results.map(function(obj){
       var item={};
-      item.url = obj.user._data.data.url;
+      item = obj.user._data.data;
+      item.id = obj.user._data.metadata.id;
       return item;
     });
     res.send(responseObj);

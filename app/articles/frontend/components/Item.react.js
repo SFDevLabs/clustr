@@ -31,6 +31,7 @@ var ArticleItem = React.createClass({
    */
   render: function() {
     var item = this.props.item;
+    var link="/"+item.id;
     return (
       <div>
         <div className="recentClustrSearch columns ten">
@@ -40,7 +41,7 @@ var ArticleItem = React.createClass({
           <ul className="clustrTextBox">
             <li className="clustrSearchText">Title: {item.url}</li>
             <li className="linkToClustrArticle">
-              <Link  to="/" query={{q: item.url}} >{item.url}</Link>
+              <Link  to={link} >{item.url}</Link>
             </li>
           </ul>
 

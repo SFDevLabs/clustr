@@ -113,7 +113,6 @@ function destroy(id) {
     _todos = _todos.delete(id);
     ArticleStore.emitChange();
   }).error(errorObj.errHandle);
-
 }
 
 function destroyWithHistory(id) {
@@ -190,7 +189,7 @@ var ArticleStore = assign({}, EventEmitter.prototype, {
       })
       .done(function( results ) {
         results.forEach(function(item){
-                item.id=item._id
+                //item.id=item._id
                 item.username=item.user?item.user.username:null; /// Copy over _id to id.
                 _todos = _todos.set(item._id, new ArticleRecord(item));
         });           
@@ -253,7 +252,6 @@ AppDispatcher.register(function(action) {
     case TodoConstants.TODO_FETCH:
       fetchOne(action.id);
       break;
-
 
     default:
       // no op

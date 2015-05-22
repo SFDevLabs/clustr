@@ -13,9 +13,6 @@
  */
 
 var React = require('react');
-var ReactPropTypes = React.PropTypes;
-// var QueryStore = require('../stores/QueryStore');
-// var QueryActions = require('../actions/QueryActions');
 var Link = require('react-router').Link;
 var Loader = require('react-loader');
 var URLQueryResult = require('./URLQueryResult.react');
@@ -32,14 +29,8 @@ function getQueryState(id) {
   };
 }
 
-
 var Query = React.createClass({
   
-  propTypes: {
-   query: ReactPropTypes.string.isRequired
-  },
-
-
   getInitialState: function() {
     return getQueryState(this.props.params.id);
   },
