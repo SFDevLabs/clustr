@@ -73,7 +73,8 @@ exports.create = function (req, res){
 exports.get = function (req, res, id){
   var id = Number(req.param('uid'));
   GraphModel.get(id, function(err, result){
-    console.log(result._node._data);
+    //console.log(result._node._data);
+    if (!result) return res.send({});
     var item = {};
     item.url = result._node._data.data.url;
     item.id = id;
