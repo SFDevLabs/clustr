@@ -15,7 +15,7 @@
 var React = require('react');
 var ArticleStore = require('../stores/ArticleStore');
 var ArticleActions = require('../actions/ArticleActions');
-var SearchInput = require('./SearchInput.react');
+var URLSearchInput = require('./URLSearchInput.react');
 var Item = require('./Item.react');
 
 /**
@@ -87,7 +87,7 @@ var ArticleApp = React.createClass({
             <span className="columns four"><img src="/img/blank.png" /></span>
             <span className="columns eight">
               <div className = "queryForm">
-                 <SearchInput
+                 <URLSearchInput
                   id=""
                   placeholder="Enter URL"
                   onSave={this._onSave}

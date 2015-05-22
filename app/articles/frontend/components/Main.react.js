@@ -13,8 +13,8 @@
  */
 
 var React = require('react');
-var NoQuery = require('./NoQuery.react');
-var Query = require('./Query.react');
+var Home = require('./Home.react');
+var URLQuery = require('./URLQuery.react');
 
 
 // /**
@@ -27,14 +27,14 @@ var Query = require('./Query.react');
 // }
 
 
-var MainSearch = React.createClass({
+var Main = React.createClass({
   render: function() {
   	var q = this.props.query.q;
-    var result = q ? (<Query query={q} />): (<NoQuery/>);
+    var result = q ? (<URLQuery query={q} />): (<Home/>);
     return (<div>
     		{result}
     		</div>)
     }
 });
 
-module.exports = MainSearch;
+module.exports = Main;

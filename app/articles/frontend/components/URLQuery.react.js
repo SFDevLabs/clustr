@@ -18,7 +18,7 @@ var QueryStore = require('../stores/QueryStore');
 var Link = require('react-router').Link;
 var QueryActions = require('../actions/QueryActions');
 var Loader = require('react-loader');
-var QueryResult = require('./QueryResult.react');
+var URLQueryResult = require('./URLQueryResult.react');
 
 /**
  * Retrieve the current TODO data from the QueryStore
@@ -56,15 +56,13 @@ var Query = React.createClass({
 
   render: function() {
     var post = this.state.post;
-
-    console.log(post)
     var result;
     if (!post) {  //Empty resonse wait for ajax response
       result = (<Loader/>)
     }else if (!post._id){ //No response from search api.
       result = (<div>No Result</div>)
     }else{ //We got a response.  TODO Abstract this out.
-      result = (<QueryResult post={post} />)
+      result = (<URLQueryResult post={post} />)
     }//end of results
     return (
       <div className="row searchResults">
