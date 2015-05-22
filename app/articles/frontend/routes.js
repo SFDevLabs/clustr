@@ -9,7 +9,6 @@ var ArticleRoutes = (
      <Route name="articles" path="/" handler={require('./components/Home.react')}/>
      <Route name="add" path="/add" handler={require('./components/Add.react')}/>
      <Route name="article" path="/:id" handler={require('./components/URLQuery.react')}/>
-
   </Route>
   )
 module.exports = ArticleRoutes;
