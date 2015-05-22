@@ -43,6 +43,15 @@ var MainSearch = React.createClass({
 	      value={this.state.value}
 	      autoFocus={true}
 	    />
+     <URLInput
+        onSave={this._onSave}
+        type="text"
+        placeholder="Input a URL"
+        onChange={this._onChange}
+        onKeyDown={this._onKeyDown}
+        value={this.state.value}
+        autoFocus={true}
+      />
 	    <ul className="row sixteen marginZero connectionBox">
 	      <li className="columns three"><img src="img/blank.png" /></li>
         <li className="columns ten">

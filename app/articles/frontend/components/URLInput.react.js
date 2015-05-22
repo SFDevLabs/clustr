@@ -48,7 +48,6 @@ var URLInput = React.createClass({
           value={this.state.value}
           autoFocus={true}
         />
-        <input onClick={this._save} className="querySubmit" type="submit" value="Search" />
       </div>
     );
   },
