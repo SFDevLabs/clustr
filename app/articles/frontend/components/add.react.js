@@ -20,7 +20,7 @@ var ReactPropTypes = React.PropTypes;
 
 
 var MainSearch = React.createClass({
-  
+
 	propTypes: {
 		value: ReactPropTypes.string
 	},
@@ -36,76 +36,116 @@ var MainSearch = React.createClass({
 	  <div className="addPageContainer">
 	   <URLInput
 	   	  onSave={this._onSave}
-	      type="text" 
+	      type="text"
 	      placeholder="Input a URL"
 	      onChange={this._onChange}
 	      onKeyDown={this._onKeyDown}
 	      value={this.state.value}
 	      autoFocus={true}
 	    />
-	    <ul className="row sixteen marginZero connection">
+	    <ul className="row sixteen marginZero connectionBox">
 	      <li className="columns three"><img src="img/blank.png" /></li>
-	      <li className="columns four">
-	        <div className="leftBox">
-	          <ul className="row sixteen marginZero">
-	            <li className="columns four addIconBox"><img className="addIcon" src="img/twitter_bird.png" /></li>
-	            <li className="columns ten nodeTitleBox">
-	              <div className="nodeTitle">Twitter.com
-	              </div>
-	              <div className="nodeUrl">http://Twitter.com</div>
-	            </li>
-	            <li className="columns two"><img src="img/blank.png" /></li>
-	          </ul>
-	        </div>
-	      </li>
-	      <li className="columns two"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
-	      <li className="columns four">
-	        <div className="rightBox">
-	          <ul className="row sixteen marginZero">
-	            <li className="columns four addIconBox"><img className="addIcon" src="img/foursquare.png" /></li>
-	            <li className="columns ten nodeTitleBox">
-	              <div className="nodeTitle">Foursquare.com
-	              </div>
-	              <div className="nodeUrl">http://foursquare.com</div>
-	            </li>
-	            <li className="columns two"><img src="img/blank.png" /></li>
-	          </ul>
-	        </div>
-	      </li>
+        <li className="columns ten">
+          <ul className="row sixteen marginZero connection">
+            <li className="columns six">
+              <div className="leftBox">
+                <ul className="row sixteen marginZero">
+                  <li className="columns four addIconBox"><img className="addIcon" src="img/twitter_bird.png" /></li>
+                  <li className="columns twelve nodeTitleBox">
+                    <div className="nodeTitle">Twitter.com
+                    </div>
+                    <div className="nodeUrl">http://Twitter.com</div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
+            <li className="columns six">
+              <div className="rightBox">
+                <ul className="row sixteen marginZero">
+                  <li className="columns four addIconBox"><img className="addIcon" src="img/foursquare.png" /></li>
+                  <li className="columns twelve nodeTitleBox">
+                    <div className="nodeTitle">Foursquare.com
+                    </div>
+                    <div className="nodeUrl">http://foursquare.com</div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
 	      <li className="columns three"><img src="img/blank.png" /></li>
 	    </ul>
 
-	    <ul className="row sixteen marginZero connection">
-	      <li className="columns three"><img src="img/blank.png" /></li>
-	      <li className="columns four">
-	        <div className="leftBox">
-	          <ul className="row sixteen marginZero">
-	            <li className="columns four addIconBox"><img className="addIcon" src="img/pinkPanther.jpg" /></li>
-	            <li className="columns ten nodeTitleBox">
-	              <div className="nodeTitle">The Pink Panther
-	              </div>
-	              <div className="nodeUrl">http://www.amazon.com/Pink-Panther-Shawn-Levy/dp/B001ML9LSS/ref=sr_1_1?ie=UTF8&qid=1432189177&sr=8-1&keywords=pink+panther</div>
-	            </li>
-	            <li className="columns two"><img src="img/blank.png" /></li>
-	          </ul>
-	        </div>
-	      </li>
-	      <li className="columns two"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
-	      <li className="columns four">
-	        <div className="rightBox">
-	          <ul className="row sixteen marginZero">
-	            <li className="columns four addIconBox"><img className="addIcon" src="img/OSS_117.jpg" /></li>
-	            <li className="columns ten nodeTitleBox">
-	              <div className="nodeTitle">OSS 117
-	              </div>
-	              <div className="nodeUrl">http://dvd.netflix.com/Movie/OSS-117-Cairo-Nest-of-Spies/70101687</div>
-	            </li>
-	            <li className="columns two"><img src="img/blank.png" /></li>
-	          </ul>
-	        </div>
-	      </li>
-	      <li className="columns three"><img src="img/blank.png" /></li>
-	    </ul>
+      <ul className="row sixteen marginZero connectionBox">
+        <li className="columns three"><img src="img/blank.png" /></li>
+        <li className="columns ten">
+          <ul className="row sixteen marginZero connection">
+            <li className="columns six">
+              <div className="leftBox">
+                <ul className="row sixteen marginZero">
+                  <li className="columns four addIconBox"><img className="addIcon" src="img/pinkPanther.jpg" /></li>
+                  <li className="columns twelve nodeTitleBox">
+                    <div className="nodeTitle">The Pink Panther
+                    </div>
+                    <div className="nodeUrl">http://www.amazon.com/Pink-Panther-Shawn-Levy/dp/B001ML9LSS/ref=sr_1_1?ie=UTF8&qid=1432189177&sr=8-1&keywords=pink+panther</div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
+            <li className="columns six">
+              <div className="rightBox">
+                <ul className="row sixteen marginZero">
+                  <li className="columns four addIconBox"><img className="addIcon" src="img/OSS_117.jpg" /></li>
+                  <li className="columns twelve nodeTitleBox">
+                    <div className="nodeTitle">OSS 117
+                    </div>
+                    <div className="nodeUrl">http://dvd.netflix.com/Movie/OSS-117-Cairo-Nest-of-Spies/70101687</div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li className="columns three"><img src="img/blank.png" /></li>
+      </ul>
+
+
+      <ul className="row sixteen marginZero connectionBox">
+        <li className="columns three"><img src="img/blank.png" /></li>
+        <li className="columns ten">
+          <ul className="row sixteen marginZero connection">
+            <li className="columns six">
+              <div className="leftBox">
+                <ul className="row sixteen marginZero">
+                  <li className="columns four addIconBox"><img className="addIcon" src="img/britneymadonna.png" /></li>
+                  <li className="columns twelve nodeTitleBox">
+                    <div className="nodeTitle">Britney Spears Madonna Kiss
+                    </div>
+                    <div className="nodeUrl">http://mewarnai.us/486442-britney-spears-madonna-kiss</div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
+            <li className="columns six">
+              <div className="rightBox">
+                <ul className="row sixteen marginZero">
+                  <li className="columns four addIconBox"><img className="addIcon" src="img/kanyekanye.png" /></li>
+                  <li className="columns twelve nodeTitleBox">
+                    <div className="nodeTitle">Kanye West Kissing Himself
+                    </div>
+                    <div className="nodeUrl">http://firsttoknow.com/kanye-west-kissing-himself-photo/</div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li className="columns three"><img src="img/blank.png" /></li>
+      </ul>
+
 	  </div>
 	  )
 	},
