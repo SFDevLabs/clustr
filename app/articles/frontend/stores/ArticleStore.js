@@ -6,12 +6,12 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * TodoStore
+ * ArticleStore
  */
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
-var TodoConstants = require('../constants/TodoConstants');
+var TodoConstants = require('../constants/ArticleConstants');
 var assign = require('object-assign');
 var Immutable = require('immutable');
 var $ = require('jquery');
@@ -20,7 +20,8 @@ var csrfToken = csrfTag ? csrfTag.dataset.csrf:null;
 var CHANGE_EVENT = 'change';
 var _history = [];
 var _todos = Immutable.OrderedMap();
-var urlBase = '/api/articles/'
+var urlBase = '/api/articles/';
+var errorObj = require('./errorHandle');
 
 var ArticleRecord = Immutable.Record({
   id : null,
@@ -31,26 +32,6 @@ var ArticleRecord = Immutable.Record({
   user: null,
   tags:null
 });
-
-var errHandle = function(errObj,type,status){
-  if (errObj.responseJSON && errObj.responseJSON.redirect){loginRedirect()};
-
-}
-
-var loginRedirect = function(){
-  var returnURL = window.location.pathname
-  $.ajax({
-    method: "POST",
-    url: "returnto",
-    data: {returnURL:returnURL,_csrf:csrfToken}
-  })
-  .done(function( result ) {
-    window.location.href=errObj.responseJSON.redirect;
-  })
-  .error(function( result ) {
-    window.location.href=errObj.responseJSON.redirect;
-  });
-}
 
 /**
  * Create a TODO item.
@@ -66,8 +47,8 @@ function create(url) {
   })
   .done(function( result ) {
     _todos = _todos.set(result._id, new ArticleRecord({id : result._id, url : result.url, username: 'userHolder'}));
-    TodoStore.emitChange();
-  }).error(errHandle);
+    ArticleStore.emitChange();
+  }).error(errorObj.errHandle);
 }
 
 function addHistoryEntry() {
@@ -96,8 +77,8 @@ function update(id, updates) {
     delete result._id
     delete result.__v
     _todos = _todos.set(id, _todos.get(id).merge(result));
-    TodoStore.emitChange();
-  }).error(errHandle);
+    ArticleStore.emitChange();
+  }).error(errorObj.errHandle);
 }
 
 function updateWithHistory(id, updates) {
@@ -130,8 +111,8 @@ function destroy(id) {
   })
   .done(function( msg ) {
     _todos = _todos.delete(id);
-    TodoStore.emitChange();
-  }).error(errHandle);
+    ArticleStore.emitChange();
+  }).error(errorObj.errHandle);
 
 }
 
@@ -151,7 +132,7 @@ function destroyCompleted() {
     }
   }
 }
-var TodoStore = assign({}, EventEmitter.prototype, {
+var ArticleStore = assign({}, EventEmitter.prototype, {
 
   /**
    * Tests whether all the remaining TODO items are marked as completed.
@@ -195,11 +176,12 @@ var TodoStore = assign({}, EventEmitter.prototype, {
       })
       .done(function( results ) {
         results.forEach(function(item){
-                item.id=item._id /// Copy over _id to id.
+                item.id=item._id
+                item.username=item.user?item.user.username:null; /// Copy over _id to id.
                 _todos = _todos.set(item._id, new ArticleRecord(item));
         });           
-        TodoStore.emitChange();
-      }).error(errHandle);
+        ArticleStore.emitChange();
+      }).error(errorObj.errHandle);
   },
 
   /**
@@ -245,15 +227,15 @@ AppDispatcher.register(function(action) {
 
   switch(action.actionType) {
     case TodoConstants.TODO_CREATE:
-      text = action.text.trim();
-      if (text !== '') {
-        create(text);
+      url = action.url.trim();
+      if (url !== '') {
+        create(url);
       }
       break;
 
     case TodoConstants.TODO_HISTORY_SET:
       goToHistory(action.index);
-      TodoStore.emitChange();
+      ArticleStore.emitChange();
       break;
 
     case TodoConstants.TODO_UPDATE:
@@ -273,4 +255,4 @@ AppDispatcher.register(function(action) {
 });
 
 
-module.exports = TodoStore;
+module.exports = ArticleStore;

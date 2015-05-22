@@ -13,18 +13,27 @@
  */
 
 var React = require('react');
-var ArticleStore = require('../stores/ArticleStore');
-var ItemInput = require('./ItemInput.react');
-var ArticleActions = require('../actions/ArticleActions');
 var NoQuery = require('./NoQuery.react');
 var Query = require('./Query.react');
 
 
+// /**
+//  * Retrieve the current TODO data from the ArticleStore
+//  */
+// function getArticleState() {
+//   return {
+//     allPosts: ArticleStore.getAll(),
+//   };
+// }
+
 
 var MainSearch = React.createClass({
   render: function() {
-    var Render = this.props.query.q? Query:NoQuery;
-    return (<Render query={this.props.query} />)
+  	var q = this.props.query.q;
+    var result = q ? (<Query query={q} />): (<NoQuery/>);
+    return (<div>
+    		{result}
+    		</div>)
     }
 });
 

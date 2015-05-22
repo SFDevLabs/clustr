@@ -30,7 +30,7 @@ module.exports = function (app, passport, auth) {
   /**
    * Route in local middlewares
    */
-  app.get('/api/articles/urlsearch', articles.urlsearch);
+  app.get('/api/query', articles.urlsearch);
 
 
   // Holder logic for working with uniqu links per route

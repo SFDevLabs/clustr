@@ -9,43 +9,44 @@
 
 /**
  * This component operates as a "Controller-View".  It listens for changes in
- * the ArticleStore and passes the new data to its children.
+ * the QueryStore and passes the new data to its children.
  */
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
-var ArticleStore = require('../stores/ArticleStore');
+var QueryStore = require('../stores/QueryStore');
 var Link = require('react-router').Link;
-var ArticleActions = require('../actions/ArticleActions');
+var QueryActions = require('../actions/QueryActions');
+var Loader = require('react-loader');
 
 /**
- * Retrieve the current TODO data from the ArticleStore
+ * Retrieve the current TODO data from the QueryStore
  */
-function getArticleState(id) {
+function getQueryState(id) {
   return {
-    post: ArticleStore.getOneById(id),
+    post: QueryStore.getResult()
   };
 }
 
 
-var ArticleApp = React.createClass({
-
+var Query = React.createClass({
+  
   propTypes: {
-    query: ReactPropTypes.object.isRequired,
+   query: ReactPropTypes.string.isRequired
   },
 
 
   getInitialState: function() {
-    return getArticleState(this.props.query);
+    return getQueryState();
   },
 
   componentDidMount: function() {
-    ArticleStore.addChangeListener(this._onChange);
-    ArticleStore.fetchOne(this.props.query);
+    QueryStore.addChangeListener(this._onChange);
+    QueryActions.query(this.props.query);
   },
 
   componentWillUnmount: function() {
-    ArticleStore.removeChangeListener(this._onChange);
+    QueryStore.removeChangeListener(this._onChange);
   },
 
   /**
@@ -53,43 +54,54 @@ var ArticleApp = React.createClass({
    */
 
   render: function() {
-    //var post = this.state.post.id? <PostItemDetail item={this.state.post} />:null;
-    var post  = {username:'jeff', url:'http'}//this.state.post;
-  	return (
-        <div className="row searchResults">
-          <div className="columns sixteen resultsFor">{post.url}</div>
-          <div className="resultsText">results:</div>
-          <div>Search By: {post.username}</div>
-          <span>{post.username}</span>
+    var post = this.state.post;
+    var result;
+    if (!post) {  //Empty resonse wait for ajax response
+      result = (<Loader/>)
+    }else if (!post.id){ //No response from search api.
+      result = (<div>No Result</div>)
+    }else{ //We got a response.  TODO Abstract this out.
+      result = (
+          <div>
+            <div className="columns sixteen resultsFor">{post.url}</div>
+            <div className="resultsText">results:</div>
+            <div>Search By: {post.username}</div>
+            <span>{post.username}</span>
 
-          <div className="searchResultBox">
-            <ul className="row marginZero">
-              <li className="columns four marginZero"><img src="img/blank.png" /></li>
-              <li className="columns eight searchResult">
-                <div className="columns sixteen">
-                  <ul className="row sixteen marginZero">
-                    <li className="columns three"><img className="searchResultImg" src="img/fender.jpg" />
-                    </li>
-                    <li className="columns eleven searchResultText">
-                      <div className="searchResultTitle">Result Title Goes Here</div>
-                      <div className="searchResultURL">Result URL Goes Here</div>
-                    </li>
-                    <li className="columns two userSubmission"><img className="userSubmissionImg" src="/img/eoin_profile.jpg"/></li>
-                  </ul>
-                </div>
-              </li>
-              <li className="columns four"><img src="img/blank.png" /></li>
-            </ul>
+            <div className="searchResultBox">
+              <ul className="row marginZero">
+                <li className="columns four marginZero"><img src="img/blank.png" /></li>
+                <li className="columns eight searchResult">
+                  <div className="columns sixteen">
+                    <ul className="row sixteen marginZero">
+                      <li className="columns three"><img className="searchResultImg" src="img/fender.jpg" />
+                      </li>
+                      <li className="columns eleven searchResultText">
+                        <div className="searchResultTitle">Result Title Goes Here</div>
+                        <div className="searchResultURL">{post.url}</div>
+                      </li>
+                      <li className="columns two userSubmission"><img className="userSubmissionImg" src="/img/eoin_profile.jpg"/>{post.username}</li>
+                    </ul>
+                  </div>
+                </li>
+
+              </ul>
+            </div>
           </div>
-        </div>
-  	);
+          )
+    	}//end of results
+      return (
+        <div className="row searchResults">
+          {result}
+        </div>)
+    
   },
 
   /**
-   * Event handler for 'change' events coming from the ArticleStore
+   * Event handler for 'change' events coming from the QueryStore
    */
   _onChange: function() {
-    this.setState(getArticleState(this.props.query));
+    this.setState(getQueryState());
   },
   /**
    * Event handler called within TodoTextInput.
@@ -97,15 +109,14 @@ var ArticleApp = React.createClass({
    * in different ways.
    * @param  {string} text
    */
-  _onSave: function(text) {
-    ArticleActions.updateText(this.props.query, text);
-    this.setState({isEditing: false});
-  },
+  // _onSave: function(text) {
+  //   ArticleActions.updateText(this.props.query, text);
+  // },
 
-  _onDestroyClick: function() {
-    ArticleActions.destroy(this.props.query);
-  }
+  // _onDestroyClick: function() {
+  //   ArticleActions.destroy(this.props.query);
+  // }
 
 });
 
-module.exports = ArticleApp;
+module.exports = Query;

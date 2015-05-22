@@ -61,7 +61,8 @@
     "react-router":"^0.13.3",
     "jquery":"^2.1.4",
     "immutable":"3.7.2",
-    "neo4j": "1.1.1"
+    "neo4j": "1.1.1",
+    "react-loader": "1.2.0"
   },
   "devDependencies": {
     "less": "2.3.1",

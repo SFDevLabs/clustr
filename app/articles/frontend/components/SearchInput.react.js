@@ -14,7 +14,7 @@ var Navigation = require('react-router').Navigation;
 
  
 
-var TodoTextInput = React.createClass({
+var SearchInput = React.createClass({
 
   mixins: [Navigation],
   propTypes: {
@@ -83,4 +83,4 @@ var TodoTextInput = React.createClass({
 
 });
 
-module.exports = TodoTextInput;
+module.exports = SearchInput;

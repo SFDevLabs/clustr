@@ -33,21 +33,14 @@ var ArticleItem = React.createClass({
     var item = this.props.item;
     return (
       <div>
-        <div className={cx({
-              'completed': item.complete,
-              'editing': this.state.isEditing,
-              'columns': 'columns',
-              'ten': 'ten',
-              'recentClustrSearch': 'recentClustrSearch'
-            })}
-        key={item.id}>
+        <div className="recentClustrSearch columns ten">
           <div>
             <img className="clustrArticleThumbnail" src="img/fender.jpg" />
           </div>
           <ul className="clustrTextBox">
             <li className="clustrSearchText">Title: {item.url}</li>
             <li className="linkToClustrArticle">
-              <Link  to="/" params={{id: item.id}} >{item.url}</Link>
+              <Link  to="/" query={{q: item.url}} >{item.url}</Link>
             </li>
           </ul>
 

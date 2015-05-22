@@ -177,7 +177,7 @@ User.create = function (data, callback) {
 
 User.getAll(function(err, users){
   if (err){
-    console.log("Error! You might need to disable Auth! change 'dbms.security.auth_enabled=false' in the conf/neo4j-server.properties file", err.message)
+    console.log("Error, Cannot connect to Neo4J! You might need to disable Auth! change 'dbms.security.auth_enabled=false' in the conf/neo4j-server.properties file", err.message)
   }
   
 })

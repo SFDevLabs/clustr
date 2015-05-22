@@ -9,30 +9,20 @@
  * TodoActions
  */
 var AppDispatcher = require('../dispatcher/AppDispatcher');
-var TodoConstants = require('../constants/ArticleConstants');
+var QueryConstants = require('../constants/QueryConstants');
 
-var ArticleActions = {
+var QueryActions = {
   /**
    * @param  {string} text
    */
-  create: function(url) {
+  query: function(text) {
     AppDispatcher.dispatch({
-      actionType: TodoConstants.TODO_CREATE,
-      url: url
-    });
-  },
-
-  /**
-   * @param  {string} id
-   */
-  destroy: function(id) {
-    AppDispatcher.dispatch({
-      actionType: TodoConstants.TODO_DESTROY,
-      id: id
+      actionType: QueryConstants.QUERY,
+      text: text
     });
   },
 
 
 };
 
-module.exports = ArticleActions;
+module.exports = QueryActions;

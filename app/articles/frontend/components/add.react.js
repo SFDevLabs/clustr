@@ -14,7 +14,7 @@
 
 var React = require('react');
 var ArticleStore = require('../stores/ArticleStore');
-var ItemInput = require('./ItemInput.react');
+var URLInput = require('./URLInput.react');
 var ArticleActions = require('../actions/ArticleActions');
 var ReactPropTypes = React.PropTypes;
 
@@ -34,7 +34,8 @@ var MainSearch = React.createClass({
 	render: function() {
 	return (
 	  <div className="addPageContainer">
-	   <input
+	   <URLInput
+	   	  onSave={this._onSave}
 	      type="text" 
 	      placeholder="Input a URL"
 	      onChange={this._onChange}
@@ -114,18 +115,17 @@ var MainSearch = React.createClass({
 	* Invokes the callback passed in as onSave, allowing this component to be
 	* used in different ways.
 	*/
-	_save: function() {
-		if (this.state.value && this.state.value.length>0){
-		//here is where I bounce.
-		  //this.transitionTo('articles',{},{q: this.state.value});
-		};
+	_onSave: function(text) {
+		if (text.trim()){
+		  ArticleActions.create(text);
+		}
 	},
-
 
 	/**
 	* @param {object} event
 	*/
 	_onChange: function(/*object*/ event) {
+		debugger
 		this.setState({
 		  value: event.target.value
 		});

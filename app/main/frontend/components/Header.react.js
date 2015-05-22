@@ -14,11 +14,11 @@ var Header = React.createClass({
   render: function () {
     return <header>
       <div className="homeBox">
-        <Link to="/"><img className="homeIcon" src="/img/logo_clustr_icon.png" title="home" /></Link>
+        <Link to="articles"><img className="homeIcon" src="/img/logo_clustr_icon.png" title="home" /></Link>
         <span>{userName}</span>
       </div>
       <div className="statusBox">
-        <Link to="/add"><img className="statusBoxAddNode" src="img/circleAddButton.png" title="add a node" /></Link>
+        <Link to="add"><img className="statusBoxAddNode" src="img/circleAddButton.png" title="add a node" /></Link>
         <img className="statusBoxActivity" src="img/activity.png" title="check activity" />
         <img className="statusBoxProfile" title="profile" src="/img/eoin_profile.jpg" />
       </div>
