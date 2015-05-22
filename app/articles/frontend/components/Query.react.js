@@ -55,10 +55,12 @@ var Query = React.createClass({
 
   render: function() {
     var post = this.state.post;
+
+    console.log(post)
     var result;
     if (!post) {  //Empty resonse wait for ajax response
       result = (<Loader/>)
-    }else if (!post.id){ //No response from search api.
+    }else if (!post._id){ //No response from search api.
       result = (<div>No Result</div>)
     }else{ //We got a response.  TODO Abstract this out.
       result = (

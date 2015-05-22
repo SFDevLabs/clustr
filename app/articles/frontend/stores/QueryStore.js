@@ -52,7 +52,7 @@ function query(url) {
     data: {_csrf:csrfToken, url:url}
   })
   .done(function( result ) {
-    result.username=result.user.username;
+    result.username=result.user?result.user.username:null;
     _result = _result.merge(result);
     QueryStore.emitChange();
   }).error(errorObj.errHandle);
