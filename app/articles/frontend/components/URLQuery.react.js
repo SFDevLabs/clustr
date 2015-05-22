@@ -14,18 +14,21 @@
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
-var QueryStore = require('../stores/QueryStore');
+// var QueryStore = require('../stores/QueryStore');
+// var QueryActions = require('../actions/QueryActions');
 var Link = require('react-router').Link;
-var QueryActions = require('../actions/QueryActions');
 var Loader = require('react-loader');
 var URLQueryResult = require('./URLQueryResult.react');
 
+
+var ArticleStore = require('../stores/ArticleStore');
+var ArticleActions = require('../actions/ArticleActions');
 /**
  * Retrieve the current TODO data from the QueryStore
  */
 function getQueryState(id) {
   return {
-    post: QueryStore.getResult()
+    post: ArticleStore.getOneById(id)
   };
 }
 
@@ -38,16 +41,16 @@ var Query = React.createClass({
 
 
   getInitialState: function() {
-    return getQueryState();
+    return getQueryState(this.props.params.id);
   },
 
   componentDidMount: function() {
-    QueryStore.addChangeListener(this._onChange);
-    QueryActions.query(this.props.query);
+    ArticleStore.addChangeListener(this._onChange);
+    ArticleActions.fetch(this.props.params.id);
   },
 
   componentWillUnmount: function() {
-    QueryStore.removeChangeListener(this._onChange);
+    ArticleStore.removeChangeListener(this._onChange);
   },
 
   /**
@@ -59,7 +62,7 @@ var Query = React.createClass({
     var result;
     if (!post) {  //Empty resonse wait for ajax response
       result = (<Loader/>)
-    }else if (!post._id){ //No response from search api.
+    }else if (!post.id===null){ //No response from search api.
       result = (<div>No Result</div>)
     }else{ //We got a response.  TODO Abstract this out.
       result = (<URLQueryResult post={post} />)
@@ -75,7 +78,7 @@ var Query = React.createClass({
    * Event handler for 'change' events coming from the QueryStore
    */
   _onChange: function() {
-    this.setState(getQueryState());
+    this.setState(getQueryState(this.props.params.id));
   },
   /**
    * Event handler called within TodoTextInput.

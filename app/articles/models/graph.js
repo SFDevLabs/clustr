@@ -63,6 +63,27 @@ User.prototype.del = function (callback) {
     });
 };
 
+User.prototype.update = function (callback) {
+    // use a Cypher query to delete both this user and his/her following
+    // relationships in one transaction and one network request:
+    // (note that this'll still fail if there are any relationships attached
+    // of any other types, which is good because we don't expect any.)
+    // var query = [
+    //     'MATCH (user:User)',
+    //     'WHERE ID(user) = {userId}',
+    //     'SET user[key]',
+    // ].join('\n')
+
+    // var params = {
+    //     userId: this.id,
+    //     key: this.id
+    // };
+
+    // db.query(query, params, function (err) {
+    //     callback(err);
+    // });
+};
+
 User.prototype.follow = function (other, callback) {
     this._node.createRelationshipTo(other._node, 'follows', {}, function (err, rel) {
         callback(err);
@@ -142,10 +163,11 @@ User.getAll = function (callback) {
 
     db.query(query, null, function (err, results) {
         if (err) return callback(err);
-        var users = results.map(function (result) {
-            return new User(result['user']);
-        });
-        callback(null, users);
+        // var users = results.map(function (result) {
+        //     return new User(result['user']);
+        // });
+        console.log(results.map)
+        callback(null, results);
     });
 };
 
@@ -175,11 +197,11 @@ User.create = function (data, callback) {
     });
 };
 
-User.getAll(function(err, users){
-  if (err){
-    console.log("Error, Cannot connect to Neo4J! You might need to disable Auth! change 'dbms.security.auth_enabled=false' in the conf/neo4j-server.properties file", err.message)
-  }
+// User.getAll(function(err, users){
+//   if (err){
+//     console.log("Error, Cannot connect to Neo4J! You might need to disable Auth! change 'dbms.security.auth_enabled=false' in the conf/neo4j-server.properties file", err.message)
+//   }
   
-})
+// })
 
 module.exports = User;

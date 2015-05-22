@@ -20,7 +20,7 @@ var csrfToken = csrfTag ? csrfTag.dataset.csrf:null;
 var CHANGE_EVENT = 'change';
 var _history = [];
 var _todos = Immutable.OrderedMap();
-var urlBase = '/api/articles/';
+var urlBase = '/apigraph/articles/';
 var errorObj = require('./errorHandle');
 
 var ArticleRecord = Immutable.Record({
@@ -132,6 +132,20 @@ function destroyCompleted() {
     }
   }
 }
+
+/**
+ * Get the entire collection of from server.
+ * @return {object}
+ */
+function fetchOne(id) {
+    var that= this
+    if (!id) return {}; ///return nothing if there is not record.
+    $.get(urlBase+id, function(result) {
+      _todos = _todos.set(id, new ArticleRecord(result));
+      ArticleStore.emitChange();
+    })
+};
+
 var ArticleStore = assign({}, EventEmitter.prototype, {
 
   /**
@@ -184,19 +198,6 @@ var ArticleStore = assign({}, EventEmitter.prototype, {
       }).error(errorObj.errHandle);
   },
 
-  /**
-   * Get the entire collection of from server.
-   * @return {object}
-   */
-  fetchOne: function(id) {
-      var that= this
-      if (!id) return {}; ///return nothing if there is not record.
-      $.get(urlBase+id, function(result) {
-        result.id=result._id /// Copy over _id to id.
-        _todos = _todos.set(id, new ArticleRecord(result));
-        that.emitChange();
-      })
-  },
 
   getHistory : function () {
     return _history;
@@ -248,6 +249,11 @@ AppDispatcher.register(function(action) {
     case TodoConstants.TODO_DESTROY:
       destroyWithHistory(action.id);
       break;
+
+    case TodoConstants.TODO_FETCH:
+      fetchOne(action.id);
+      break;
+
 
     default:
       // no op
