@@ -18,6 +18,7 @@ var QueryStore = require('../stores/QueryStore');
 var Link = require('react-router').Link;
 var QueryActions = require('../actions/QueryActions');
 var Loader = require('react-loader');
+var QueryResult = require('./QueryResult.react');
 
 /**
  * Retrieve the current TODO data from the QueryStore
@@ -63,39 +64,12 @@ var Query = React.createClass({
     }else if (!post._id){ //No response from search api.
       result = (<div>No Result</div>)
     }else{ //We got a response.  TODO Abstract this out.
-      result = (
-          <div>
-            <div className="columns sixteen resultsFor">{post.url}</div>
-            <div className="resultsText">results:</div>
-            <div>Search By: {post.username}</div>
-            <span>{post.username}</span>
-
-            <div className="searchResultBox">
-              <ul className="row marginZero">
-                <li className="columns four marginZero"><img src="img/blank.png" /></li>
-                <li className="columns eight searchResult">
-                  <div className="columns sixteen">
-                    <ul className="row sixteen marginZero">
-                      <li className="columns three"><img className="searchResultImg" src="img/fender.jpg" />
-                      </li>
-                      <li className="columns eleven searchResultText">
-                        <div className="searchResultTitle">Result Title Goes Here</div>
-                        <div className="searchResultURL">{post.url}</div>
-                      </li>
-                      <li className="columns two userSubmission"><img className="userSubmissionImg" src="/img/eoin_profile.jpg"/>{post.username}</li>
-                    </ul>
-                  </div>
-                </li>
-
-              </ul>
-            </div>
-          </div>
-          )
-    	}//end of results
-      return (
-        <div className="row searchResults">
-          {result}
-        </div>)
+      result = (<QueryResult post={post} />)
+    }//end of results
+    return (
+      <div className="row searchResults">
+        {result}
+      </div>)
     
   },
 
