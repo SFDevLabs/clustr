@@ -14,14 +14,13 @@ var Navigation = require('react-router').Navigation;
 
  
 
-var SearchInput = React.createClass({
+var URLSearchInput = React.createClass({
 
   mixins: [Navigation],
   propTypes: {
     className: ReactPropTypes.string,
     id: ReactPropTypes.string,
     placeholder: ReactPropTypes.string,
-    onSave: ReactPropTypes.func.isRequired,
     value: ReactPropTypes.string
   },
 
@@ -57,7 +56,7 @@ var SearchInput = React.createClass({
    * Invokes the callback passed in as onSave, allowing this component to be
    * used in different ways.
    */
-  _save: function() {
+  _route: function() {
     if (this.state.value && this.state.value.length>0){
       this.transitionTo('articles',{},{q: this.state.value});
     };
@@ -77,10 +76,10 @@ var SearchInput = React.createClass({
    */
   _onKeyDown: function(event) {
     if (event.keyCode === ENTER_KEY_CODE) {
-      this._save();
+      this._route();
     }
   }
 
 });
 
-module.exports = SearchInput;
+module.exports = URLSearchInput;

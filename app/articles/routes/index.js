@@ -14,7 +14,6 @@ var main = require('../../main/controllers/index');
 var articles = require('../controllers/index');
 var auth = require('../../../config/middlewares/authorization');
 
-var GraphModel = require('../models/graph');
 /**
  * Expose routes
  */
@@ -42,9 +41,12 @@ module.exports = function (app, passport, auth) {
   /**
    * Crud Operations With User Auth
    */
-  app.param('id', articles.load);
+  //app.param('uid', articles.load);
 
-
+  var graphURL= '/apigraph/articles';
+  app.get(graphURL+"/:uid", articles.get);
+  app.get(graphURL, articles.getAll);
+  app.post(graphURL, articles.create);
 
 
   crudUtils.initRoutesForModel(app, ArticlesModel, auth, 'id', '/api/articles')

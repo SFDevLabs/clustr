@@ -12,6 +12,17 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var TodoConstants = require('../constants/ArticleConstants');
 
 var ArticleActions = {
+
+  /**
+   * @param  {string} text
+   */
+  fetch: function(id) {
+    AppDispatcher.dispatch({
+      actionType: TodoConstants.TODO_FETCH,
+      id: id
+    });
+  },
+
   /**
    * @param  {string} text
    */

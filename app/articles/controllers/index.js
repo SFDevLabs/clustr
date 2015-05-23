@@ -3,10 +3,10 @@
 //  * Module dependencies.
 //  */
 
- var mongoose = require('mongoose')
- var Article = mongoose.model('Articles')
- var utils = require('../../../lib/utils')
-// var extend = require('util')._extend
+ var mongoose = require('mongoose');
+ var Article = mongoose.model('Articles');
+ var utils = require('../../../lib/utils');
+ var GraphModel = require('../models/graph');
 
 /**
  * Load
@@ -14,12 +14,15 @@
 
 exports.load = function (req, res, next, id){
   var User = mongoose.model('User');
-  Article.load(id, function (err, article) {
-    if (err) return next(err);
-    if (!article) return next(new Error('not found'));
-    req.article = article;
-    next();
-  });
+  console.log('next')
+  //res.send('1')
+  next();
+  // Article.load(id, function (err, article) {
+  //   if (err) return next(err);
+  //   if (!article) return next(new Error('not found'));
+  //   req.article = article;
+  //   next();
+  // });
 };
 
 
@@ -35,6 +38,51 @@ exports.urlsearch = function (req, res){
     res.send(article)
   });
 };
+
+/**
+ * List
+ */
+exports.getAll = function (req, res){
+  GraphModel.getAll(function(err, results){
+    var responseObj = results.map(function(obj){
+      var item={};
+      item = obj.user._data.data;
+      item.id = obj.user._data.metadata.id;
+      return item;
+    });
+    res.send(responseObj);
+  });
+}
+
+/**
+ * Create
+ */
+exports.create = function (req, res){
+  var url = req.body.url;
+  GraphModel.create({
+    url:url
+  }, function(err, result){
+    console.log(result)
+    res.send(result);
+  })
+  
+}
+
+/**
+ * Create
+ */
+exports.get = function (req, res, id){
+  var id = Number(req.param('uid'));
+  GraphModel.get(id, function(err, result){
+    //console.log(result._node._data);
+    if (!result) return res.send({});
+    var item = {};
+    item.url = result._node._data.data.url;
+    item.id = id;
+    res.send(item);
+  });
+}
+
 // /**
 //  * List
 //  */
