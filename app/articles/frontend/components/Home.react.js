@@ -64,8 +64,6 @@ var ArticleApp = React.createClass({
       var allPosts = this.state.allPosts;
       var posts = [];
 
-
-
       var search = (
         <div className="mainBody">
           Site Search
@@ -79,29 +77,226 @@ var ArticleApp = React.createClass({
         <div className="mainBody">
           <div className="row sixteen logoArea">
             <span className="columns four"><img src="/img/blank.png" /></span>
-            <span className="columns eight mainLogo"><img src="/img/logo_clustr.png" /></span>
+            <span className="columns eight mainLogo"><img className="mainAddButton" src="/img/circleAddButton.png" /></span>
             <span className="columns four"><img src="/img/blank.png" /></span>
           </div>
 
-          <div className="row sixteen searchArea">
-            <span className="columns four"><img src="/img/blank.png" /></span>
-            <span className="columns eight">
-              <div className = "queryForm">
-                 <URLSearchInput
-                  id=""
-                  placeholder="Enter URL"
-                  onSave={this._onSave}
-                  className="queryBox"
-                  name = "query"
-                />
-              </div>
-            </span>
-          </div>
           <div className="row recentClustrSearches">
-            <div className="recentSearchesTitle">Recent Searches:</div>
-            <div className="row sixteen noMarginContainer">
-              <div className="columns fourteen clustrSearches">{posts}</div>
+            <div className="recentSearchesTitle">Recent Connections:
             </div>
+
+
+            <ul className="row sixteen marginZero connectionBox">
+              <li className="columns three"><img src="img/blank.png" /></li>
+              <li className="columns ten">
+                <ul className="row sixteen marginZero connection">
+                  <li className="columns six">
+                    <div className="leftBox">
+                      <ul className="row sixteen marginZero">
+                        <li className="columns four addIconBox"><img className="addIcon" src="img/twitter_bird.png" /></li>
+                        <li className="columns twelve nodeTitleBox">
+                          <div className="nodeTitle">Twitter.com
+                          </div>
+                          <div className="nodeUrl">http://Twitter.com</div>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
+                  <li className="columns six">
+                    <div className="rightBox">
+                      <ul className="row sixteen marginZero">
+                        <li className="columns four addIconBox"><img className="addIcon" src="img/foursquare.png" /></li>
+                        <li className="columns twelve nodeTitleBox">
+                          <div className="nodeTitle">Foursquare.com
+                          </div>
+                          <div className="nodeUrl">http://foursquare.com</div>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <li className="columns three"><img src="img/blank.png" /></li>
+            </ul>
+
+            <ul className="row sixteen marginZero connectionBox">
+              <li className="columns three"><img src="img/blank.png" /></li>
+              <li className="columns ten">
+                <ul className="row sixteen marginZero connection">
+                  <li className="columns six">
+                    <div className="leftBox">
+                      <ul className="row sixteen marginZero">
+                        <li className="columns four addIconBox"><img className="addIcon" src="img/pinkPanther.jpg" /></li>
+                        <li className="columns twelve nodeTitleBox">
+                          <div className="nodeTitle">The Pink Panther
+                          </div>
+                          <div className="nodeUrl">http://www.amazon.com/Pink-Panther-Shawn-Levy/dp/B001ML9LSS/ref=sr_1_1?ie=UTF8&qid=1432189177&sr=8-1&keywords=pink+panther</div>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
+                  <li className="columns six">
+                    <div className="rightBox">
+                      <ul className="row sixteen marginZero">
+                        <li className="columns four addIconBox"><img className="addIcon" src="img/OSS_117.jpg" /></li>
+                        <li className="columns twelve nodeTitleBox">
+                          <div className="nodeTitle">OSS 117
+                          </div>
+                          <div className="nodeUrl">http://dvd.netflix.com/Movie/OSS-117-Cairo-Nest-of-Spies/70101687</div>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <li className="columns three"><img src="img/blank.png" /></li>
+            </ul>
+
+
+            <ul className="row sixteen marginZero connectionBox">
+              <li className="columns three"><img src="img/blank.png" /></li>
+              <li className="columns ten">
+                <ul className="row sixteen marginZero connection">
+                  <li className="columns six">
+                    <div className="leftBox">
+                      <ul className="row sixteen marginZero">
+                        <li className="columns four addIconBox"><img className="addIcon" src="img/britneymadonna.png" /></li>
+                        <li className="columns twelve nodeTitleBox">
+                          <div className="nodeTitle">Britney Spears Madonna Kiss
+                          </div>
+                          <div className="nodeUrl">http://mewarnai.us/486442-britney-spears-madonna-kiss</div>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
+                  <li className="columns six">
+                    <div className="rightBox">
+                      <ul className="row sixteen marginZero">
+                        <li className="columns four addIconBox"><img className="addIcon" src="img/kanyekanye.png" /></li>
+                        <li className="columns twelve nodeTitleBox">
+                          <div className="nodeTitle">Kanye West Kissing Himself
+                          </div>
+                          <div className="nodeUrl">http://firsttoknow.com/kanye-west-kissing-himself-photo/</div>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <li className="columns three"><img src="img/blank.png" /></li>
+            </ul>
+
+
+            <ul className="row sixteen marginZero connectionBox">
+              <li className="columns three"><img src="img/blank.png" /></li>
+              <li className="columns ten">
+                <ul className="row sixteen marginZero connection">
+                  <li className="columns six">
+                    <div className="leftBox">
+                      <ul className="row sixteen marginZero">
+                        <li className="columns four addIconBox"><img className="addIcon" src="img/twitter_bird.png" /></li>
+                        <li className="columns twelve nodeTitleBox">
+                          <div className="nodeTitle">Twitter.com
+                          </div>
+                          <div className="nodeUrl">http://Twitter.com</div>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
+                  <li className="columns six">
+                    <div className="rightBox">
+                      <ul className="row sixteen marginZero">
+                        <li className="columns four addIconBox"><img className="addIcon" src="img/foursquare.png" /></li>
+                        <li className="columns twelve nodeTitleBox">
+                          <div className="nodeTitle">Foursquare.com
+                          </div>
+                          <div className="nodeUrl">http://foursquare.com</div>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <li className="columns three"><img src="img/blank.png" /></li>
+            </ul>
+
+
+
+          <ul className="row sixteen marginZero connectionBox">
+            <li className="columns three"><img src="img/blank.png" /></li>
+              <li className="columns ten">
+                <ul className="row sixteen marginZero connection">
+                  <li className="columns six">
+                    <div className="leftBox">
+                      <ul className="row sixteen marginZero">
+                        <li className="columns four addIconBox"><img className="addIcon" src="img/pinkPanther.jpg" /></li>
+                        <li className="columns twelve nodeTitleBox">
+                          <div className="nodeTitle">The Pink Panther
+                          </div>
+                          <div className="nodeUrl">http://www.amazon.com/Pink-Panther-Shawn-Levy/dp/B001ML9LSS/ref=sr_1_1?ie=UTF8&qid=1432189177&sr=8-1&keywords=pink+panther</div>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
+                  <li className="columns six">
+                    <div className="rightBox">
+                      <ul className="row sixteen marginZero">
+                        <li className="columns four addIconBox"><img className="addIcon" src="img/OSS_117.jpg" /></li>
+                        <li className="columns twelve nodeTitleBox">
+                          <div className="nodeTitle">OSS 117
+                          </div>
+                          <div className="nodeUrl">http://dvd.netflix.com/Movie/OSS-117-Cairo-Nest-of-Spies/70101687</div>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <li className="columns three"><img src="img/blank.png" /></li>
+            </ul>
+
+
+
+            <ul className="row sixteen marginZero connectionBox">
+              <li className="columns three"><img src="img/blank.png" /></li>
+              <li className="columns ten">
+                <ul className="row sixteen marginZero connection">
+                  <li className="columns six">
+                    <div className="leftBox">
+                      <ul className="row sixteen marginZero">
+                        <li className="columns four addIconBox"><img className="addIcon" src="img/britneymadonna.png" /></li>
+                        <li className="columns twelve nodeTitleBox">
+                          <div className="nodeTitle">Britney Spears Madonna Kiss
+                          </div>
+                          <div className="nodeUrl">http://mewarnai.us/486442-britney-spears-madonna-kiss</div>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
+                  <li className="columns six">
+                    <div className="rightBox">
+                      <ul className="row sixteen marginZero">
+                        <li className="columns four addIconBox"><img className="addIcon" src="img/kanyekanye.png" /></li>
+                        <li className="columns twelve nodeTitleBox">
+                          <div className="nodeTitle">Kanye West Kissing Himself
+                          </div>
+                          <div className="nodeUrl">http://firsttoknow.com/kanye-west-kissing-himself-photo/</div>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <li className="columns three"><img src="img/blank.png" /></li>
+            </ul>
+
+
           </div>
         </div>
       );
