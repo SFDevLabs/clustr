@@ -278,25 +278,33 @@ header{
 .addPageContainer{
   font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
     margin: 0;
+  .connectMetaphor{
+    width: 80%;
+    margin-top: 30px;
+    min-width: 130px;
+  }
   .connectionBox{
     margin-top: 20px;
     .connection{
       min-width: 900px !important;
     }
-    .connectMetaphor{
-      width: 80%;
-      margin-top: 30px;
-      min-width: 130px;
-    }
     .leftBox{
       min-width: 330px;
-      border: 1px solid rgba(1, 0, 0, .05);
+      
       height: 80px;
     }
     .rightBox{
       min-width: 330px;
-      border: 1px solid rgba(1, 0, 0, .05);
       height: 80px;
+    }
+    .border{
+      border: 1px solid rgba(1, 0, 0, .05);
+    }
+    .url-input{
+      margin: 25px;
+      input{
+        width: 300px;
+      }
     }
     .nodeTitleBox{
       height: 80px;

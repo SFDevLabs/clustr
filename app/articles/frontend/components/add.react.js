@@ -34,30 +34,58 @@ var MainSearch = React.createClass({
 	render: function() {
 	return (
 	  <div className="addPageContainer">
-	   <AddURLInput
-	   	  onSave={this._onSave}
-	      type="text"
-	      placeholder="Input a URL"
-	      onChange={this._onChange}
-	      onKeyDown={this._onKeyDown}
-	      value={this.state.value}
-	      autoFocus={true}
-	    />
-     <AddURLInput
-        onSave={this._onSave}
-        type="text"
-        placeholder="Input a URL"
-        onChange={this._onChange}
-        onKeyDown={this._onKeyDown}
-        value={this.state.value}
-        autoFocus={true}
-      />
+
+      <ul className="row sixteen marginZero connectionBox">
+        <li className="columns three"><img src="img/blank.png" /></li>
+        <li className="columns ten">
+          <ul className="row sixteen marginZero connection">
+            <li className="columns six">
+              <div className="leftBox border">
+                <ul className="row sixteen marginZero">
+                  <li className="columns four url-input">
+                    <AddURLInput
+                    onSave={this._onSave}
+                    type="text"
+                    placeholder="Input a URL"
+                    onChange={this._onChange}
+                    onKeyDown={this._onKeyDown}
+                    value={this.state.value}
+                    autoFocus={true}
+                    />
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
+            <li className="columns six">
+              <div className="rightBox border">
+                <ul className="row sixteen marginZero">
+                  <li className="columns four url-input">
+                    <AddURLInput
+                    onSave={this._onSave}
+                    type="text"
+                    placeholder="Input a URL"
+                    onChange={this._onChange}
+                    onKeyDown={this._onKeyDown}
+                    value={this.state.value}
+                    autoFocus={true}
+                    />
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li className="columns three"><img src="img/blank.png" /></li>
+      </ul>
+
+
 	    <ul className="row sixteen marginZero connectionBox">
 	      <li className="columns three"><img src="img/blank.png" /></li>
         <li className="columns ten">
           <ul className="row sixteen marginZero connection">
             <li className="columns six">
-              <div className="leftBox">
+              <div className="leftBox border">
                 <ul className="row sixteen marginZero">
                   <li className="columns four addIconBox"><img className="addIcon" src="img/twitter_bird.png" /></li>
                   <li className="columns twelve nodeTitleBox">
@@ -70,7 +98,7 @@ var MainSearch = React.createClass({
             </li>
             <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
             <li className="columns six">
-              <div className="rightBox">
+              <div className="rightBox border">
                 <ul className="row sixteen marginZero">
                   <li className="columns four addIconBox"><img className="addIcon" src="img/foursquare.png" /></li>
                   <li className="columns twelve nodeTitleBox">
@@ -91,7 +119,7 @@ var MainSearch = React.createClass({
         <li className="columns ten">
           <ul className="row sixteen marginZero connection">
             <li className="columns six">
-              <div className="leftBox">
+              <div className="leftBox border">
                 <ul className="row sixteen marginZero">
                   <li className="columns four addIconBox"><img className="addIcon" src="img/pinkPanther.jpg" /></li>
                   <li className="columns twelve nodeTitleBox">
@@ -104,7 +132,7 @@ var MainSearch = React.createClass({
             </li>
             <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
             <li className="columns six">
-              <div className="rightBox">
+              <div className="rightBox border">
                 <ul className="row sixteen marginZero">
                   <li className="columns four addIconBox"><img className="addIcon" src="img/OSS_117.jpg" /></li>
                   <li className="columns twelve nodeTitleBox">

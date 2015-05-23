@@ -147,18 +147,6 @@ function fetchOne(id) {
 
 var ArticleStore = assign({}, EventEmitter.prototype, {
 
-  /**
-   * Tests whether all the remaining TODO items are marked as completed.
-   * @return {boolean}
-   */
-  areAllComplete: function() {
-    for (var id in _todos) {
-      if (!_todos.getIn([id, 'complete'])) {
-        return false;
-      }
-    }
-    return true;
-  },
 
   /**
    * Get the entire collection of TODOs.
@@ -189,9 +177,8 @@ var ArticleStore = assign({}, EventEmitter.prototype, {
       })
       .done(function( results ) {
         results.forEach(function(item){
-                //item.id=item._id
                 item.username=item.user?item.user.username:null; /// Copy over _id to id.
-                _todos = _todos.set(item._id, new ArticleRecord(item));
+                _todos = _todos.set(item.id, new ArticleRecord(item));
         });           
         ArticleStore.emitChange();
       }).error(errorObj.errHandle);
