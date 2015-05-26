@@ -47,7 +47,7 @@ var URLInput = React.createClass({
                     className={this.props.className}
                     id={this.props.id}
                     placeholder={this.props.placeholder}
-                    onChange={this._onChange}
+                    onChange={this._onChangeOne}
                     onKeyDown={this._onKeyDown}
                     value={this.state.valueOne}
                     autoFocus={true}
@@ -67,7 +67,7 @@ var URLInput = React.createClass({
                     className={this.props.className}
                     id={this.props.id}
                     placeholder={this.props.placeholder}
-                    onChange={this._onChange}
+                    onChange={this._onChangeTwo}
                     onKeyDown={this._onKeyDown}
                     value={this.state.valueTwo}
                     autoFocus={true}
@@ -87,22 +87,15 @@ var URLInput = React.createClass({
    * Invokes the callback passed in as onSave, allowing this component to be
    * used in different ways.
    */
-  // _onSave: function(text) {
-  //   if (text.trim()){
-  //     ArticleActions.create(text);
-  //   }
-  // }
-
-  /**
-   * Invokes the callback passed in as onSave, allowing this component to be
-   * used in different ways.
-   */
   _save: function() {
-    this.props.onSave(this.state.valueOne, this.state.valueOne);
-    this.setState({
-      valueOne: '',
-      valueTwo: ''
-    });
+    if(this.state.valueOne && this.state.valueTwo){
+      this.props.onSave(this.state.valueOne, this.state.valueOne);
+      this.setState({
+        valueOne: '',
+        valueTwo: ''
+      });
+    };
+
   },
 
   /**
