@@ -34,52 +34,7 @@ var MainSearch = React.createClass({
 	render: function() {
 	return (
 	  <div className="addPageContainer">
-
-      <ul className="row sixteen marginZero connectionBox">
-        <li className="columns three"><img src="img/blank.png" /></li>
-        <li className="columns ten">
-          <ul className="row sixteen marginZero connection">
-            <li className="columns six">
-              <div className="leftBox border">
-                <ul className="row sixteen marginZero">
-                  <li className="columns four url-input">
-                    <AddURLInput
-                    onSave={this._onSave}
-                    type="text"
-                    placeholder="Input a URL"
-                    onChange={this._onChange}
-                    onKeyDown={this._onKeyDown}
-                    value={this.state.value}
-                    autoFocus={true}
-                    />
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
-            <li className="columns six">
-              <div className="rightBox border">
-                <ul className="row sixteen marginZero">
-                  <li className="columns four url-input">
-                    <AddURLInput
-                    onSave={this._onSave}
-                    type="text"
-                    placeholder="Input a URL"
-                    onChange={this._onChange}
-                    onKeyDown={this._onKeyDown}
-                    value={this.state.value}
-                    autoFocus={true}
-                    />
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-        </li>
-        <li className="columns three"><img src="img/blank.png" /></li>
-      </ul>
-
-
+      <AddURLInput onSave={this._onSave} />
 	    <ul className="row sixteen marginZero connectionBox">
 	      <li className="columns three"><img src="img/blank.png" /></li>
         <li className="columns ten">
@@ -192,17 +147,20 @@ var MainSearch = React.createClass({
 	* Invokes the callback passed in as onSave, allowing this component to be
 	* used in different ways.
 	*/
-	_onSave: function(text) {
-		if (text.trim()){
-		  ArticleActions.create(text);
-		}
+	_onSave: function(valueTwo, valueOne) {
+		//if (text.trim()){
+
+      
+      //ArticleActions.create(text);
+		//}
+    console.log(text, number);
+    console.log(text, number);
 	},
 
 	/**
 	* @param {object} event
 	*/
 	_onChange: function(/*object*/ event) {
-		debugger
 		this.setState({
 		  value: event.target.value
 		});

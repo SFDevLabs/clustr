@@ -54,15 +54,25 @@ exports.getAll = function (req, res){
   });
 }
 
+function URLParse(url){
+  var URL = url.parse(url);
+  return  URL.hostname+URL.pathname;
+}
+
 /**
  * Create
  */
 exports.create = function (req, res){
-  var url = req.body.url;
-  GraphModel.create({
-    url:url
+  var urlOne = url.parse(req.body.urlOne);
+  var urlTwo = url.parse(req.body.urlTwo);
+  
+  GraphModel.createConnection({
+    url:urlOne,
+  },{
+    url:urlTwo
+  },{
+
   }, function(err, result){
-    console.log(result)
     res.send(result);
   })
   

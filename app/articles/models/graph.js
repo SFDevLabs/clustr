@@ -11,7 +11,7 @@ var db = new neo4j.GraphDatabase(
 
 // private constructor:
 
-var User = function User(_node) {
+var Site = function Site(_node) {
     // all we'll really store is the node; the rest of our properties will be
     // derivable or just pass-through properties (see below).
     this._node = _node;
@@ -19,11 +19,11 @@ var User = function User(_node) {
 
 // public instance properties:
 
-Object.defineProperty(User.prototype, 'id', {
+Object.defineProperty(Site.prototype, 'id', {
     get: function () { return this._node.id; }
 });
 
-Object.defineProperty(User.prototype, 'name', {
+Object.defineProperty(Site.prototype, 'name', {
     get: function () {
         return this._node.data['name'];
     },
@@ -34,19 +34,19 @@ Object.defineProperty(User.prototype, 'name', {
 
 // public instance methods:
 
-User.prototype.save = function (callback) {
+Site.prototype.save = function (callback) {
     this._node.save(function (err) {
         callback(err);
     });
 };
 
-User.prototype.del = function (callback) {
+Site.prototype.del = function (callback) {
     // use a Cypher query to delete both this user and his/her following
     // relationships in one transaction and one network request:
     // (note that this'll still fail if there are any relationships attached
     // of any other types, which is good because we don't expect any.)
     var query = [
-        'MATCH (user:User)',
+        'MATCH (user:Site)',
         'WHERE ID(user) = {userId}',
         'DELETE user',
         'WITH user',
@@ -63,13 +63,13 @@ User.prototype.del = function (callback) {
     });
 };
 
-User.prototype.update = function (callback) {
+Site.prototype.update = function (callback) {
     // use a Cypher query to delete both this user and his/her following
     // relationships in one transaction and one network request:
     // (note that this'll still fail if there are any relationships attached
     // of any other types, which is good because we don't expect any.)
     // var query = [
-    //     'MATCH (user:User)',
+    //     'MATCH (user:Site)',
     //     'WHERE ID(user) = {userId}',
     //     'SET user[key]',
     // ].join('\n')
@@ -84,15 +84,15 @@ User.prototype.update = function (callback) {
     // });
 };
 
-User.prototype.follow = function (other, callback) {
+Site.prototype.follow = function (other, callback) {
     this._node.createRelationshipTo(other._node, 'follows', {}, function (err, rel) {
         callback(err);
     });
 };
 
-User.prototype.unfollow = function (other, callback) {
+Site.prototype.unfollow = function (other, callback) {
     var query = [
-        'MATCH (user:User) -[rel:follows]-> (other:User)',
+        'MATCH (user:Site) -[rel:follows]-> (other:Site)',
         'WHERE ID(user) = {userId} AND ID(other) = {otherId}',
         'DELETE rel',
     ].join('\n')
@@ -109,10 +109,10 @@ User.prototype.unfollow = function (other, callback) {
 
 // calls callback w/ (err, following, others) where following is an array of
 // users this user follows, and others is all other users minus him/herself.
-User.prototype.getFollowingAndOthers = function (callback) {
+Site.prototype.getFollowingAndOthers = function (callback) {
     // query all users and whether we follow each one or not:
     var query = [
-        'MATCH (user:User), (other:User)',
+        'MATCH (user:Site), (other:Site)',
         'OPTIONAL MATCH (user) -[rel:follows]-> (other)',
         'WHERE ID(user) = {userId}',
         'RETURN other, COUNT(rel)', // COUNT(rel) is a hack for 1 or 0
@@ -130,7 +130,7 @@ User.prototype.getFollowingAndOthers = function (callback) {
         var others = [];
 
         for (var i = 0; i < results.length; i++) {
-            var other = new User(results[i]['other']);
+            var other = new Site(results[i]['other']);
             var follows = results[i]['COUNT(rel)'];
 
             if (user.id === other.id) {
@@ -148,23 +148,23 @@ User.prototype.getFollowingAndOthers = function (callback) {
 
 // static methods:
 
-User.get = function (id, callback) {
+Site.get = function (id, callback) {
     db.getNodeById(id, function (err, node) {
         if (err) return callback(err);
-        callback(null, new User(node));
+        callback(null, new Site(node));
     });
 };
 
-User.getAll = function (callback) {
+Site.getAll = function (callback) {
     var query = [
-        'MATCH (user:User)',
+        'MATCH (user:Site)',
         'RETURN user',
     ].join('\n');
 
     db.query(query, null, function (err, results) {
         if (err) return callback(err);
         // var users = results.map(function (result) {
-        //     return new User(result['user']);
+        //     return new Site(result['user']);
         // });
         console.log(results.map)
         callback(null, results);
@@ -172,36 +172,41 @@ User.getAll = function (callback) {
 };
 
 // creates the user and persists (saves) it to the db, incl. indexing it:
-User.create = function (data, callback) {
+Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
     // construct a new instance of our class with the data, so it can
     // validate and extend it, etc., if we choose to do that in the future:
     var node = db.createNode(data);
-    var user = new User(node);
+    var user = new Site(node);
+
 
     // but we do the actual persisting with a Cypher query, so we can also
     // apply a label at the same time. (the save() method doesn't support
     // that, since it uses Neo4j's REST API, which doesn't support that.)
     var query = [
-        'CREATE (user:User {data})',
+        'CREATE (siteOne:Site {nodeOne})',
+        'CREATE (SiteTwo:Site {nodeTwo})',
+        'CREATE (siteOne)-[:USER{edge}]->(SiteTwo)',
         'RETURN user',
     ].join('\n');
 
     var params = {
-        data: data
+        nodeOne: nodeOne,
+        nodeTwo: nodeTwo,
+        edge: edge
     };
 
     db.query(query, params, function (err, results) {
         if (err) return callback(err);
-        var user = new User(results[0]['user']);
+        var user = new Site(results[0]['user']);
         callback(null, user);
     });
 };
 
-// User.getAll(function(err, users){
+// Site.getAll(function(err, users){
 //   if (err){
 //     console.log("Error, Cannot connect to Neo4J! You might need to disable Auth! change 'dbms.security.auth_enabled=false' in the conf/neo4j-server.properties file", err.message)
 //   }
   
 // })
 
-module.exports = User;
+module.exports = Site;

@@ -18,16 +18,12 @@ var URLInput = React.createClass({
 
   mixins: [Navigation],
   propTypes: {
-    className: ReactPropTypes.string,
-    id: ReactPropTypes.string,
-    placeholder: ReactPropTypes.string,
     onSave: ReactPropTypes.func.isRequired,
-    value: ReactPropTypes.string
   },
 
   getInitialState: function() {
     return {
-      value: this.props.value || ''
+      value: ''
     };
   },
 
@@ -36,19 +32,54 @@ var URLInput = React.createClass({
    */
   render: function() {
     return (
-      <div>
-        <input
-          type="text" 
-          name={this.props.name}
-          className={this.props.className}
-          id={this.props.id}
-          placeholder={this.props.placeholder}
-          onChange={this._onChange}
-          onKeyDown={this._onKeyDown}
-          value={this.state.value}
-          autoFocus={true}
-        />
-      </div>
+
+      <ul className="row sixteen marginZero connectionBox">
+        <li className="columns three"><img src="img/blank.png" /></li>
+        <li className="columns ten">
+          <ul className="row sixteen marginZero connection">
+            <li className="columns six">
+              <div className="leftBox border">
+                <ul className="row sixteen marginZero">
+                  <li className="columns four url-input">
+                  <input
+                    type="text" 
+                    name={this.props.name}
+                    className={this.props.className}
+                    id={this.props.id}
+                    placeholder={this.props.placeholder}
+                    onChange={this._onChange}
+                    onKeyDown={this._onKeyDown}
+                    value={this.state.valueOne}
+                    autoFocus={true}
+                  />
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
+            <li className="columns six">
+              <div className="rightBox border">
+                <ul className="row sixteen marginZero">
+                  <li className="columns four url-input">
+                  <input
+                    type="text" 
+                    name={this.props.name}
+                    className={this.props.className}
+                    id={this.props.id}
+                    placeholder={this.props.placeholder}
+                    onChange={this._onChange}
+                    onKeyDown={this._onKeyDown}
+                    value={this.state.valueTwo}
+                    autoFocus={true}
+                  />
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li className="columns three"><img src="img/blank.png" /></li>
+      </ul>
     );
   },
 
@@ -67,18 +98,28 @@ var URLInput = React.createClass({
    * used in different ways.
    */
   _save: function() {
-    this.props.onSave(this.state.value);
+    this.props.onSave(this.state.valueOne, this.state.valueOne);
     this.setState({
-      value: ''
+      valueOne: '',
+      valueTwo: ''
     });
   },
 
   /**
    * @param {object} event
    */
-  _onChange: function(/*object*/ event) {
+  _onChangeOne: function(event) {
     this.setState({
-      value: event.target.value
+      valueOne: event.target.value,
+    });
+  },
+
+  /**
+   * @param {object} event
+   */
+  _onChangeTwo: function(event) {
+    this.setState({
+      valueTwo: event.target.value
     });
   },
 
