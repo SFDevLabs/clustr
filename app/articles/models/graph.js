@@ -147,17 +147,34 @@ Site.prototype.getFollowingAndOthers = function (callback) {
 
 // static methods:
 
-Site.get = function (id, callback) {
-    var query = [
-        'START USEREDGE = relationship('+id+')',
-        'RETURN USEREDGE, startNode(USEREDGE), endNode(USEREDGE)'
-    ].join('\n');
+// Site.get = function (id, callback) {
+//     var query = [
+//         'START USEREDGE = relationship('+id+')',
+//         'RETURN USEREDGE, startNode(USEREDGE), endNode(USEREDGE)'
+//     ].join('\n');
 
-    db.query(query, null, function (err, result) {
-        if (err) return callback(err);
+//     db.query(query, null, function (err, result) {
+//         if (err) return callback(err);
 
         
-        callback(null, relationshipParser(result[0]));
+//         callback(null, relationshipParser(result[0]));
+//     });
+// };
+
+Site.get = function (id, callback) {
+    var query = [
+        'START siteFrom = node('+id+')',
+        'MATCH siteFrom -[USEREDGE:USEREDGE]-(siteTo:Site)',
+        'RETURN USEREDGE, siteTo'
+    ].join('\n');
+
+    db.query(query, null, function (err, results) {
+        if (err) return callback(err);
+        var parsedResult = results.map(function (result) {
+            return itemParser(result);
+        })
+        
+        callback(null, parsedResult);
     });
 };
 
@@ -174,8 +191,10 @@ function relationshipParser(result){
 
 function itemParser(result){
     var item = {};
-    item[siteFrom]=result.data.graph.nodes[0].properties;
-    item[siteFrom].id=result.data.graph.nodes[1].id;
+    item['siteTo']=result['siteTo']._data.metadata
+    item['siteTo'].id=result['siteTo']._data.metadata.id;
+    item['USEREDGE']=result['USEREDGE']._data.metadata
+    item['USEREDGE'].id=result['USEREDGE']._data.metadata.id;
     return item;
 }
 

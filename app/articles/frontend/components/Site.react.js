@@ -50,10 +50,11 @@ var Query = React.createClass({
 
   render: function() {
     var post = this.state.post;
-    var item = post.USEREDGE?(<Item item={post} />):null;  ///Check that we have a full response.
+    //var item = post.USEREDGE?(<Item item={post} />):null;  ///Check that we have a full response.
+    debugger
     return (
       <div className="row searchResults">
-        {item}
+        {post}
       </div>)
     
   },
