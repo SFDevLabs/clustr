@@ -88,14 +88,13 @@ var URLInput = React.createClass({
    * used in different ways.
    */
   _save: function() {
-    if(this.state.valueOne && this.state.valueTwo){
-      this.props.onSave(this.state.valueOne, this.state.valueOne);
-      this.setState({
-        valueOne: '',
-        valueTwo: ''
-      });
+    if(this.state.valueOne && this.state.valueTwo){// Success we have both URLS
+      this.props.onSave(this.state.valueOne, this.state.valueOne); //We pass them to the save function
+      // this.setState({//Reset the Front
+      //   valueOne: '',
+      //   valueTwo: ''
+      // });
     };
-
   },
 
   /**

@@ -26,10 +26,11 @@ var ArticleActions = {
   /**
    * @param  {string} text
    */
-  create: function(url) {
+  create: function(urlOne, urlTwo) {
     AppDispatcher.dispatch({
       actionType: TodoConstants.TODO_CREATE,
-      url: url
+      urlOne: urlOne,
+      urlTwo: urlTwo
     });
   },
 

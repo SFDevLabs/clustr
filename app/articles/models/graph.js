@@ -175,19 +175,21 @@ Site.getAll = function (callback) {
 Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
     // construct a new instance of our class with the data, so it can
     // validate and extend it, etc., if we choose to do that in the future:
-    var node = db.createNode(data);
-    var user = new Site(node);
+    // var node = db.createNode(data);
+    // var user = new Site(node);
 
 
     // but we do the actual persisting with a Cypher query, so we can also
     // apply a label at the same time. (the save() method doesn't support
     // that, since it uses Neo4j's REST API, which doesn't support that.)
-    var query = [
-        'CREATE (siteOne:Site {nodeOne})',
-        'CREATE (SiteTwo:Site {nodeTwo})',
-        'CREATE (siteOne)-[:USER{edge}]->(SiteTwo)',
-        'RETURN user',
-    ].join('\n');
+    
+    var query = [];
+    query.push('CREATE (siteOne:Site {nodeOne})');
+    query.push('CREATE (SiteTwo:Site {nodeTwo})');
+    query.push('CREATE (siteOne)-[userEdge:USER{edge}]->(SiteTwo)');
+    query.push('RETURN userEdge');
+    query = query.join('\n');
+
 
     var params = {
         nodeOne: nodeOne,
@@ -195,10 +197,12 @@ Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
         edge: edge
     };
 
+    console.log(query, params, 'params')
+
     db.query(query, params, function (err, results) {
         if (err) return callback(err);
-        var user = new Site(results[0]['user']);
-        callback(null, user);
+        //var user = new Site(results[0]['user']);
+        callback(null, results);
     });
 };
 

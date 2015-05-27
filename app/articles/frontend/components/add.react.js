@@ -147,14 +147,12 @@ var MainSearch = React.createClass({
 	* Invokes the callback passed in as onSave, allowing this component to be
 	* used in different ways.
 	*/
-	_onSave: function(valueTwo, valueOne) {
-		//if (text.trim()){
-
-      
-      //ArticleActions.create(text);
-		//}
-    console.log(text, number);
-    console.log(text, number);
+	_onSave: function(valueOne, valueTwo) {
+		if (valueOne.length>0 && valueTwo.length>0){
+      ArticleActions.create(valueOne, valueTwo);
+		}
+    // console.log(text, number);
+    // console.log(text, number);
 	},
 
 	/**

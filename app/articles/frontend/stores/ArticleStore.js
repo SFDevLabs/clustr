@@ -37,16 +37,17 @@ var ArticleRecord = Immutable.Record({
  * Create a TODO item.
  * @param  {string} text The content of the TODO
  */
-function create(url) {
+function create(urlOne, urlTwo) {
   // Hand waving here -- not showing how this interacts with XHR or persistent
   // Using the current timestamp + random number in place of a real id.
   $.ajax({
     method: "POST",
     url: urlBase,
-    data: {url:url,_csrf:csrfToken}
+    data: {urlOne:urlOne, urlTwo:urlTwo, _csrf:csrfToken}
   })
   .done(function( result ) {
-    _todos = _todos.set(result._id, new ArticleRecord({id : result._id, url : result.url, username: 'userHolder'}));
+    console.log(result);
+    //_todos = _todos.set(result._id, new ArticleRecord({id : result._id, url : result.url, username: 'userHolder'}));
     ArticleStore.emitChange();
   }).error(errorObj.errHandle);
 }
@@ -214,9 +215,10 @@ AppDispatcher.register(function(action) {
 
   switch(action.actionType) {
     case TodoConstants.TODO_CREATE:
-      url = action.url.trim();
-      if (url !== '') {
-        create(url);
+      var urlOne = action.urlOne.trim();
+      var urlTwo = action.urlTwo.trim();
+      if (urlOne !== '' && urlTwo !== '') {
+        create(urlOne, urlTwo);
       }
       break;
 

@@ -7,6 +7,7 @@
  var Article = mongoose.model('Articles');
  var utils = require('../../../lib/utils');
  var GraphModel = require('../models/graph');
+ var url = require('url');
 
 /**
  * Load
@@ -54,8 +55,8 @@ exports.getAll = function (req, res){
   });
 }
 
-function URLParse(url){
-  var URL = url.parse(url);
+function URLParse(inputURL){
+  var URL = url.parse(inputURL);
   return  URL.hostname+URL.pathname;
 }
 
@@ -63,8 +64,8 @@ function URLParse(url){
  * Create
  */
 exports.create = function (req, res){
-  var urlOne = url.parse(req.body.urlOne);
-  var urlTwo = url.parse(req.body.urlTwo);
+  var urlOne = URLParse(req.body.urlOne);
+  var urlTwo = URLParse(req.body.urlTwo);
   
   GraphModel.createConnection({
     url:urlOne,
@@ -73,7 +74,8 @@ exports.create = function (req, res){
   },{
 
   }, function(err, result){
-    res.send(result);
+    console.log(err, result)
+    res.send(err);
   })
   
 }
