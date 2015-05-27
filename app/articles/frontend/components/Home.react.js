@@ -84,11 +84,7 @@ var ArticleApp = React.createClass({
             <div className="row recentClustrSearches">
               <div className="recentSearchesTitle">Recent Connections:
             </div>
-
             {posts}
-            
-
-
           </div>
         </div>
       );
