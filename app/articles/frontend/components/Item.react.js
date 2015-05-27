@@ -31,28 +31,44 @@ var ArticleItem = React.createClass({
    */
   render: function() {
     var item = this.props.item;
-    var link="/"+item.id;
+    var link="/"+item.USEREDGE.id;
     return (
       <div>
-        <div className="recentClustrSearch columns ten">
-          <div>
-            <img className="clustrArticleThumbnail" src="img/fender.jpg" />
-          </div>
-          <ul className="clustrTextBox">
-            <li className="clustrSearchText">Title: {item.url}</li>
-            <li className="linkToClustrArticle">
-              <Link  to={link} >{item.url}</Link>
-            </li>
+        <a href={link}>
+          <ul className="row sixteen marginZero connectionBox">
+              <li className="columns three"><img src="img/blank.png" /></li>
+              <li className="columns ten">
+                <ul className="row sixteen marginZero connection">
+                  <li className="columns six">
+                    <div className="leftBox">
+                      <ul className="row sixteen marginZero">
+                        <li className="columns four addIconBox"><img className="addIcon" src="img/twitter_bird.png" /></li>
+                        <li className="columns twelve nodeTitleBox">
+                          <div className="nodeTitle">{item.siteTo.url}
+                          </div>
+                          <div className="nodeUrl">{item.siteFrom.url}</div>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
+                  <li className="columns six">
+                    <div className="rightBox">
+                      <ul className="row sixteen marginZero">
+                        <li className="columns four addIconBox"><img className="addIcon" src="img/foursquare.png" /></li>
+                        <li className="columns twelve nodeTitleBox">
+                          <div className="nodeTitle">{item.siteTo.url}
+                          </div>
+                          <div className="nodeUrl">{item.siteTo.url}</div>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <li className="columns three"><img src="img/blank.png" /></li>
           </ul>
-
-
-        </div>
-        <div className="clustrSearchUserBox">
-          <ul className="clustrSearchUser">
-            <li className="clustrSearchUserImg"><img className="clustrSearchUserImg" src="/img/eoin_profile.jpg"/></li>
-            <li className="clustrSearchUsername">{item.username}</li>
-          </ul>
-        </div>
+        </a>
       </div>
     );
   },

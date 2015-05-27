@@ -186,9 +186,15 @@ Site.getAll = function (callback) {
         if (err) return callback(err);
         var parsedResult = results.map(function (result) {
             var item = {};
-            item[siteFrom]=result[siteFrom]._data.data
-            item[USEREDGE] = result[USEREDGE]._data.data
-            item[siteTo] = result[siteTo]._data.data
+            item[siteFrom]=result[siteFrom]._data.data;
+            item[siteFrom].id=result[siteFrom]._data.metadata.id;
+
+            item[USEREDGE] = result[USEREDGE]._data.data;
+            item[USEREDGE].id=result[USEREDGE]._data.metadata.id;
+
+            item[siteTo] = result[siteTo]._data.data;
+            item[siteTo].id=result[siteTo]._data.metadata.id;
+
             return item
         });
 

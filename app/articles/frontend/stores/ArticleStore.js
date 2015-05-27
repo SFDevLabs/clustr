@@ -24,13 +24,17 @@ var urlBase = '/apigraph/articles/';
 var errorObj = require('./errorHandle');
 
 var ArticleRecord = Immutable.Record({
-  id : null,
-  title : null,
-  username: null,
-  url: null,
-  description:null,
-  user: null,
-  tags:null
+  USEREDGE: {
+    id:null
+  },
+  siteFrom: {
+    id:null,
+    url:null
+  },
+  siteTo: {
+    id:null,
+    url:null
+  }
 });
 
 /**
@@ -177,9 +181,10 @@ var ArticleStore = assign({}, EventEmitter.prototype, {
         url: urlBase,
       })
       .done(function( results ) {
+
         results.forEach(function(item){
-                item.username=item.user?item.user.username:null; /// Copy over _id to id.
-                _todos = _todos.set(item.id, new ArticleRecord(item));
+                //item.username=item.user?item.user.username:null; /// Copy over _id to id.
+                _todos = _todos.set(item.USEREDGE.id, new ArticleRecord(item));
         });           
         ArticleStore.emitChange();
       }).error(errorObj.errHandle);
