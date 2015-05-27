@@ -41,7 +41,6 @@ var MainSearch = React.createClass({
 	  )
 	},
 
-
 	/**
 	* Invokes the callback passed in as onSave, allowing this component to be
 	* used in different ways.

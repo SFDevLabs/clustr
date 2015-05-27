@@ -29,7 +29,6 @@ exports.load = function (req, res, next, id){
 
 
 exports.urlsearch = function (req, res){
-  console.log(req.param('url'));
   var url = req.param('url');
 
   if (!url) return res.send(utils.errMsg('No URL to Query.'))
@@ -75,24 +74,19 @@ exports.create = function (req, res){
   },{
 
   }, function(err, result){
-    console.log(err, result)
     res.send(err);
   })
   
 }
 
 /**
- * Create
+ * Get
  */
-exports.get = function (req, res, id){
+exports.get = function (req, res){
   var id = Number(req.param('uid'));
   GraphModel.get(id, function(err, result){
-    //console.log(result._node._data);
-    if (!result) return res.send({});
-    var item = {};
-    item.url = result._node._data.data.url;
-    item.id = id;
-    res.send(item);
+    console.log(err, result);
+    res.send(result);
   });
 }
 

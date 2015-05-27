@@ -8,17 +8,6 @@ var db = new neo4j.GraphDatabase(
     config.graphdb
 );
 
-
-
-var keyMirror = require('keymirror');
-
-var GraphConstants = keyMirror({
-  USEREDGE: null,
-  siteFrom: null,
-  siteTo: null
-});
-
-
 // private constructor:
 
 var Site = function Site(_node) {
@@ -159,45 +148,63 @@ Site.prototype.getFollowingAndOthers = function (callback) {
 // static methods:
 
 Site.get = function (id, callback) {
-    db.getNodeById(id, function (err, node) {
+    var query = [
+        'START USEREDGE = relationship('+id+')',
+        'RETURN USEREDGE, startNode(USEREDGE), endNode(USEREDGE)'
+    ].join('\n');
+
+    db.query(query, null, function (err, result) {
         if (err) return callback(err);
-        callback(null, new Site(node));
+
+        
+        callback(null, relationshipParser(result[0]));
     });
 };
 
+function relationshipParser(result){
+    var item = {};
+    item['siteFrom']=result['startNode(USEREDGE)']._data.data;
+    item['siteFrom'].id=result['startNode(USEREDGE)']._data.metadata.id;
+    item['siteTo'] = result['endNode(USEREDGE)']._data.data;
+    item['siteTo'].id = result['endNode(USEREDGE)']._data.metadata.id;
+    item['USEREDGE'] = result['USEREDGE']._data.data;
+    item['USEREDGE'].id = result['USEREDGE']._data.metadata.id;
+    return item
+}
+
+function itemParser(result){
+    var item = {};
+    item[siteFrom]=result.data.graph.nodes[0].properties;
+    item[siteFrom].id=result.data.graph.nodes[1].id;
+    return item;
+}
+
+
+        
+
+        
 Site.getAll = function (callback) {
 
-    var siteFrom = GraphConstants.siteFrom;
-    var siteTo = GraphConstants.siteTo
-    var USEREDGE = GraphConstants.USEREDGE
-
     var query = [
-        'MATCH ('+siteFrom+')-['+USEREDGE+':'+USEREDGE+']->('+siteTo+')',
-        'RETURN '+USEREDGE+', '+siteFrom+', '+siteTo
+        'MATCH (siteFrom)-[USEREDGE:USEREDGE]->(siteTo)',
+        'RETURN USEREDGE, siteFrom, siteTo'
     ].join('\n');
 
-
-// MATCH (n { name: 'Andres' })-[r]-()
-// DELETE n, r
-
     db.query(query, null, function (err, results) {
-        console.log(err, 'res')
-
         if (err) return callback(err);
         var parsedResult = results.map(function (result) {
             var item = {};
-            item[siteFrom]=result[siteFrom]._data.data;
-            item[siteFrom].id=result[siteFrom]._data.metadata.id;
+            item['siteFrom']=result['siteFrom']._data.data;
+            item['siteFrom'].id=result['siteFrom']._data.metadata.id;
 
-            item[USEREDGE] = result[USEREDGE]._data.data;
-            item[USEREDGE].id=result[USEREDGE]._data.metadata.id;
+            item['USEREDGE'] = result['USEREDGE']._data.data;
+            item['USEREDGE'].id=result['USEREDGE']._data.metadata.id;
 
-            item[siteTo] = result[siteTo]._data.data;
-            item[siteTo].id=result[siteTo]._data.metadata.id;
+            item['siteTo'] = result['siteTo']._data.data;
+            item['siteTo'].id = result['siteTo']._data.metadata.id;
 
             return item
         });
-
         callback(null, parsedResult);
     });
 };

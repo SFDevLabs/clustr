@@ -50,7 +50,6 @@ function create(urlOne, urlTwo) {
     data: {urlOne:urlOne, urlTwo:urlTwo, _csrf:csrfToken}
   })
   .done(function( result ) {
-    console.log(result);
     //_todos = _todos.set(result._id, new ArticleRecord({id : result._id, url : result.url, username: 'userHolder'}));
     ArticleStore.emitChange();
   }).error(errorObj.errHandle);

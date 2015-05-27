@@ -8,7 +8,7 @@ var ArticleRoutes = (
   <Route handler={require('../../main/frontend/components/App.react')} location="history" strict="false">
      <Route name="articles" path="/" handler={require('./components/Home.react')}/>
      <Route name="add" path="/add" handler={require('./components/Add.react')}/>
-     <Route name="article" path="/:id" handler={require('./components/URLQuery.react')}/>
+     <Route name="article" path="/:id" handler={require('./components/Edge.react')}/>
   </Route>
   )
 module.exports = ArticleRoutes;
