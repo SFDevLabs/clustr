@@ -9,6 +9,16 @@ var db = new neo4j.GraphDatabase(
 );
 
 
+
+var keyMirror = require('keymirror');
+
+var GraphConstants = keyMirror({
+  USEREDGE: null,
+  siteFrom: null,
+  siteTo: null
+});
+
+
 // private constructor:
 
 var Site = function Site(_node) {
@@ -156,18 +166,33 @@ Site.get = function (id, callback) {
 };
 
 Site.getAll = function (callback) {
+
+    var siteFrom = GraphConstants.siteFrom;
+    var siteTo = GraphConstants.siteTo
+    var USEREDGE = GraphConstants.USEREDGE
+
     var query = [
-        'MATCH (user:Site)',
-        'RETURN user',
+        'MATCH ('+siteFrom+')-['+USEREDGE+':'+USEREDGE+']->('+siteTo+')',
+        'RETURN '+USEREDGE+', '+siteFrom+', '+siteTo
     ].join('\n');
 
+
+// MATCH (n { name: 'Andres' })-[r]-()
+// DELETE n, r
+
     db.query(query, null, function (err, results) {
+        console.log(err, 'res')
+
         if (err) return callback(err);
-        // var users = results.map(function (result) {
-        //     return new Site(result['user']);
-        // });
-        console.log(results.map)
-        callback(null, results);
+        var parsedResult = results.map(function (result) {
+            var item = {};
+            item[siteFrom]=result[siteFrom]._data.data
+            item[USEREDGE] = result[USEREDGE]._data.data
+            item[siteTo] = result[siteTo]._data.data
+            return item
+        });
+
+        callback(null, parsedResult);
     });
 };
 
@@ -186,7 +211,7 @@ Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
     var query = [];
     query.push('CREATE (siteOne:Site {nodeOne})');
     query.push('CREATE (SiteTwo:Site {nodeTwo})');
-    query.push('CREATE (siteOne)-[userEdge:USER{edge}]->(SiteTwo)');
+    query.push('CREATE (siteOne)-[userEdge:USEREDGE{edge}]->(SiteTwo)');
     query.push('RETURN userEdge');
     query = query.join('\n');
 
@@ -205,12 +230,5 @@ Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
         callback(null, results);
     });
 };
-
-// Site.getAll(function(err, users){
-//   if (err){
-//     console.log("Error, Cannot connect to Neo4J! You might need to disable Auth! change 'dbms.security.auth_enabled=false' in the conf/neo4j-server.properties file", err.message)
-//   }
-  
-// })
 
 module.exports = Site;
