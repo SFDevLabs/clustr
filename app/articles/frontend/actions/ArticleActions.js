@@ -23,6 +23,17 @@ var ArticleActions = {
     });
   },
 
+
+  /**
+   * @param  {string} text
+   */
+  relationsFetchAll: function(id) {
+    AppDispatcher.dispatch({
+      actionType: TodoConstants.RELATIONS_FETCHALL,
+    });
+  },
+  
+
   /**
    * @param  {string} text
    */

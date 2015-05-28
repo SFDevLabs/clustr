@@ -19,20 +19,22 @@ var csrfTag = document.getElementById("csrf-token");
 var csrfToken = csrfTag ? csrfTag.dataset.csrf:null;
 var CHANGE_EVENT = 'change';
 var _history = [];
-var _nodes = Immutable.OrderedMap();
-var _edges = Immutable.OrderedMap();
+var _todos = Immutable.OrderedMap();
 var urlBase = '/apigraph/articles/';
 var errorObj = require('./errorHandle');
 
-var EdgeRecord = Immutable.Record({
-  siteFromId: null,
-  siteToId: null,
-  id:null
-});
-
-var NodeRecord = Immutable.Record({
-  id:null,
-  url:null
+var ArticleRecord = Immutable.Record({
+  USEREDGE: {
+    id:null
+  },
+  siteFrom: {
+    id:null,
+    url:null
+  },
+  siteTo: {
+    id:null,
+    url:null
+  }
 });
 
 /**
@@ -48,17 +50,17 @@ function create(urlOne, urlTwo) {
     data: {urlOne:urlOne, urlTwo:urlTwo, _csrf:csrfToken}
   })
   .done(function( result ) {
-    //_nodes = _nodes.set(result._id, new ArticleRecord({id : result._id, url : result.url, username: 'userHolder'}));
+    //_todos = _todos.set(result._id, new ArticleRecord({id : result._id, url : result.url, username: 'userHolder'}));
     ArticleStore.emitChange();
   }).error(errorObj.errHandle);
 }
 
 function addHistoryEntry() {
-  _history.push(_nodes);
+  _history.push(_todos);
 }
 
 function goToHistory(index) {
-  _nodes = _history[index];
+  _todos = _history[index];
 }
 
 /**
@@ -78,7 +80,7 @@ function update(id, updates) {
     var id = result._id;
     delete result._id
     delete result.__v
-    _nodes = _nodes.set(id, _nodes.get(id).merge(result));
+    _todos = _todos.set(id, _todos.get(id).merge(result));
     ArticleStore.emitChange();
   }).error(errorObj.errHandle);
 }
@@ -97,7 +99,7 @@ function updateWithHistory(id, updates) {
  */
 function updateAll(updates) {
   addHistoryEntry();
-  for (var id in _nodes.toObject()) {
+  for (var id in _todos.toObject()) {
     update(id, updates);
   }
 }
@@ -112,7 +114,7 @@ function destroy(id) {
     data: {_csrf:csrfToken}
   })
   .done(function( msg ) {
-    _nodes = _nodes.delete(id);
+    _todos = _todos.delete(id);
     ArticleStore.emitChange();
   }).error(errorObj.errHandle);
 }
@@ -127,60 +129,53 @@ function destroyWithHistory(id) {
  */
 function destroyCompleted() {
   addHistoryEntry();
-  for (var id in _nodes.toObject()) {
-    if (_nodes.getIn([id, 'complete'])) {
+  for (var id in _todos.toObject()) {
+    if (_todos.getIn([id, 'complete'])) {
       destroy(id);
     }
   }
-};
-
-  /**
-   * Get the entire collection of from server.
-   * @return {object}
-   */
-function fetchAllRelations() {
-      $.ajax({
-        method: "GET",
-        url: urlBase,
-      })
-      .done(function( results ) {
-        results.USEREDGE.forEach(function(item){
-          _edges = _edges.set(item.id, new EdgeRecord(item) );
-        });
-
-        results.Sites.forEach(function(item){
-          _nodes = _nodes.set(item.id, new NodeRecord(item) );        
-        });
-                
-        ArticleStore.emitChange();
-      }).error(errorObj.errHandle);
-};
+}
 
 
 
 var ArticleStore = assign({}, EventEmitter.prototype, {
 
+
   /**
    * Get the entire collection of TODOs.
    * @return {object}
    */
-  getAllEdges: function() {
-    var mappedEdges = _edges.map(function(obj){
-      var item = {};
-      item.siteFrom = ArticleStore.getOneNodeById(obj.siteFromId) 
-      item.siteTo = ArticleStore.getOneNodeById(obj.siteToId) 
-      return item;
-    });
-    return mappedEdges.toObject();
+  getAll: function() {
+    return _todos.toObject();
   },
   /**
    * Get the entire collection of TODOs.
    * @return {object}
    */
-  getOneNodeById: function(id) {
-    var record = _nodes.get(id)
+  getOneById: function(id) {
+    var record = _todos.get(id)
     if (!id || !record ) return {}; ///return nothing if there is not record.
-    return record.toObject();
+    return record.toObject()
+  },
+
+  /**
+   * Get the entire collection of from server.
+   * @return {object}
+   */
+  fetchAll: function() {
+      var that= this
+      $.ajax({
+        method: "GET",
+        url: urlBase,
+      })
+      .done(function( results ) {
+
+        results.forEach(function(item){
+                //item.username=item.user?item.user.username:null; /// Copy over _id to id.
+                _todos = _todos.set(item.USEREDGE.id, new ArticleRecord(item));
+        });           
+        ArticleStore.emitChange();
+      }).error(errorObj.errHandle);
   },
 
 
@@ -234,10 +229,6 @@ AppDispatcher.register(function(action) {
 
     case TodoConstants.TODO_DESTROY:
       destroyWithHistory(action.id);
-      break;
-
-    case TodoConstants.RELATIONS_FETCHALL:
-      fetchAllRelations(action.id);
       break;
 
     case TodoConstants.TODO_FETCH:

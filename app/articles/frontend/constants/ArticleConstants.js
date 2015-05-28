@@ -14,5 +14,6 @@ var keyMirror = require('keymirror');
 module.exports = keyMirror({
   TODO_CREATE: null,
   TODO_DESTROY: null,
-  TODO_FETCH: null
+  TODO_FETCH: null,
+  RELATIONS_FETCHALL:null
 });

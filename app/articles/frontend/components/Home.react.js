@@ -23,7 +23,7 @@ var Item = require('./Item.react');
  */
 function getArticleState() {
   return {
-    allPosts: ArticleStore.getAll(),
+    allPosts: ArticleStore.getAllEdges(),
   };
 }
 
@@ -36,7 +36,7 @@ var ArticleApp = React.createClass({
 
   componentDidMount: function() {
     ArticleStore.addChangeListener(this._onChange);
-    ArticleStore.fetchAll();
+    ArticleActions.relationsFetchAll()
   },
 
   componentWillUnmount: function() {
@@ -69,7 +69,6 @@ var ArticleApp = React.createClass({
           Site Search
         </div>
       );
-
       for (var key in allPosts) {
         posts.unshift(<Item key={key} item={allPosts[key]} />);
       }

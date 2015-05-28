@@ -51,6 +51,7 @@ exports.getAll = function (req, res){
     //   item.id = obj.user._data.metadata.id;
     //   return item;
     // });
+    console.log(err, results)
     res.send(results);
   });
 }
