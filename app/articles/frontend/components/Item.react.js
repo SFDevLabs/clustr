@@ -39,26 +39,11 @@ var ArticleItem = React.createClass({
               <li className="columns three"><img src="img/blank.png" /></li>
               <li className="columns ten">
                 <ul className="row sixteen marginZero connection">
-                  <a href={siteToLink}>
+                  <Link to={siteToLink}>
                     <li className="columns six">
                       <div className="leftBox">
                         <ul className="row sixteen marginZero">
                           <li className="columns four addIconBox"><img className="addIcon" src="img/twitter_bird.png" /></li>
-                          <li className="columns twelve nodeTitleBox">
-                            <div className="nodeTitle">{item.siteTo.url}
-                            </div>
-                            <div className="nodeUrl">{item.siteFrom.url}</div>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </a>
-                  <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
-                  <a href={siteFromLink}>
-                    <li className="columns six">
-                      <div className="rightBox">
-                        <ul className="row sixteen marginZero">
-                          <li className="columns four addIconBox"><img className="addIcon" src="img/foursquare.png" /></li>
                           <li className="columns twelve nodeTitleBox">
                             <div className="nodeTitle">{item.siteTo.url}
                             </div>
@@ -67,7 +52,22 @@ var ArticleItem = React.createClass({
                         </ul>
                       </div>
                     </li>
-                  </a>
+                  </Link>
+                  <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
+                  <Link to={siteFromLink}>
+                    <li className="columns six">
+                      <div className="rightBox">
+                        <ul className="row sixteen marginZero">
+                          <li className="columns four addIconBox"><img className="addIcon" src="img/foursquare.png" /></li>
+                          <li className="columns twelve nodeTitleBox">
+                            <div className="nodeTitle">{item.siteFrom.url}
+                            </div>
+                            <div className="nodeUrl">{item.siteFrom.url}</div>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </Link>
                 </ul>
               </li>
               <li className="columns three"><img src="img/blank.png" /></li>

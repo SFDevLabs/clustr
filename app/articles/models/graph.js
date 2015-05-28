@@ -165,15 +165,46 @@ Site.get = function (id, callback) {
     var query = [
         'START siteFrom = node('+id+')',
         'MATCH siteFrom -[USEREDGE:USEREDGE]-(siteTo:Site)',
-        'RETURN USEREDGE, siteTo'
+        'RETURN USEREDGE, siteTo, siteFrom'
     ].join('\n');
 
     db.query(query, null, function (err, results) {
         if (err) return callback(err);
-        var parsedResult = results.map(function (result) {
-            return itemParser(result);
+
+        var parsedSitesResult = [];
+        results.forEach(function (result) {
+
+            var data = result['siteFrom']._data.data;
+            data.id = result['siteFrom']._data.metadata.id;
+        
+            if ( arrayObjectIndexOf(parsedSitesResult, data.id, "id")==-1 ){
+                parsedSitesResult.push(data)
+            }
+
+            var data = result['siteTo']._data.data;
+            data.id = result['siteTo']._data.metadata.id;
+            if ( arrayObjectIndexOf(parsedSitesResult, data.id, "id")==-1 ){
+                parsedSitesResult.push(data)
+            }
         });
-        callback(null, parsedResult);
+        
+        var parsedEdgeResult = results.map(function (result) {
+
+            var item = {};
+
+            item = result['USEREDGE']._data.data;
+            item.id=result['USEREDGE']._data.metadata.id;
+
+            item.siteToId = result['siteTo']._data.metadata.id;
+            item.siteFromId = result['siteFrom']._data.metadata.id;
+
+            return item
+        });        
+
+        callback(null, {
+            Sites: parsedSitesResult,
+            USEREDGE: parsedEdgeResult
+        });
     });
 };
 
@@ -194,6 +225,10 @@ function itemParser(result){
     item['siteTo'].id=result['siteTo']._data.metadata.id;
     item['USEREDGE']=result['USEREDGE']._data.data
     item['USEREDGE'].id=result['USEREDGE']._data.metadata.id;
+
+    item['USEREDGE'].siteTo=result['siteTo']._data.metadata.id;
+    item['USEREDGE'].siteFrom=result['siteFrom']._data.metadata.id;
+
     return item;
 };
 
@@ -246,6 +281,7 @@ Site.getAll = function (callback) {
 
             return item
         });
+
         callback(null, {
             Sites: parsedSitesResult,
             USEREDGE: parsedEdgeResult

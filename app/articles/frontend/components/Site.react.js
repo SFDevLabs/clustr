@@ -24,8 +24,11 @@ var ArticleActions = require('../actions/ArticleActions');
  * Retrieve the current TODO data from the QueryStore
  */
 function getQueryState(id) {
+  id = Number(id);
+  if (isNaN(id))return {};
   return {
-    post: ArticleStore.getOneById(id)
+    post: ArticleStore.getOneNodeById(id),
+    relations: ArticleStore.getOneNodeRelationsById(id)
   };
 }
 
@@ -50,11 +53,17 @@ var Query = React.createClass({
 
   render: function() {
     var post = this.state.post;
+    var relations = this.state.relations;
+    var relation= [];
+    for (var key in relations) {
+      relation.unshift(<div>{relations[key]}</div>);
+    }
     //var item = post.USEREDGE?(<Item item={post} />):null;  ///Check that we have a full response.
-    debugger
     return (
       <div className="row searchResults">
         {post}
+        <div>---</div>
+        {relation}
       </div>)
     
   },

@@ -156,6 +156,24 @@ function fetchAllRelations() {
       }).error(errorObj.errHandle);
 };
 
+function fetchOne(id) {
+    var that= this
+    if (!id) return {}; ///return nothing if there is not record.
+    $.get(urlBase+id, function(results) {
+
+      results.USEREDGE.forEach(function(item){
+        _edges = _edges.set(item.id, new EdgeRecord(item) );
+      });
+
+      results.Sites.forEach(function(item){
+          _nodes = _nodes.set(item.id, new NodeRecord(item) );        
+      });
+
+      ArticleStore.emitChange();
+    })
+}
+
+
 
 
 var ArticleStore = assign({}, EventEmitter.prototype, {
@@ -183,6 +201,31 @@ var ArticleStore = assign({}, EventEmitter.prototype, {
     return record.toObject();
   },
 
+  /**
+   * Get the entire collection of TODOs.
+   * @return {object}
+   */
+  getOneNodeById: function(id) {
+    var record = _nodes.get(id)
+    if (!id || !record ) return {}; ///return nothing if there is not record.
+    return record.toObject();
+  },
+
+  /**
+   * Get the entire collection of TODOs.
+   * @return {object}
+   */
+  getOneNodeRelationsById: function(id) {
+    var record = _nodes.get(id)
+    if (!id || !record ) return {}; ///return nothing if there is not record.
+    var NODE_USEREDGE = _edges.map(function(obj){
+      var item = {};
+      item.siteTo = ArticleStore.getOneNodeById(obj.siteToId);
+      return item
+    });
+
+    return NODE_USEREDGE.toObject();;
+  },
 
   getHistory : function () {
     return _history;

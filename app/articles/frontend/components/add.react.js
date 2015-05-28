@@ -47,7 +47,7 @@ var MainSearch = React.createClass({
 	*/
 	_onSave: function(valueOne, valueTwo) {
 		if (valueOne.length>0 && valueTwo.length>0){
-      ArticleActions.create(valueOne, valueTwo);
+      		ArticleActions.create(valueOne, valueTwo);
 		}
     // console.log(text, number);
     // console.log(text, number);
