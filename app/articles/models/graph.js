@@ -161,6 +161,21 @@ Site.prototype.getFollowingAndOthers = function (callback) {
 //     });
 // };
 
+Site.findByURL = function (url, callback) {
+    var query = [
+        'MATCH (site:Site)',
+        'WHERE site.url = {url}',
+        'RETURN site'
+    ].join('\n');
+
+    db.query(query, {url:url}, function (err, results) {
+        if (err) return callback(err);
+
+        callback(null, results);
+    });
+};
+
+
 Site.get = function (id, callback) {
     var query = [
         'START siteFrom = node('+id+')',

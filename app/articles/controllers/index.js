@@ -33,11 +33,23 @@ exports.urlsearch = function (req, res){
 
   if (!url) return res.send(utils.errMsg('No URL to Query.'))
 
-  Article.loadURL(url, function (err, article) {
-    if (err) return next(err);
-    if (!article) return res.send({});
-    res.send(article)
+  GraphModel.findByURL(url ,function(err, results){
+      // var responseObj = results.map(function(obj){
+      //   var item={};
+      //   item = obj.user._data.data;
+      //   item.id = obj.user._data.metadata.id;
+      //   return item;
+      // });
+      console.log(err, results)
+      res.send(results);
   });
+    
+
+  // Article.loadURL(url, function (err, article) {
+  //   if (err) return next(err);
+  //   if (!article) return res.send({});
+  //   res.send(article)
+  // });
 };
 
 /**
