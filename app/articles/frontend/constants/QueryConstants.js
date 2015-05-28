@@ -13,4 +13,5 @@ var keyMirror = require('keymirror');
 
 module.exports = keyMirror({
   QUERY: null,
+  CLEAR_ALL:null
 });

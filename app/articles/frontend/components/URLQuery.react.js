@@ -18,30 +18,31 @@ var Loader = require('react-loader');
 var URLQueryResult = require('./URLQueryResult.react');
 
 
-var ArticleStore = require('../stores/ArticleStore');
-var ArticleActions = require('../actions/ArticleActions');
+var QueryStore = require('../stores/QueryStore');
+var QueryActions = require('../actions/QueryActions');
 /**
  * Retrieve the current TODO data from the QueryStore
  */
-function getQueryState(id) {
+function getQueryState(q) {
   return {
-    post: ArticleStore.getOneById(id)
+    search: QueryStore.getResult(q)
   };
 }
 
 var Query = React.createClass({
   
   getInitialState: function() {
-    return getQueryState(this.props.params.id);
+    QueryActions.clearAllQueries();
+    return getQueryState(this.props.query);
   },
 
   componentDidMount: function() {
-    ArticleStore.addChangeListener(this._onChange);
-    ArticleActions.fetch(this.props.params.id);
+    QueryStore.addChangeListener(this._onChange);
+    QueryActions.query(this.props.query)
   },
 
   componentWillUnmount: function() {
-    ArticleStore.removeChangeListener(this._onChange);
+    QueryStore.removeChangeListener(this._onChange);
   },
 
   /**
@@ -49,15 +50,22 @@ var Query = React.createClass({
    */
 
   render: function() {
-    var post = this.state.post;
+    var search = this.state.search;
     var result;
-    if (!post) {  //Empty resonse wait for ajax response
+    
+
+    // var result;
+    if (search.length===0) {  //Empty resonse wait for ajax response
       result = (<Loader/>)
-    }else if (!post.id===null){ //No response from search api.
+    }else if (search[0]===null){ //No response from search api.
       result = (<div>No Result</div>)
-    }else{ //We got a response.  TODO Abstract this out.
-      result = (<URLQueryResult post={post} />)
+    }else{
+      var result=[];
+      for (var key in search) {
+        result.unshift(<URLQueryResult post={search[key]} />);
+      }
     }//end of results
+
     return (
       <div className="row searchResults">
         {result}
@@ -69,7 +77,7 @@ var Query = React.createClass({
    * Event handler for 'change' events coming from the QueryStore
    */
   _onChange: function() {
-    this.setState(getQueryState(this.props.params.id));
+    this.setState(getQueryState(this.props.query));
   },
   /**
    * Event handler called within TodoTextInput.

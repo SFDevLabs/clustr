@@ -21,6 +21,13 @@ var QueryActions = {
       text: text
     });
   },
+  clearAllQueries: function(text) {
+    AppDispatcher.dispatch({
+      actionType: QueryConstants.CLEAR_ALL,
+    });
+  },
+
+
 
 
 };

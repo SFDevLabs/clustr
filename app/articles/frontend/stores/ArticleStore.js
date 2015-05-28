@@ -159,8 +159,11 @@ function fetchAllRelations() {
 function fetchOne(id) {
     var that= this
     if (!id) return {}; ///return nothing if there is not record.
-    $.get(urlBase+id, function(results) {
-
+    $.ajax({
+        method: "GET",
+        url: urlBase+id,
+    })
+    .done(function( results ) {
       results.USEREDGE.forEach(function(item){
         _edges = _edges.set(item.id, new EdgeRecord(item) );
       });
@@ -172,8 +175,6 @@ function fetchOne(id) {
       ArticleStore.emitChange();
     })
 }
-
-
 
 
 var ArticleStore = assign({}, EventEmitter.prototype, {

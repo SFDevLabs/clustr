@@ -19,17 +19,12 @@ var csrfTag = document.getElementById("csrf-token");
 var csrfToken = csrfTag ? csrfTag.dataset.csrf:null;
 var CHANGE_EVENT = 'change';
 var _history = [];
-var urlBase = '/api/query/'
+var urlBase = '/apigraph/query/'
 var errorObj = require('./errorHandle');
-var _result = Immutable.Map()
+var _results = Immutable.Map()
 var QueryRecord = Immutable.Record({
   id : null,
-  title : null,
-  username: null,
-  url: null,
-  description:null,
-  user: null,
-  tags:null
+  url: null
 });
 
 
@@ -51,17 +46,22 @@ function query(url) {
     url: urlBase,
     data: {_csrf:csrfToken, url:url}
   })
-  .done(function( result ) {
-    result.username=result.user?result.user.username:null;
-    _result = _result.merge(result);
+  .done(function( results ) {
+    //result.username=result.user?result.user.username:null;
+    results.forEach(function(result){
+      _results = _results.set(result.id, new QueryRecord(result))
+    });
     QueryStore.emitChange();
   }).error(errorObj.errHandle);
-
 }
 
 function destroyWithHistory(id) {
   addHistoryEntry();
   destroy(id);
+}
+
+function clearAll () {
+    _results = _results.clear();
 }
 
 var QueryStore = assign({}, EventEmitter.prototype, {
@@ -71,7 +71,7 @@ var QueryStore = assign({}, EventEmitter.prototype, {
    * @param {function} callback
    */
   getResult : function () {
-    return _result.toObject();
+    return _results.toObject();
   },
 
 
@@ -109,6 +109,9 @@ AppDispatcher.register(function(action) {
       if (text !== '') {
         query(text);
       }
+      break;
+    case QueryConstants.CLEAR_ALL:
+      clearAll();
       break;
 
 

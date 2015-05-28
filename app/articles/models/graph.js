@@ -163,15 +163,27 @@ Site.prototype.getFollowingAndOthers = function (callback) {
 
 Site.findByURL = function (url, callback) {
     var query = [
-        'MATCH (site:Site)',
-        'WHERE site.url = {url}',
-        'RETURN site'
+        'MATCH (siteFrom:Site)',
+        'WHERE siteFrom.url = {url}',
+        'RETURN siteFrom'
     ].join('\n');
 
     db.query(query, {url:url}, function (err, results) {
         if (err) return callback(err);
+        var parsedQueryResult = [];
 
-        callback(null, results);
+        if (results.lenght==0){
+            return callback(null, [null]);
+        };
+        
+        results.forEach(function (result) {
+            var data = result['siteFrom']._data.data;
+            data.id = result['siteFrom']._data.metadata.id;
+            parsedQueryResult.push(data)
+        });
+
+        callback(null, parsedQueryResult);
+        
     });
 };
 

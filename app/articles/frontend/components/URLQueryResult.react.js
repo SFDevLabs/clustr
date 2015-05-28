@@ -18,6 +18,7 @@ var QueryStore = require('../stores/QueryStore');
 var Link = require('react-router').Link;
 var QueryActions = require('../actions/QueryActions');
 var Loader = require('react-loader');
+var Link = require('react-router').Link;
 
 
 var QueryResult = React.createClass({
@@ -29,32 +30,34 @@ var QueryResult = React.createClass({
   /**
    * @return {object}
    */
+  
 
   render: function() {
     var post = this.props.post;
+    var siteLink="/"+post.id;
       return (<div>
             <div className="columns sixteen resultsFor">{post.url}</div>
-
-            <div className="searchResultBox">
-              <ul className="row marginZero">
-                <li className="columns four marginZero"><img src="img/blank.png" /></li>
-                <li className="columns eight searchResult">
-                  <div className="columns sixteen">
-                    <ul className="row sixteen marginZero">
-                      <li className="columns three"><img className="searchResultImg" src="img/fender.jpg" />
-                      </li>
-                      <li className="columns eleven searchResultText">
-                        <div className="searchResultTitle">Result Title Goes Here</div>
-                        <div className="searchResultURL">{post.url}</div>
-                      </li>
-                      <li className="columns two userSubmission"><img className="userSubmissionImg" src="/img/eoin_profile.jpg"/>{post.username}</li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div>
+            <Link to={siteLink} >
+              <div className="searchResultBox">
+                <ul className="row marginZero">
+                  <li className="columns four marginZero"><img src="img/blank.png" /></li>
+                  <li className="columns eight searchResult">
+                    <div className="columns sixteen">
+                      <ul className="row sixteen marginZero">
+                        <li className="columns three"><img className="searchResultImg" src="img/fender.jpg" />
+                        </li>
+                        <li className="columns eleven searchResultText">
+                          <div className="searchResultTitle">Result Title Goes Here</div>
+                          <div className="searchResultURL">{post.url}</div>
+                        </li>
+                        <li className="columns two userSubmission"><img className="userSubmissionImg" src="/img/eoin_profile.jpg"/>{post.username}</li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </Link>
           </div>)
-    
   }
 
 });
