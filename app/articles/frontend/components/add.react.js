@@ -17,18 +17,24 @@ var ArticleStore = require('../stores/ArticleStore');
 var AddURLInput = require('./AddURLInput.react');
 var ArticleActions = require('../actions/ArticleActions');
 var ReactPropTypes = React.PropTypes;
-
+var Navigation = require('react-router').Navigation;
+var utils = require('../../../main/frontend/utils');
 
 var MainSearch = React.createClass({
+	mixins: [Navigation],
 
 	propTypes: {
 		value: ReactPropTypes.string
 	},
 
 	getInitialState: function() {
-		return {
-		  value: this.props.value || ''
-		};
+		if (!utils.isLoggedIn()){
+			utils.loginRedirect('/login');
+		}else{
+			return {
+			  value: this.props.value || ''
+			};
+		}
 	},
 
 	render: function() {
@@ -48,6 +54,8 @@ var MainSearch = React.createClass({
 	_onSave: function(valueOne, valueTwo) {
 		if (valueOne.length>0 && valueTwo.length>0){
       		ArticleActions.create(valueOne, valueTwo);
+
+      		//this.transitionTo('/4',{},{});
 		}
     // console.log(text, number);
     // console.log(text, number);

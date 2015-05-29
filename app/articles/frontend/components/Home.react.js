@@ -17,6 +17,7 @@ var ArticleStore = require('../stores/ArticleStore');
 var ArticleActions = require('../actions/ArticleActions');
 var URLSearchInput = require('./URLSearchInput.react');
 var Item = require('./Item.react');
+var Link = require('react-router').Link;
 
 /**
  * Retrieve the current TODO data from the ArticleStore
@@ -76,7 +77,11 @@ var ArticleApp = React.createClass({
         <div className="mainBody">
             <div className="row sixteen logoArea">
               <span className="columns four"><img src="/img/blank.png" /></span>
-              <span className="columns eight mainLogo"><img className="mainAddButton" src="/img/circleAddButton.png" /></span>
+              <span className="columns eight mainLogo">
+                <Link to="add">
+                  <img className="mainAddButton" src="/img/circleAddButton.png" />
+                </Link>
+              </span>
               <span className="columns four"><img src="/img/blank.png" /></span>
             </div>
 
