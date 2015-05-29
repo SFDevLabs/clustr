@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-express-mongoose-demo",
+  "name": "clustr",
   "description": "A demo app illustrating the usage of express, mongoose, passportjs, swig and other modules in nodejs",
   "keywords": [
     "express",

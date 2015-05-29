@@ -27,9 +27,6 @@ var QueryActions = {
     });
   },
 
-
-
-
 };
 
 module.exports = QueryActions;

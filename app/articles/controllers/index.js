@@ -63,7 +63,7 @@ exports.getAll = function (req, res){
     //   item.id = obj.user._data.metadata.id;
     //   return item;
     // });
-    console.log(err, results)
+    
     res.send(results);
   });
 }
@@ -98,7 +98,7 @@ exports.create = function (req, res){
 exports.get = function (req, res){
   var id = Number(req.param('uid'));
   GraphModel.get(id, function(err, result){
-    console.log(err, result);
+    if(err){return res.status(404).send(err); }
     res.send(result);
   });
 }
