@@ -20,7 +20,7 @@ var csrfToken = csrfTag ? csrfTag.dataset.csrf:null;
 var CHANGE_EVENT = 'change';
 var _history = [];
 var urlBase = '/apigraph/query/'
-var errorObj = require('./errorHandle');
+var errorObj = require('../../../main/frontend/errorHandle');
 var _results = Immutable.Map()
 var QueryRecord = Immutable.Record({
   id : null,

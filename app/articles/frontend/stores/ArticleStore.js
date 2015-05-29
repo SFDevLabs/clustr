@@ -15,14 +15,17 @@ var TodoConstants = require('../constants/ArticleConstants');
 var assign = require('object-assign');
 var Immutable = require('immutable');
 var $ = require('jquery');
-var csrfTag = document.getElementById("csrf-token");
-var csrfToken = csrfTag ? csrfTag.dataset.csrf:null;
 var CHANGE_EVENT = 'change';
 var _history = [];
 var _nodes = Immutable.OrderedMap();
 var _edges = Immutable.OrderedMap();
 var urlBase = '/apigraph/articles/';
-var errorObj = require('./errorHandle');
+var errorObj = require('../../../main/frontend/errorHandle');
+var utils = require('../../../main/frontend/utils');
+var csrfToken = utils.getCsrfToken()
+
+
+
 
 var EdgeRecord = Immutable.Record({
   siteFromId: null,
