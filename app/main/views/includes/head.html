@@ -16,7 +16,7 @@
     <meta property="og:description" content=pkg.description>
     <meta property="og:url" content="http://sfdevlabs.com">
     <meta property="og:site_name" content="Clustr">
-    <meta id="user-name" data-name="{{user.username}}">
+    <meta id="user" data-name="{{user.username}}" data-auth="{{req.isAuthenticated()}}">
 
 
     {% block head %}

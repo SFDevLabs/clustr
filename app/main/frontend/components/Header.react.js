@@ -5,14 +5,14 @@
 
 var React = require('react');
 var Link = require('react-router').Link;
+var utils = require('../utils');
+var userName =utils.getUserName();
 
-var userNameDiv = document.getElementById("user-name");
-var userName = userNameDiv.dataset.name;
 
 var URLSearchInput = require('../../../articles/frontend/components/URLSearchInput.react');
 
 var loginImg;
-if (userName !== "") {
+if (utils.isLoggedIn()) {
   loginImg = "/img/eoin_profile.jpg";
 } else {
   loginImg = "/img/robot.png";
