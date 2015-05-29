@@ -45,6 +45,15 @@ var Query = React.createClass({
     QueryStore.removeChangeListener(this._onChange);
   },
 
+
+  componentDidUpdate: function() {
+    //alert();
+    // if (this.state.selectedPage !== this.getQuery().page) {
+    //   this.setState({ selectedPage: this.getQuery().page });
+    //   ...load data...
+    // }
+  },
+
   /**
    * @return {object}
    */

@@ -29,7 +29,7 @@ exports.load = function (req, res, next, id){
 
 
 exports.urlsearch = function (req, res){
-  var url = req.param('url');
+  var url = URLParse(req.param('url'));
 
   if (!url) return res.send(utils.errMsg('No URL to Query.'))
 
@@ -70,7 +70,8 @@ exports.getAll = function (req, res){
 
 function URLParse(inputURL){
   var URL = url.parse(inputURL);
-  return  URL.hostname+URL.pathname;
+  var hostname = URL.hostname?URL.hostname:''
+  return  hostname+URL.pathname.replace(/(\/)+$/,"");
 }
 
 /**
