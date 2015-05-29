@@ -16,7 +16,7 @@ var React = require('react');
 var Link = require('react-router').Link;
 var Loader = require('react-loader');
 var URLQueryResult = require('./URLQueryResult.react');
-var Item = require('./Item.react');
+var SiteConnections = require('./SiteConnections.react');
 
 var ArticleStore = require('../stores/ArticleStore');
 var ArticleActions = require('../actions/ArticleActions');
@@ -55,14 +55,32 @@ var Query = React.createClass({
     var post = this.state.post;
     var relations = this.state.relations;
     var relation= [];
+    debugger
     for (var key in relations) {
-      relation.unshift(<div>{relations[key]}</div>);
+      relation.unshift(<SiteConnections key={key} post={relations[key]} />);
     }
     //var item = post.USEREDGE?(<Item item={post} />):null;  ///Check that we have a full response.
     return (
       <div className="row searchResults">
-        {post}
-        <div>---</div>
+        <div className="searchResultBox">
+          <ul className="row marginZero">
+            <li className="columns four marginZero"><img src="img/blank.png" /></li>
+            <li className="columns eight searchResult">
+              <div className="columns sixteen">
+                <ul className="row sixteen marginZero">
+                  <li className="columns three"><img className="searchResultImg" src="img/fender.jpg" />
+                  </li>
+                  <li className="columns eleven searchResultText">
+                    <div className="searchResultTitle">Result Title Goes Here</div>
+                    <div className="searchResultURL">{post.url}</div>
+                  </li>
+                  <li className="columns two userSubmission"><img className="userSubmissionImg" src="/img/eoin_profile.jpg"/>{post.username}</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <hr/>
         {relation}
       </div>)
     
