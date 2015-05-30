@@ -222,7 +222,9 @@ var ArticleStore = assign({}, EventEmitter.prototype, {
   getOneNodeRelationsById: function(id) {
     var record = _nodes.get(id)
     if (!id || !record ) return {}; ///return nothing if there is not record.
-    var NODE_USEREDGE = _edges.map(function(obj){
+    var NODE_USEREDGE = _edges.filter(function(obj){
+      return id===obj.siteFromId;
+    }).map(function(obj){
       var item = {};
       item.siteTo = ArticleStore.getOneNodeById(obj.siteToId);
       return item

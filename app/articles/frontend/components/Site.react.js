@@ -55,7 +55,6 @@ var Query = React.createClass({
     var post = this.state.post;
     var relations = this.state.relations;
     var relation= [];
-    debugger
     for (var key in relations) {
       relation.unshift(<SiteConnections key={key} post={relations[key]} />);
     }
