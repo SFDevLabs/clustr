@@ -171,10 +171,6 @@ Site.findByURL = function (url, callback) {
     db.query(query, {url:url}, function (err, results) {
         if (err) return callback(err);
         var parsedQueryResult = [];
-
-        if (results.lenght==0){
-            return callback(null, [null]);
-        };
         
         results.forEach(function (result) {
             var data = result['siteFrom']._data.data;
@@ -182,7 +178,10 @@ Site.findByURL = function (url, callback) {
             parsedQueryResult.push(data)
         });
 
-        callback(null, parsedQueryResult);
+        callback(null, {
+            length: parsedQueryResult.length,
+            data:parsedQueryResult
+        });
         
     });
 };
@@ -316,21 +315,26 @@ Site.getAll = function (callback) {
     });
 };
 
+
 // creates the user and persists (saves) it to the db, incl. indexing it:
 Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
-    // construct a new instance of our class with the data, so it can
-    // validate and extend it, etc., if we choose to do that in the future:
-    // var node = db.createNode(data);
-    // var user = new Site(node);
 
-
-    // but we do the actual persisting with a Cypher query, so we can also
-    // apply a label at the same time. (the save() method doesn't support
-    // that, since it uses Neo4j's REST API, which doesn't support that.)
-    
     var query = [];
-    query.push('CREATE (siteOne:Site {nodeOne})');
-    query.push('CREATE (siteTwo:Site {nodeTwo})');
+
+    if (nodeOne.id){
+        query.push('MATCH siteOne where id(siteOne) = {numOne}');
+    } else {
+        query.push('CREATE (siteOne:Site {nodeOne})');
+    }
+
+    if (nodeTwo.id){
+        query.push('MATCH nodeTwo where id(nodeTwo) = {numTwo}');
+    } else {
+        query.push('CREATE (siteTwo:Site {nodeTwo})');
+    }
+
+    // query.push('MERGE (siteOne:Site {url: {nodeOne}.url})');
+    // query.push('MERGE (siteTwo:Site {url: {nodeTwo}.url})');
     query.push('CREATE (siteOne)-[userEdge:USEREDGE{edge}]->(siteTwo)');
     query.push('RETURN userEdge');
     query = query.join('\n');
@@ -339,7 +343,9 @@ Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
     var params = {
         nodeOne: nodeOne,
         nodeTwo: nodeTwo,
-        edge: edge
+        edge: edge,
+        numOne : nodeOne.id,
+        numTwo : nodeTwo.id?nodeTwo.id:null
     };
 
     console.log(query, params, 'params')

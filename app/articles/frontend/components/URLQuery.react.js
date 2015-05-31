@@ -46,7 +46,13 @@ var Query = React.createClass({
   },
 
 
-  componentDidUpdate: function() {
+  componentWillReceiveProps: function(newProps) {
+    QueryActions.clearAllQueries();
+
+//    this.setState(getQueryState(null));
+
+    QueryActions.query(newProps.query)
+    
     //alert();
     // if (this.state.selectedPage !== this.getQuery().page) {
     //   this.setState({ selectedPage: this.getQuery().page });
@@ -64,9 +70,9 @@ var Query = React.createClass({
     
 
     // var result;
-    if (search.length===0) {  //Empty resonse wait for ajax response
+    if (search.loader===true) {  //Empty resonse wait for ajax response
       result = (<Loader/>)
-    }else if (search[0]===null){ //No response from search api.
+    }else if (search.noResult===true){ //No response from search api.
       result = (<div>No Result</div>)
     }else{
       var result=[];

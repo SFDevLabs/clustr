@@ -26,6 +26,7 @@ var QueryRecord = Immutable.Record({
   id : null,
   url: null
 });
+var loading=true;
 
 
 function addHistoryEntry() {
@@ -41,6 +42,8 @@ function goToHistory(index) {
  * @param  {string} id
  */
 function query(url) {
+
+  loading = true;
   $.ajax({
     method: "GET",
     url: urlBase,
@@ -48,9 +51,10 @@ function query(url) {
   })
   .done(function( results ) {
     //result.username=result.user?result.user.username:null;
-    results.forEach(function(result){
+    results.data.forEach(function(result){
       _results = _results.set(result.id, new QueryRecord(result))
     });
+    loading=false;
     QueryStore.emitChange();
   }).error(errorObj.errHandle);
 }
@@ -71,7 +75,15 @@ var QueryStore = assign({}, EventEmitter.prototype, {
    * @param {function} callback
    */
   getResult : function () {
-    return _results.toObject();
+    var obj = _results.toObject();
+    
+    if (loading){return {loader:true}}
+    
+    if ($.isEmptyObject(obj)){return {noResult:true}};
+
+    return obj;
+
+     
   },
 
 
