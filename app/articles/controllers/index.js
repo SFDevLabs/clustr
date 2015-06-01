@@ -80,7 +80,8 @@ function URLParse(inputURL){
 exports.create = function (req, res){
   var urlOne = URLParse(req.body.urlOne);
   var urlTwo = URLParse(req.body.urlTwo);
-  
+  var urlOne = URLParse(req.body.urlOne);
+  var urlTwo = URLParse(req.body.urlTwo);
   GraphModel.createConnection({
     url:urlOne,
   },{
@@ -88,7 +89,11 @@ exports.create = function (req, res){
   },{
 
   }, function(err, result){
-    res.send(err);
+    console.log(err)
+    if (err) {
+      return res.status(500).send(result)
+    }
+    res.send(result);
   })
   
 }

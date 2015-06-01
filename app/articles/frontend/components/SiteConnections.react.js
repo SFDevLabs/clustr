@@ -33,7 +33,6 @@ var QueryResult = React.createClass({
   
 
   render: function() {
-    debugger
     var post = this.props.post.siteTo;
     var siteLink="/"+post.id;
       return (            

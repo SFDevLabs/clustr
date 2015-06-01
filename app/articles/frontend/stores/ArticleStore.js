@@ -42,13 +42,18 @@ var NodeRecord = Immutable.Record({
  * Create a TODO item.
  * @param  {string} text The content of the TODO
  */
-function create(urlOne, urlTwo) {
+function create(urlOne, urlTwo, nodeIDOne, nodeIDTwo) {
   // Hand waving here -- not showing how this interacts with XHR or persistent
   // Using the current timestamp + random number in place of a real id.
   $.ajax({
     method: "POST",
     url: urlBase,
-    data: {urlOne:urlOne, urlTwo:urlTwo, _csrf:csrfToken}
+    data: {
+      urlOne:urlOne,
+      urlTwo:urlTwo,
+      nodeIDOne:nodeIDOne, 
+      nodeIDTwo:nodeIDTwo, 
+      _csrf:csrfToken}
   })
   .done(function( result ) {
     //_nodes = _nodes.set(result._id, new ArticleRecord({id : result._id, url : result.url, username: 'userHolder'}));

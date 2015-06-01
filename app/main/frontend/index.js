@@ -17,5 +17,5 @@ window.history.pushState({}, '', window.location.pathname.replace(/(\/)+$/,"")+w
 
 //This is where we pass in our frontend routes files that structure the applicaiton.
 Router.run([ArticleRoutes, MainRoutes], Router.HistoryLocation, function(Root){
-  React.render(<Root/>, document.getElementById('todoapp'));
+  React.render(<Root/>, document.getElementById('app'));
 });

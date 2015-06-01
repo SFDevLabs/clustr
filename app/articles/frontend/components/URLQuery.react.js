@@ -16,24 +16,23 @@ var React = require('react');
 var Link = require('react-router').Link;
 var Loader = require('react-loader');
 var URLQueryResult = require('./URLQueryResult.react');
-
-
+var $ = require('jquery');
 var QueryStore = require('../stores/QueryStore');
 var QueryActions = require('../actions/QueryActions');
 /**
  * Retrieve the current TODO data from the QueryStore
  */
-function getQueryState(q) {
+function getQueryState(q, loader) {
   return {
-    search: QueryStore.getResult(q)
+    search: QueryStore.getResult(q),
+    loader: loader? loader:false
   };
 }
 
 var Query = React.createClass({
   
   getInitialState: function() {
-    QueryActions.clearAllQueries();
-    return getQueryState(this.props.query);
+    return getQueryState(null, true);
   },
 
   componentDidMount: function() {
@@ -47,17 +46,8 @@ var Query = React.createClass({
 
 
   componentWillReceiveProps: function(newProps) {
-    QueryActions.clearAllQueries();
-
-//    this.setState(getQueryState(null));
-
-    QueryActions.query(newProps.query)
-    
-    //alert();
-    // if (this.state.selectedPage !== this.getQuery().page) {
-    //   this.setState({ selectedPage: this.getQuery().page });
-    //   ...load data...
-    // }
+    this.setState(getQueryState(null, true));
+    QueryActions.query(newProps.query) 
   },
 
   /**
@@ -66,13 +56,14 @@ var Query = React.createClass({
 
   render: function() {
     var search = this.state.search;
+    var loader = this.state.loader;
     var result;
     
 
     // var result;
-    if (search.loader===true) {  //Empty resonse wait for ajax response
+    if (loader===true) {  //Empty resonse wait for ajax response
       result = (<Loader/>)
-    }else if (search.noResult===true){ //No response from search api.
+    }else if ($.isEmptyObject(search)){ //No response from search api.
       result = (<div>No Result</div>)
     }else{
       var result=[];

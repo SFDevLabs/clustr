@@ -11,108 +11,76 @@ var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var ENTER_KEY_CODE = 13;
 var Navigation = require('react-router').Navigation;
+var AutoComplete = require('./AutoComplete.react');
 
- 
-
-var URLInput = React.createClass({
+var AddURLInput = React.createClass({
 
   mixins: [Navigation],
   propTypes: {
     onSave: ReactPropTypes.func.isRequired,
+    onChange: ReactPropTypes.func.isRequired,
+    value: ReactPropTypes.string.isRequired,
+    keyValue: ReactPropTypes.string.isRequired
   },
 
-  getInitialState: function() {
-    return {
-      value: ''
-    };
-  },
 
   /**
    * @return {object}
    */
   render: function() {
     return (
-
-      <ul className="row sixteen marginZero connectionBox">
-        <li className="columns three"><img src="img/blank.png" /></li>
-        <li className="columns ten">
-          <ul className="row sixteen marginZero connection">
             <li className="columns six">
-              <div className="leftBox border">
+              <div className="leftBox border url-add-parent">
                 <ul className="row sixteen marginZero">
                   <li className="columns four url-input">
                   <input
                     type="text" 
-                    name={this.props.name}
-                    className={this.props.className}
-                    id={this.props.id}
                     placeholder={this.props.placeholder}
-                    onChange={this._onChangeOne}
+                    onChange={this.props.onChange}
                     onKeyDown={this._onKeyDown}
-                    value={this.state.valueOne}
+                    value={this.props.value}
                     autoFocus={true}
+                    data-key = {this.props.keyValue}
                   />
                   </li>
                 </ul>
+                <AutoComplete query={this.props.value}/>
               </div>
             </li>
-            <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
-            <li className="columns six">
-              <div className="rightBox border">
-                <ul className="row sixteen marginZero">
-                  <li className="columns four url-input">
-                  <input
-                    type="text" 
-                    name={this.props.name}
-                    className={this.props.className}
-                    id={this.props.id}
-                    placeholder={this.props.placeholder}
-                    onChange={this._onChangeTwo}
-                    onKeyDown={this._onKeyDown}
-                    value={this.state.valueTwo}
-                    autoFocus={true}
-                  />
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-        </li>
-        <li className="columns three"><img src="img/blank.png" /></li>
-      </ul>
     );
   },
 
-  /**
-   * Invokes the callback passed in as onSave, allowing this component to be
-   * used in different ways.
-   */
-  _save: function() {
-    if(this.state.valueOne && this.state.valueTwo){// Success we have both URLS
-      this.props.onSave(this.state.valueOne, this.state.valueTwo); //We pass them to the save function
-      // this.setState({//Reset the Front
-      //   valueOne: '',
-      //   valueTwo: ''
-      // });
-    };
-  },
+  // /**
+  //  * Invokes the callback passed in as onSave, allowing this component to be
+  //  * used in different ways.
+  //  */
+  // _save: function() {
+  //   if(this.state.valueOne && this.state.valueTwo){// Success we have both URLS
+  //     this.props.onSave(this.state.valueOne, this.state.valueTwo); //We pass them to the save function
+  //     // this.setState({//Reset the Front
+  //     //   valueOne: '',
+  //     //   valueTwo: ''
+  //     // });
+  //   };
+  // },
 
   /**
    * @param {object} event
    */
   _onChangeOne: function(event) {
-    this.setState({
-      valueOne: event.target.value,
-    });
+    // debugger
+    // this.setState({
+    //   valueOne: event.target.value,
+    // });
   },
 
   /**
    * @param {object} event
    */
   _onChangeTwo: function(event) {
-    this.setState({
-      valueTwo: event.target.value
-    });
+    // this.setState({
+    //   valueTwo: event.target.value
+    // });
   },
 
   /**
@@ -120,10 +88,11 @@ var URLInput = React.createClass({
    */
   _onKeyDown: function(event) {
     if (event.keyCode === ENTER_KEY_CODE) {
-      this._save();
+      this.props.onSave();
+      //this._save();
     }
   }
 
 });
 
-module.exports = URLInput;
+module.exports = AddURLInput;

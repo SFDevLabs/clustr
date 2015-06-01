@@ -23,26 +23,34 @@ var utils = require('../../../main/frontend/utils');
 var MainSearch = React.createClass({
 	mixins: [Navigation],
 
-	propTypes: {
-		value: ReactPropTypes.string
-	},
+	// propTypes: {
+	// 	value: ReactPropTypes.string
+	// },
 
 	getInitialState: function() {
-		if (!utils.isLoggedIn()){
-			utils.loginRedirect('/login');
-		}else{
-			return {
-			  value: this.props.value || ''
-			};
-		}
+		if (!utils.isLoggedIn()){utils.loginRedirect('/login')};
+		return {
+			  valueOne:'',
+			  valueTwo:''
+			}
+		
 	},
+	
 
 	render: function() {
 	return (
 	  <div className="addPageContainer">
-      <AddURLInput onSave={this._onSave} />
-	    
-
+      <ul className="row sixteen marginZero connectionBox">
+        <li className="columns three"><img src="img/blank.png" /></li>
+        <li className="columns ten">
+          <ul className="row sixteen marginZero connection">
+			<AddURLInput onSave={this._onSave} onChange={this._onChange} value={this.state.valueOne} keyValue="valueOne" />
+            <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
+            <AddURLInput onSave={this._onSave} onChange={this._onChange} value={this.state.valueTwo} keyValue="valueTwo" />
+          </ul>
+        </li>
+        <li className="columns three"><img src="img/blank.png" /></li>
+      </ul>
 	  </div>
 	  )
 	},
@@ -51,10 +59,13 @@ var MainSearch = React.createClass({
 	* Invokes the callback passed in as onSave, allowing this component to be
 	* used in different ways.
 	*/
-	_onSave: function(valueOne, valueTwo) {
+	_onSave: function() {
+		var  valueOne = this.state.valueOne;
+		var  valueTwo =  this.state.valueTwo;
 		if (valueOne.length>0 && valueTwo.length>0){
-      		ArticleActions.create(valueOne, valueTwo);
 
+			alert(valueOne+'-'+valueTwo)
+      		//ArticleActions.create(valueOne, valueTwo, nodeIDOne, nodeIDTwo);
       		//this.transitionTo('/4',{},{});
 		}
     // console.log(text, number);
@@ -64,20 +75,13 @@ var MainSearch = React.createClass({
 	/**
 	* @param {object} event
 	*/
-	_onChange: function(/*object*/ event) {
-		this.setState({
-		  value: event.target.value
-		});
-	},
-
-	/**
-	* @param  {object} event
-	*/
-	_onKeyDown: function(event) {
-		if (event.keyCode === ENTER_KEY_CODE) {
-		  this._save();
-		}
+	_onChange: function(/*object*/ event, key) {
+		var obj={};
+		var key = event.target.dataset.key;
+		obj[key] = event.target.value;
+		this.setState(obj);
 	}
+
 });
 
 module.exports = MainSearch;
