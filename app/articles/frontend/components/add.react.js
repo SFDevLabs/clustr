@@ -33,26 +33,22 @@ var MainSearch = React.createClass({
 			  valueOne:'',
 			  valueTwo:''
 			}
-		
 	},
-	
 
 	render: function() {
-	var  valueOne = this.state.valueOne;
-	var  valueTwo =  this.state.valueTwo;
-	var same = (<h4>URLS can not be the same!</h4>)
-	var  equals = valueOne.length>0 && valueOne===valueTwo?same:null;
+	//move this logix to the back end
+	//var same = (<h4>URLS can not be the same!</h4>)
+	//var  equals = valueOne.length>0 && valueOne===valueTwo?same:null;
 	return (
 	  <div className="addPageContainer">
 	  
       <ul className="row sixteen marginZero connectionBox">
         <li className="columns three"><img src="img/blank.png" /></li>
         <li className="columns ten">
-          {equals}
           <ul className="row sixteen marginZero connection">
-			<AddURLInput onSave={this._onSave} onChange={this._onChange} value={valueOne} keyValue="valueOne" />
+			<AddURLInput onSave={this._onSave} onChange={this._onChange} keyValue="valueOne" />
             <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
-            <AddURLInput onSave={this._onSave} onChange={this._onChange} value={valueTwo} keyValue="valueTwo" />
+            <AddURLInput onSave={this._onSave} onSelect={this._onSelect} keyValue="valueTwo" />
           </ul>
         </li>
         <li className="columns three"><img src="img/blank.png" /></li>
@@ -65,33 +61,43 @@ var MainSearch = React.createClass({
 	* Invokes the callback passed in as onSave, allowing this component to be
 	* used in different ways.
 	*/
-	_onSave: function() {
-		var  valueOne = this.state.valueOne;
-		var  valueTwo =  this.state.valueTwo;
-		if (valueOne.length>0 && valueTwo.length>0 && valueOne!==valueTwo){
-
-			alert(valueOne+'-'+valueTwo)
-      		//ArticleActions.create(valueOne, valueTwo, nodeIDOne, nodeIDTwo);
+	_onSave: function(valueOne, valueTwo) {
+		// var  valueOne = this.state.valueOne;
+		// var  valueTwo =  this.state.valueTwo;
+		if (valueOne.length>0 && valueTwo.length>0 && valueOne!==valueTwo){};
+			//alert(valueOne+'-'+valueTwo)
+      		
+      	ArticleActions.create(valueOne, valueTwo);
       		//this.transitionTo('/4',{},{});
-		}
+		
     // console.log(text, number);
     // console.log(text, number);
 	},
+
+	// /**
+	// * @param {object} event
+	// */
+	// _onChange: function(/*object*/ event, key) {
+	// 	var obj={};
+	// 	var key = event.target.dataset.key;
+	// 	obj[key] = event.target.value;
+	// 	this.setState(obj);
+	// },
 
 	/**
 	* @param {object} event
 	*/
-	_onChange: function(/*object*/ event, key) {
-		var obj={};
-		var key = event.target.dataset.key;
-		obj[key] = event.target.value;
-		this.setState(obj);
+	_onSelect: function(url, key) {
+		// var obj={};
+		// var key = event.target.dataset.key;
+		// obj[key] = event.target.value;
+		// this.setState(obj);
+		console.log(url, key);
 	},
+
 	_sameCheck: function() {
 		var  valueOne = this.state.valueOne;
-		var  valueTwo =  this.state.valueTwo;
-		
-
+		var  valueTwo =  this.state.valueTwo;	
 	}
 
 });

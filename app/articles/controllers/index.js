@@ -7,8 +7,7 @@
  var Article = mongoose.model('Articles');
  var utils = require('../../../lib/utils');
  var GraphModel = require('../models/graph');
- var url = require('url');
-
+ var URLParse = utils.URLParse
 
 /**
  * Load
@@ -30,16 +29,11 @@ exports.load = function (req, res, next, id){
 
 exports.urlsearch = function (req, res){
   var url = URLParse(req.param('url'));
+  console.log(url, req.param('url'), 'this is a url')
+  if (!url) return res.send(utils.errMsg('No Valid URL to Query.'))
 
-  if (!url) return res.send(utils.errMsg('No URL to Query.'))
 
   GraphModel.findByURL(url ,function(err, results){
-      // var responseObj = results.map(function(obj){
-      //   var item={};
-      //   item = obj.user._data.data;
-      //   item.id = obj.user._data.metadata.id;
-      //   return item;
-      // });
       console.log(err, results)
       res.send(results);
   });
@@ -68,11 +62,7 @@ exports.getAll = function (req, res){
   });
 }
 
-function URLParse(inputURL){
-  var URL = url.parse(inputURL);
-  var hostname = URL.hostname?URL.hostname:''
-  return  hostname+URL.pathname.replace(/(\/)+$/,"");
-}
+
 
 /**
  * Create
@@ -80,8 +70,8 @@ function URLParse(inputURL){
 exports.create = function (req, res){
   var urlOne = URLParse(req.body.urlOne);
   var urlTwo = URLParse(req.body.urlTwo);
-  var urlOne = URLParse(req.body.urlOne);
-  var urlTwo = URLParse(req.body.urlTwo);
+
+  if (!urlOne || !urlOne){return res.status(204).send(utils.errMsg('Requires Two Valid URLs.'))};
   GraphModel.createConnection({
     url:urlOne,
   },{

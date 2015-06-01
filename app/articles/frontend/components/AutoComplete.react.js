@@ -48,6 +48,8 @@ var AutoComplete = React.createClass({
   // mixins: [Navigation],
   propTypes: {
     query: ReactPropTypes.string.isRequired,
+    onSelect: ReactPropTypes.func.isRequired,
+    keyValue: ReactPropTypes.string.isRequired
   },
 
   getInitialState: function() {
@@ -60,7 +62,6 @@ var AutoComplete = React.createClass({
 
   componentWillReceiveProps: function(newProps) {
     if (newProps.query.length>0 && newProps.query!==this.props.query){
-
       this.setState(getQueryState(null, true))
       this._quearyEfficientFn(newProps.query);
     }
@@ -86,12 +87,12 @@ var AutoComplete = React.createClass({
       }
       result = (<div>
         <i>This is a New Site!</i>
-        <AutoCompleteItem post={post} />
+        <AutoCompleteItem post={post} onSelect={this.props.onSelect} />
         </div>)
     } else {
       var result=[];
       for (var key in search) {
-        result.unshift(<AutoCompleteItem key={key} post={search[key]} />);
+        result.unshift(<AutoCompleteItem key={key} post={search[key]} onSelect={this.props.onSelect} keyValue={this.props.keyValue} />);
       }
     }//end of results
 
@@ -105,16 +106,17 @@ var AutoComplete = React.createClass({
   /**
    * Event handler for 'change' events coming from the QueryStore
    */
-  _onChange: function() {
-    this.setState(getQueryState(this.props.query));
-  },
-
   _query: function(q){
     var that= this;
     queryHandler(q, function(err, data){
       that.setState(getQueryState(data));
     });
   },
+
+  _onSelect: function(q){
+    alert('s')
+  },
+
   _loader: (<Loader/>)
 
 });

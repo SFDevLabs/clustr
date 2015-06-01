@@ -321,20 +321,20 @@ Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
 
     var query = [];
 
-    if (nodeOne.id){
-        query.push('MATCH siteOne where id(siteOne) = {numOne}');
-    } else {
-        query.push('CREATE (siteOne:Site {nodeOne})');
-    }
+    // if (nodeOne.id){
+    //     query.push('MATCH siteOne where id(siteOne) = {numOne}');
+    // } else {
+    //     query.push('CREATE (siteOne:Site {nodeOne})');
+    // }
 
-    if (nodeTwo.id){
-        query.push('MATCH nodeTwo where id(nodeTwo) = {numTwo}');
-    } else {
-        query.push('CREATE (siteTwo:Site {nodeTwo})');
-    }
+    // if (nodeTwo.id){
+    //     query.push('MATCH nodeTwo where id(nodeTwo) = {numTwo}');
+    // } else {
+    //     query.push('CREATE (siteTwo:Site {nodeTwo})');
+    // }
 
-    // query.push('MERGE (siteOne:Site {url: {nodeOne}.url})');
-    // query.push('MERGE (siteTwo:Site {url: {nodeTwo}.url})');
+    query.push('MERGE (siteOne:Site {url: {nodeOne}.url})');
+    query.push('MERGE (siteTwo:Site {url: {nodeTwo}.url})');
     query.push('CREATE (siteOne)-[userEdge:USEREDGE{edge}]->(siteTwo)');
     query.push('RETURN userEdge');
     query = query.join('\n');

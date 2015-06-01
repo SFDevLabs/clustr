@@ -21,7 +21,6 @@ var Link = require('react-router').Link;
 
 
 var QueryResult = React.createClass({
-  
   propTypes: {
    post: ReactPropTypes.object.isRequired
   },

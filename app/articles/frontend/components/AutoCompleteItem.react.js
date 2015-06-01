@@ -17,7 +17,9 @@ var AutoCompleteItem = React.createClass({
   mixins: [Navigation],
 
   propTypes: {
-    post: ReactPropTypes.string.isRequired,
+    post: ReactPropTypes.object.isRequired,
+    onSelect: ReactPropTypes.func.isRequired,
+    keyValue: ReactPropTypes.string.isRequired
   },
 
   /**
@@ -26,7 +28,7 @@ var AutoCompleteItem = React.createClass({
   render: function() {
     var post = this.props.post
     return (
-        <ul className="row sixteen marginZero connectionBox">
+        <ul onClick={this._onClick} className="row sixteen marginZero connectionBox">
           <li className="columns six">
             <div className="leftBox">
               <ul className="row sixteen marginZero">
@@ -42,6 +44,12 @@ var AutoCompleteItem = React.createClass({
           </li>
         </ul>
       );
+  },
+  _onClick:function(event){
+    
+    var keyValue = this.props.keyValue;
+    var url = this.props.post.url;
+    this.props.onSelect(url, keyValue)
   }
 
 });

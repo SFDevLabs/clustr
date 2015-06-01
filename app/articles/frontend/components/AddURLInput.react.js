@@ -13,16 +13,23 @@ var ENTER_KEY_CODE = 13;
 var Navigation = require('react-router').Navigation;
 var AutoComplete = require('./AutoComplete.react');
 
+function getState(value) {
+  return {
+    value: value
+  };
+}
+
 var AddURLInput = React.createClass({
 
   mixins: [Navigation],
   propTypes: {
     onSave: ReactPropTypes.func.isRequired,
-    onChange: ReactPropTypes.func.isRequired,
-    value: ReactPropTypes.string.isRequired,
     keyValue: ReactPropTypes.string.isRequired
   },
 
+  getInitialState: function() {
+    return getState('');
+  },
 
   /**
    * @return {object}
@@ -36,15 +43,14 @@ var AddURLInput = React.createClass({
                   <input
                     type="text" 
                     placeholder={this.props.placeholder}
-                    onChange={this.props.onChange}
+                    onChange={this._onChange}
                     onKeyDown={this._onKeyDown}
-                    value={this.props.value}
+                    value={this.state.value}
                     autoFocus={true}
-                    data-key = {this.props.keyValue}
                   />
                   </li>
                 </ul>
-                <AutoComplete query={this.props.value}/>
+                <AutoComplete onSelect={this.props.onSelect} query={this.state.value} onSelect={this._onSelect} keyValue={this.props.keyValue} />
               </div>
             </li>
     );
@@ -65,22 +71,21 @@ var AddURLInput = React.createClass({
   // },
 
   /**
-   * @param {object} event
-   */
-  _onChangeOne: function(event) {
-    // debugger
-    // this.setState({
-    //   valueOne: event.target.value,
-    // });
+  * @param {object} event
+  */
+  _onChange: function(/*object*/ event, key) {
+    // var obj={};
+    // var key = event.target.dataset.key;
+    // obj[key] = event.target.value;
+    this.setState(getState(event.target.value));
   },
 
-  /**
-   * @param {object} event
-   */
-  _onChangeTwo: function(event) {
-    // this.setState({
-    //   valueTwo: event.target.value
-    // });
+  _onSelect: function(/*object*/ event, key) {
+    // var obj={};
+    // var key = event.target.dataset.key;
+    // obj[key] = event.target.value;
+    console.log(event)
+    //this.setState(getState(event.target.value));
   },
 
   /**
