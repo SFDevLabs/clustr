@@ -38,15 +38,21 @@ var MainSearch = React.createClass({
 	
 
 	render: function() {
+	var  valueOne = this.state.valueOne;
+	var  valueTwo =  this.state.valueTwo;
+	var same = (<h4>URLS can not be the same!</h4>)
+	var  equals = valueOne.length>0 && valueOne===valueTwo?same:null;
 	return (
 	  <div className="addPageContainer">
+	  
       <ul className="row sixteen marginZero connectionBox">
         <li className="columns three"><img src="img/blank.png" /></li>
         <li className="columns ten">
+          {equals}
           <ul className="row sixteen marginZero connection">
-			<AddURLInput onSave={this._onSave} onChange={this._onChange} value={this.state.valueOne} keyValue="valueOne" />
+			<AddURLInput onSave={this._onSave} onChange={this._onChange} value={valueOne} keyValue="valueOne" />
             <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
-            <AddURLInput onSave={this._onSave} onChange={this._onChange} value={this.state.valueTwo} keyValue="valueTwo" />
+            <AddURLInput onSave={this._onSave} onChange={this._onChange} value={valueTwo} keyValue="valueTwo" />
           </ul>
         </li>
         <li className="columns three"><img src="img/blank.png" /></li>
@@ -62,7 +68,7 @@ var MainSearch = React.createClass({
 	_onSave: function() {
 		var  valueOne = this.state.valueOne;
 		var  valueTwo =  this.state.valueTwo;
-		if (valueOne.length>0 && valueTwo.length>0){
+		if (valueOne.length>0 && valueTwo.length>0 && valueOne!==valueTwo){
 
 			alert(valueOne+'-'+valueTwo)
       		//ArticleActions.create(valueOne, valueTwo, nodeIDOne, nodeIDTwo);
@@ -80,6 +86,12 @@ var MainSearch = React.createClass({
 		var key = event.target.dataset.key;
 		obj[key] = event.target.value;
 		this.setState(obj);
+	},
+	_sameCheck: function() {
+		var  valueOne = this.state.valueOne;
+		var  valueTwo =  this.state.valueTwo;
+		
+
 	}
 
 });

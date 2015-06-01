@@ -21,7 +21,7 @@ var SiteConnections = require('./SiteConnections.react');
 var ArticleStore = require('../stores/ArticleStore');
 var ArticleActions = require('../actions/ArticleActions');
 /**
- * Retrieve the current TODO data from the QueryStore
+ * Retrieve the current TODO data from the ArticleStore
  */
 function getQueryState(id) {
   id = Number(id);
@@ -45,6 +45,10 @@ var Query = React.createClass({
 
   componentWillUnmount: function() {
     ArticleStore.removeChangeListener(this._onChange);
+  },
+
+  componentWillReceiveProps: function(newProps) {
+    ArticleActions.fetch(newProps.params.id);
   },
 
   /**
@@ -86,7 +90,7 @@ var Query = React.createClass({
   },
 
   /**
-   * Event handler for 'change' events coming from the QueryStore
+   * Event handler for 'change' events coming from the ArticleStore
    */
   _onChange: function() {
     this.setState(getQueryState(this.props.params.id));

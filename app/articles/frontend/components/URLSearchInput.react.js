@@ -47,7 +47,7 @@ var URLSearchInput = React.createClass({
           value={this.state.value}
           autoFocus={true}
         />
-        <input onClick={this._save} className="querySubmit" type="submit" value="Search" />
+        <input onClick={this._route} className="querySubmit" type="submit" value="Search" />
       </div>
     );
   },

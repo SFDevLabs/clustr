@@ -14,10 +14,6 @@ var Navigation = require('react-router').Navigation;
 var AutoCompleteItem = require('./AutoCompleteItem.react');
 var Loader = require('react-loader');
 var $ = require('jquery');
-
-// var QueryStore = require('../stores/QueryStore');
-// var QueryActions = require('../actions/QueryActions');
-
 var urlBase = '/apigraph/query/'
 var errorObj = require('../../../main/frontend/errorHandle');
 var utils = require('../../../main/frontend/utils');
@@ -58,23 +54,13 @@ var AutoComplete = React.createClass({
     return getQueryState(null , true);
   },
 
-  // componentDidMount: function() {
-  //   //QueryStore.addChangeListener(this._onChange);
-  //   //QueryActions.query(this.props.query)
-  // },
-
-  // componentWillUnmount: function() {
-  //   QueryStore.removeChangeListener(this._onChange);
-  // },
   _quearyEfficientFn: utils.debounce(function(q) {
     this._query(q) 
   }, 750),
 
   componentWillReceiveProps: function(newProps) {
     if (newProps.query.length>0 && newProps.query!==this.props.query){
-      // if (this.state.loader){
-        
-      // };
+
       this.setState(getQueryState(null, true))
       this._quearyEfficientFn(newProps.query);
     }
@@ -98,7 +84,10 @@ var AutoComplete = React.createClass({
       var post={
         url:query
       }
-      result = (<AutoCompleteItem post={post} />)
+      result = (<div>
+        <i>This is a New Site!</i>
+        <AutoCompleteItem post={post} />
+        </div>)
     } else {
       var result=[];
       for (var key in search) {

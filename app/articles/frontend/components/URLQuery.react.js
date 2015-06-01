@@ -13,18 +13,35 @@
  */
 
 var React = require('react');
-var Link = require('react-router').Link;
-var Loader = require('react-loader');
 var URLQueryResult = require('./URLQueryResult.react');
+
+var Loader = require('react-loader');
 var $ = require('jquery');
-var QueryStore = require('../stores/QueryStore');
-var QueryActions = require('../actions/QueryActions');
+var urlBase = '/apigraph/query/'
+var errorObj = require('../../../main/frontend/errorHandle');
+var utils = require('../../../main/frontend/utils');
+var csrfToken = utils.getCsrfToken()
+/**
+ * Make a stateless ajax call to the search api.
+ */
+function queryHandler(url, cb) {
+  $.ajax({
+    method: "GET",
+    url: urlBase,
+    data: {_csrf:csrfToken, url:url},
+  })
+  .done(function( results ) {
+    cb(null, results.data);
+  }).error(errorObj.errHandle);
+}
+
+
 /**
  * Retrieve the current TODO data from the QueryStore
  */
-function getQueryState(q, loader) {
+function getQueryState(data, loader) {
   return {
-    search: QueryStore.getResult(q),
+    search: data,
     loader: loader? loader:false
   };
 }
@@ -36,18 +53,17 @@ var Query = React.createClass({
   },
 
   componentDidMount: function() {
-    QueryStore.addChangeListener(this._onChange);
-    QueryActions.query(this.props.query)
+    this.setState(getQueryState(null, true));
+    this._query(this.props.query); 
   },
 
-  componentWillUnmount: function() {
-    QueryStore.removeChangeListener(this._onChange);
-  },
-
+  // componentWillUnmount: function() {
+  //   QueryStore.removeChangeListener(this._onChange);
+  // },
 
   componentWillReceiveProps: function(newProps) {
     this.setState(getQueryState(null, true));
-    QueryActions.query(newProps.query) 
+    this._query(newProps.query); 
   },
 
   /**
@@ -68,7 +84,7 @@ var Query = React.createClass({
     }else{
       var result=[];
       for (var key in search) {
-        result.unshift(<URLQueryResult post={search[key]} />);
+        result.unshift(<URLQueryResult key={key} post={search[key]} />);
       }
     }//end of results
 
@@ -86,18 +102,17 @@ var Query = React.createClass({
     this.setState(getQueryState(this.props.query));
   },
   /**
-   * Event handler called within TodoTextInput.
+   * Event handler called within query.
    * Defining this here allows TodoTextInput to be used in multiple places
    * in different ways.
    * @param  {string} text
    */
-  // _onSave: function(text) {
-  //   ArticleActions.updateText(this.props.query, text);
-  // },
-
-  // _onDestroyClick: function() {
-  //   ArticleActions.destroy(this.props.query);
-  // }
+  _query: function(q){
+    var that= this;
+    queryHandler(q, function(err, data){
+      that.setState(getQueryState(data));
+    });
+  },
 
 });
 
