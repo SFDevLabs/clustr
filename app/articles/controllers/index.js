@@ -13,18 +13,18 @@
  * Load
  */
 
-exports.load = function (req, res, next, id){
-  var User = mongoose.model('User');
-  console.log('next')
-  //res.send('1')
-  next();
-  // Article.load(id, function (err, article) {
-  //   if (err) return next(err);
-  //   if (!article) return next(new Error('not found'));
-  //   req.article = article;
-  //   next();
-  // });
-};
+// exports.load = function (req, res, next, id){
+//   var User = mongoose.model('User');
+//   console.log('next')
+//   //res.send('1')
+//   next();
+//   // Article.load(id, function (err, article) {
+//   //   if (err) return next(err);
+//   //   if (!article) return next(new Error('not found'));
+//   //   req.article = article;
+//   //   next();
+//   // });
+// };
 
 
 exports.urlsearch = function (req, res){

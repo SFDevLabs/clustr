@@ -14,7 +14,6 @@
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
-var QueryStore = require('../stores/QueryStore');
 var Link = require('react-router').Link;
 var QueryActions = require('../actions/QueryActions');
 var Loader = require('react-loader');
@@ -22,7 +21,6 @@ var Link = require('react-router').Link;
 
 
 var QueryResult = React.createClass({
-  
   propTypes: {
    post: ReactPropTypes.object.isRequired
   },
