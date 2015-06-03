@@ -20,12 +20,13 @@ var ReactPropTypes = React.PropTypes;
 var utils = require('../../../main/frontend/utils');
 var Immutable = require('immutable');
 var _inputs = Immutable.OrderedMap();
+var cx = require('classnames');
 
 var Navigation = require('react-router').Navigation;
 
 
 function setInput(inputNumber, data){
-	_inputs = _inputs.set(inputNumber, new InputRecord(data));
+	_inputs = _inputs.set(inputNumber, new InputRecord(data) );
 }
 
 function clearInput(inputNumber, data){
@@ -37,7 +38,7 @@ var InputRecord = Immutable.Record({
   url : null,
 });
 
-function getState(){
+function getInputState(){
 	return _inputs.toObject();
 }
 
@@ -49,7 +50,7 @@ var Add = React.createClass({
 
 	getInitialState: function() {
 		if (!utils.isLoggedIn()){utils.loginRedirect('/login')};
-		return getState();
+		return getInputState();
 	},
 
 	componentDidMount: function() {
@@ -69,9 +70,6 @@ var Add = React.createClass({
 	var inputs = this.state;
 	var selectItemIdOne = !inputs[0]?null:inputs[0].id;
 	var selectItemIdTwo = !inputs[1]?null:inputs[1].id;
-	var holderValueOne = !inputs[0]?null:inputs[0].url;
-	var holderValueTwo = !inputs[1]?null:inputs[1].url;
-
 	return (
 	  <div className="addPageContainer">
 	  
@@ -79,13 +77,18 @@ var Add = React.createClass({
         <li className="columns three"><img src="img/blank.png" /></li>
         <li className="columns ten">
           <ul className="row sixteen marginZero connection">
-			<AddURLInput holderValue={holderValueOne} onSelect={this._onSelect} onSave={this._onSave} selectItemID={selectItemIdOne} excludeItemID={selectItemIdTwo} inputNumber={0} autoFocus={true} />
+			<AddURLInput onSelect={this._onSelect} onSave={this._onSave} selectItemID={selectItemIdOne} excludeItemID={selectItemIdTwo} inputNumber={0} autoFocus={true} />
             <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
-            <AddURLInput holderValue={holderValueTwo} onSelect={this._onSelect} onSave={this._onSave} selectItemID={selectItemIdTwo} excludeItemID={selectItemIdOne} inputNumber={1} />
-          	 <input onClick={this._onClick} className="querySubmit" type="submit" value="Search" />
+            <AddURLInput onSelect={this._onSelect} onSave={this._onSave} selectItemID={selectItemIdTwo} excludeItemID={selectItemIdOne} inputNumber={1} />
+            <li className="columns one url-submit">
+	        	<a href="javascript:void(0);" onClick={this._onClick} className="querySubmit" type="submit" value="Submit" >
+                	<ul className={cx({active:this._canCreateEdge()})+" row sixteen marginZero"}>
+	                	Connect
+                	</ul>
+                </a>
+             </li>
           </ul>
         </li>
-        <li className="columns three"><img src="img/blank.png" /></li>
       </ul>
 	  </div>
 	  )
@@ -103,39 +106,33 @@ var Add = React.createClass({
 	* used in different ways.
 	*/
 	_onClick: function(valueOne, valueTwo) {
-
-		if (!this.state[1] && !this.state[2]){
-			
-		} else{
-			this._onSave(getState()[0].url, getState()[1].url)
+		if (this._canCreateEdge()){
+			this._onSave(getInputState()[0].url, getInputState()[1].url)
 		}
-
-		
 	},
+	/**
+	* Invokes the callback passed in as onSave, allowing this component to be
+	* used in different ways.
+	*/
+	_canCreateEdge: function() {
+
+		return this.state[0]!==undefined && this.state[1]!==undefined && this.state[1]!==null && this.state[2]!==null
+	},
+
 	/**
 	* Event handler for 'change' events coming from the ArticleStore
 	*/
 	_saveComplete: function() {
-		var id = getState()[0].id
+		var id = getInputState()[0].id
 		this.transitionTo('article',{id:id},{});
 	},
-
-	// /**
-	// * @param {object} event
-	// */
-	// _onChange: function(/*object*/ event, key) {
-	// 	var obj={};
-	// 	var key = event.target.dataset.key;
-	// 	obj[key] = event.target.value;
-	// 	this.setState(obj);
-	// },
 
 	/**
 	* @param {object} event
 	*/
 	_onSelect: function(data, inputNumber) {
 		setInput(inputNumber, data);
-		this.setState(getState());
+		this.setState(getInputState());
 	}
 
 });

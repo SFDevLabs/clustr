@@ -31,8 +31,6 @@ Object.defineProperty(Site.prototype, 'name', {
     }
 });
 
-// public instance methods:
-
 Site.prototype.save = function (callback) {
     this._node.save(function (err) {
         callback(err);
@@ -348,12 +346,14 @@ Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
         numTwo : nodeTwo.id?nodeTwo.id:null
     };
 
-    console.log(query, params, 'params')
 
     db.query(query, params, function (err, results) {
         if (err) return callback(err);
         //var user = new Site(results[0]['user']);
-        callback(null, results);
+        //
+        var data = results[0].userEdge._data.data;
+        data.id = results[0].userEdge._data.metadata.id;
+        callback(null, data);
     });
 };
 

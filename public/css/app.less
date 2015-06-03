@@ -303,6 +303,25 @@ header{
 .addPageContainer{
   font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
     margin: 0;
+    .url-submit{
+      height:100%;
+      a{
+
+        line-height: 60px;
+      ul{
+        cursor: default;
+        opacity: .3;
+        &.active{
+          opacity: 1;
+          cursor: pointer;
+        }
+        padding:10px;
+        height:60px;
+        background-color: #eee;
+        }
+      }
+      
+    }
 } // end addPageContainer
 .connectionBox{
   margin-top: 20px;

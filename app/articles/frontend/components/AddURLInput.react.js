@@ -24,7 +24,6 @@ var AddURLInput = React.createClass({
     //onSave: ReactPropTypes.func.isRequired,
     inputNumber: ReactPropTypes.number,
     selectItemID: ReactPropTypes.number,
-    holderValue: ReactPropTypes.string,
     onSelect: ReactPropTypes.func,
     excludeItemID: ReactPropTypes.number
   },
@@ -37,8 +36,6 @@ var AddURLInput = React.createClass({
    * @return {object}
    */
   render: function() {
-
-    var valueInput = this.props.holderValue?this.props.holderValue:this.state.value;
     return (
             <li className="columns six">
               <div className="leftBox border url-add-parent">
@@ -49,7 +46,7 @@ var AddURLInput = React.createClass({
                     placeholder={this.props.placeholder}
                     onChange={this._onChange}
                     onKeyDown={this._onKeyDown}
-                    value={valueInput}
+                    value={this.state.value}
                     autoFocus={this.props.autoFocus}
                   />
                   </li>
@@ -60,40 +57,12 @@ var AddURLInput = React.createClass({
     );
   },
 
-  // /**
-  //  * Invokes the callback passed in as onSave, allowing this component to be
-  //  * used in different ways.
-  //  */
-  // _save: function() {
-  //   if(this.state.valueOne && this.state.valueTwo){// Success we have both URLS
-  //     this.props.onSave(this.state.valueOne, this.state.valueTwo); //We pass them to the save function
-  //     // this.setState({//Reset the Front
-  //     //   valueOne: '',
-  //     //   valueTwo: ''
-  //     // });
-  //   };
-  // },
-
   /**
   * @param {object} event
   */
   _onChange: function(/*object*/ event, key) {
-    // var obj={};
-    // var key = event.target.dataset.key;
-    // obj[key] = event.target.value;
-    this.props.onSelect(null, this.props.inputNumber)
     this.setState(getState(event.target.value));
-  },
-
-  /**
-   * @param  {object} event
-   */
-  // _onKeyDown: function(event) {
-  //   if (event.keyCode === ENTER_KEY_CODE) {
-  //     this.props.onSave();
-  //     //this._save();
-  //   }
-  // }
+  }
 
 });
 

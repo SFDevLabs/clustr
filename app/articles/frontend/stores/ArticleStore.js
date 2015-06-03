@@ -58,8 +58,8 @@ function create(urlOne, urlTwo, nodeIDOne, nodeIDTwo) {
   })
   .done(function( result ) {
     //_nodes = _nodes.set(result._id, new ArticleRecord({id : result._id, url : result.url, username: 'userHolder'}));
-    var id = result[0].userEdge._data.metadata.id;
-    ArticleStore.emitSave(id);
+
+    ArticleStore.emitSave(result);
   }).error(errorObj.errHandle);
 }
 
