@@ -25,12 +25,17 @@ var cx = require('classnames');
 var Navigation = require('react-router').Navigation;
 
 
-function setInput(inputNumber, data){
+function setInput(data, inputNumber){
 	_inputs = _inputs.set(inputNumber, new InputRecord(data) );
 }
 
-function clearInput(inputNumber, data){
-	_inputs = _inputs.clear();
+function clearInput(){
+	_inputs = _inputs.set(0, new InputRecord({}) );
+	_inputs = _inputs.set(1, new InputRecord({}) );
+}
+
+function destroy(id) {
+  _inputs = _inputs.delete(id);
 }
 
 var InputRecord = Immutable.Record({
@@ -72,7 +77,6 @@ var Add = React.createClass({
 	var selectItemIdTwo = !inputs[1]?null:inputs[1].id;
 	return (
 	  <div className="addPageContainer">
-	  
       <ul className="row sixteen marginZero connectionBox">
         <li className="columns three"><img src="img/blank.png" /></li>
         <li className="columns ten">
@@ -89,6 +93,8 @@ var Add = React.createClass({
              </li>
           </ul>
         </li>
+        <a onClick={this._clearInputs}>clear</a>
+
       </ul>
 	  </div>
 	  )
@@ -99,6 +105,14 @@ var Add = React.createClass({
 	*/
 	_onSave: function(valueOne, valueTwo) {
       	ArticleActions.create(valueOne, valueTwo);
+	},
+
+	/**
+	* Invokes save to the server 
+	*/
+	_clearInputs: function() {
+      	clearInput();
+      	this.setState(getInputState());
 	},
 
 	/**
@@ -116,7 +130,7 @@ var Add = React.createClass({
 	*/
 	_canCreateEdge: function() {
 
-		return this.state[0]!==undefined && this.state[1]!==undefined && this.state[1]!==null && this.state[2]!==null
+		return this.state[0]!==undefined && this.state[1]!==undefined && this.state[0].id!==null && this.state[0].id!==null
 	},
 
 	/**
@@ -131,7 +145,11 @@ var Add = React.createClass({
 	* @param {object} event
 	*/
 	_onSelect: function(data, inputNumber) {
-		setInput(inputNumber, data);
+
+		setInput(data, inputNumber);
+
+
+		
 		this.setState(getInputState());
 	}
 

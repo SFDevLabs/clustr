@@ -21,7 +21,6 @@ function getState(value) {
 var AddURLInput = React.createClass({
 
   propTypes: {
-    //onSave: ReactPropTypes.func.isRequired,
     inputNumber: ReactPropTypes.number,
     selectItemID: ReactPropTypes.number,
     onSelect: ReactPropTypes.func,
