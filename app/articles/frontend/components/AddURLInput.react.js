@@ -10,7 +10,6 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var ENTER_KEY_CODE = 13;
-var Navigation = require('react-router').Navigation;
 var AutoComplete = require('./AutoComplete.react');
 
 function getState(value) {
@@ -21,10 +20,13 @@ function getState(value) {
 
 var AddURLInput = React.createClass({
 
-  mixins: [Navigation],
   propTypes: {
-    onSave: ReactPropTypes.func.isRequired,
-    keyValue: ReactPropTypes.string.isRequired
+    //onSave: ReactPropTypes.func.isRequired,
+    inputNumber: ReactPropTypes.number,
+    selectItemID: ReactPropTypes.number,
+    holderValue: ReactPropTypes.string,
+    onSelect: ReactPropTypes.func,
+    excludeItemID: ReactPropTypes.number
   },
 
   getInitialState: function() {
@@ -35,6 +37,8 @@ var AddURLInput = React.createClass({
    * @return {object}
    */
   render: function() {
+
+    var valueInput = this.props.holderValue?this.props.holderValue:this.state.value;
     return (
             <li className="columns six">
               <div className="leftBox border url-add-parent">
@@ -45,12 +49,12 @@ var AddURLInput = React.createClass({
                     placeholder={this.props.placeholder}
                     onChange={this._onChange}
                     onKeyDown={this._onKeyDown}
-                    value={this.state.value}
-                    autoFocus={true}
+                    value={valueInput}
+                    autoFocus={this.props.autoFocus}
                   />
                   </li>
                 </ul>
-                <AutoComplete onSelect={this.props.onSelect} query={this.state.value} onSelect={this._onSelect} keyValue={this.props.keyValue} />
+                <AutoComplete selectItemID={this.props.selectItemID} excludeItemID={this.props.excludeItemID} query={this.state.value} onSelect={this.props.onSelect} inputNumber={this.props.inputNumber} />
               </div>
             </li>
     );
@@ -77,26 +81,19 @@ var AddURLInput = React.createClass({
     // var obj={};
     // var key = event.target.dataset.key;
     // obj[key] = event.target.value;
+    this.props.onSelect(null, this.props.inputNumber)
     this.setState(getState(event.target.value));
-  },
-
-  _onSelect: function(/*object*/ event, key) {
-    // var obj={};
-    // var key = event.target.dataset.key;
-    // obj[key] = event.target.value;
-    console.log(event)
-    //this.setState(getState(event.target.value));
   },
 
   /**
    * @param  {object} event
    */
-  _onKeyDown: function(event) {
-    if (event.keyCode === ENTER_KEY_CODE) {
-      this.props.onSave();
-      //this._save();
-    }
-  }
+  // _onKeyDown: function(event) {
+  //   if (event.keyCode === ENTER_KEY_CODE) {
+  //     this.props.onSave();
+  //     //this._save();
+  //   }
+  // }
 
 });
 

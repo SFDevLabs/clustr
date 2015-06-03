@@ -32,18 +32,11 @@ exports.urlsearch = function (req, res){
   console.log(url, req.param('url'), 'this is a url')
   if (!url) return res.send(utils.errMsg('No Valid URL to Query.'))
 
-
   GraphModel.findByURL(url ,function(err, results){
       console.log(err, results)
       res.send(results);
   });
     
-
-  // Article.loadURL(url, function (err, article) {
-  //   if (err) return next(err);
-  //   if (!article) return res.send({});
-  //   res.send(article)
-  // });
 };
 
 /**

@@ -8,18 +8,17 @@
  */
 
 var React = require('react');
+var cx = require('classnames');
+
 var ReactPropTypes = React.PropTypes;
-var ENTER_KEY_CODE = 13;
-var Navigation = require('react-router').Navigation;
+
+
 
 var AutoCompleteItem = React.createClass({
-
-  mixins: [Navigation],
-
   propTypes: {
     post: ReactPropTypes.object.isRequired,
     onSelect: ReactPropTypes.func.isRequired,
-    keyValue: ReactPropTypes.string.isRequired
+    inputNumber: ReactPropTypes.number,
   },
 
   /**
@@ -28,7 +27,10 @@ var AutoCompleteItem = React.createClass({
   render: function() {
     var post = this.props.post
     return (
-        <ul onClick={this._onClick} className="row sixteen marginZero connectionBox">
+      <a href="javascript:void(0);" onClick={this._onClick} >
+        <ul  className={cx({
+          selected:this.props.selected
+        })+" row sixteen marginZero connectionBox"}>
           <li className="columns six">
             <div className="leftBox">
               <ul className="row sixteen marginZero">
@@ -43,13 +45,19 @@ var AutoCompleteItem = React.createClass({
             </div>
           </li>
         </ul>
+      </a>
       );
   },
+
   _onClick:function(event){
-    
-    var keyValue = this.props.keyValue;
+    var inputNumber = this.props.inputNumber;
     var url = this.props.post.url;
-    this.props.onSelect(url, keyValue)
+
+    if (this.props.post.id){
+      this.props.onSelect(this.props.post, this.props.inputNumber);
+    }
+    
+    // this.props.setSelected(this.props.post.id)
   }
 
 });

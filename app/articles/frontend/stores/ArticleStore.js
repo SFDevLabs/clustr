@@ -16,6 +16,7 @@ var assign = require('object-assign');
 var Immutable = require('immutable');
 var $ = require('jquery');
 var CHANGE_EVENT = 'change';
+var SAVE_EVENT = 'save';
 var _history = [];
 var _nodes = Immutable.OrderedMap();
 var _edges = Immutable.OrderedMap();
@@ -57,7 +58,8 @@ function create(urlOne, urlTwo, nodeIDOne, nodeIDTwo) {
   })
   .done(function( result ) {
     //_nodes = _nodes.set(result._id, new ArticleRecord({id : result._id, url : result.url, username: 'userHolder'}));
-    ArticleStore.emitChange();
+    var id = result[0].userEdge._data.metadata.id;
+    ArticleStore.emitSave(id);
   }).error(errorObj.errHandle);
 }
 
@@ -246,6 +248,11 @@ var ArticleStore = assign({}, EventEmitter.prototype, {
     this.emit(CHANGE_EVENT);
   },
 
+  emitSave: function(edgeId) {
+    this.emit(SAVE_EVENT,edgeId);
+  },
+
+
   /**
    * @param {function} callback
    */
@@ -258,7 +265,22 @@ var ArticleStore = assign({}, EventEmitter.prototype, {
    */
   removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
+  },
+
+  /**
+   * @param {function} callback
+   */
+  addSaveListener: function(callback) {
+    this.on(SAVE_EVENT, callback);
+  },
+
+  /**
+   * @param {function} callback
+   */
+  removeSaveListener: function(callback) {
+    this.removeListener(SAVE_EVENT, callback);
   }
+
 });
 
 // Register callback to handle all updates

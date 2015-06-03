@@ -17,28 +17,61 @@ var ArticleStore = require('../stores/ArticleStore');
 var AddURLInput = require('./AddURLInput.react');
 var ArticleActions = require('../actions/ArticleActions');
 var ReactPropTypes = React.PropTypes;
-var Navigation = require('react-router').Navigation;
 var utils = require('../../../main/frontend/utils');
+var Immutable = require('immutable');
+var _inputs = Immutable.OrderedMap();
 
-var MainSearch = React.createClass({
+var Navigation = require('react-router').Navigation;
+
+
+function setInput(inputNumber, data){
+	_inputs = _inputs.set(inputNumber, new InputRecord(data));
+}
+
+function clearInput(inputNumber, data){
+	_inputs = _inputs.clear();
+}
+
+var InputRecord = Immutable.Record({
+  id : null,
+  url : null,
+});
+
+function getState(){
+	return _inputs.toObject();
+}
+
+var Add = React.createClass({
 	mixins: [Navigation],
-
 	// propTypes: {
 	// 	value: ReactPropTypes.string
 	// },
 
 	getInitialState: function() {
 		if (!utils.isLoggedIn()){utils.loginRedirect('/login')};
-		return {
-			  valueOne:'',
-			  valueTwo:''
-			}
+		return getState();
+	},
+
+	componentDidMount: function() {
+	 	ArticleStore.addSaveListener(this._saveComplete);
+	},
+
+	componentWillUnmount: function() {
+		clearInput();
+	    ArticleStore.removeSaveListener(this._saveComplete);
 	},
 
 	render: function() {
 	//move this logix to the back end
 	//var same = (<h4>URLS can not be the same!</h4>)
 	//var  equals = valueOne.length>0 && valueOne===valueTwo?same:null;
+	
+	var inputs = this.state;
+	var selectItemIdOne = !inputs[0]?null:inputs[0].id;
+	var selectItemIdTwo = !inputs[1]?null:inputs[1].id;
+	var holderValueOne = !inputs[0]?null:inputs[0].url;
+	var holderValueTwo = !inputs[1]?null:inputs[1].url;
+
 	return (
 	  <div className="addPageContainer">
 	  
@@ -46,9 +79,10 @@ var MainSearch = React.createClass({
         <li className="columns three"><img src="img/blank.png" /></li>
         <li className="columns ten">
           <ul className="row sixteen marginZero connection">
-			<AddURLInput onSave={this._onSave} onChange={this._onChange} keyValue="valueOne" />
+			<AddURLInput holderValue={holderValueOne} onSelect={this._onSelect} onSave={this._onSave} selectItemID={selectItemIdOne} excludeItemID={selectItemIdTwo} inputNumber={0} autoFocus={true} />
             <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
-            <AddURLInput onSave={this._onSave} onSelect={this._onSelect} keyValue="valueTwo" />
+            <AddURLInput holderValue={holderValueTwo} onSelect={this._onSelect} onSave={this._onSave} selectItemID={selectItemIdTwo} excludeItemID={selectItemIdOne} inputNumber={1} />
+          	 <input onClick={this._onClick} className="querySubmit" type="submit" value="Search" />
           </ul>
         </li>
         <li className="columns three"><img src="img/blank.png" /></li>
@@ -58,20 +92,32 @@ var MainSearch = React.createClass({
 	},
 
 	/**
+	* Invokes save to the server 
+	*/
+	_onSave: function(valueOne, valueTwo) {
+      	ArticleActions.create(valueOne, valueTwo);
+	},
+
+	/**
 	* Invokes the callback passed in as onSave, allowing this component to be
 	* used in different ways.
 	*/
-	_onSave: function(valueOne, valueTwo) {
-		// var  valueOne = this.state.valueOne;
-		// var  valueTwo =  this.state.valueTwo;
-		if (valueOne.length>0 && valueTwo.length>0 && valueOne!==valueTwo){};
-			//alert(valueOne+'-'+valueTwo)
-      		
-      	ArticleActions.create(valueOne, valueTwo);
-      		//this.transitionTo('/4',{},{});
+	_onClick: function(valueOne, valueTwo) {
+
+		if (!this.state[1] && !this.state[2]){
+			
+		} else{
+			this._onSave(getState()[0].url, getState()[1].url)
+		}
+
 		
-    // console.log(text, number);
-    // console.log(text, number);
+	},
+	/**
+	* Event handler for 'change' events coming from the ArticleStore
+	*/
+	_saveComplete: function() {
+		var id = getState()[0].id
+		this.transitionTo('article',{id:id},{});
 	},
 
 	// /**
@@ -87,19 +133,11 @@ var MainSearch = React.createClass({
 	/**
 	* @param {object} event
 	*/
-	_onSelect: function(url, key) {
-		// var obj={};
-		// var key = event.target.dataset.key;
-		// obj[key] = event.target.value;
-		// this.setState(obj);
-		console.log(url, key);
-	},
-
-	_sameCheck: function() {
-		var  valueOne = this.state.valueOne;
-		var  valueTwo =  this.state.valueTwo;	
+	_onSelect: function(data, inputNumber) {
+		setInput(inputNumber, data);
+		this.setState(getState());
 	}
 
 });
 
-module.exports = MainSearch;
+module.exports = Add;

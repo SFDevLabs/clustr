@@ -49,7 +49,9 @@ var AutoComplete = React.createClass({
   propTypes: {
     query: ReactPropTypes.string.isRequired,
     onSelect: ReactPropTypes.func.isRequired,
-    keyValue: ReactPropTypes.string.isRequired
+    inputNumber: ReactPropTypes.number,
+    selectItemID: ReactPropTypes.number,
+    excludeItemID: ReactPropTypes.number
   },
 
   getInitialState: function() {
@@ -87,12 +89,17 @@ var AutoComplete = React.createClass({
       }
       result = (<div>
         <i>This is a New Site!</i>
-        <AutoCompleteItem post={post} onSelect={this.props.onSelect} />
+        <AutoCompleteItem selected={true} post={post} onSelect={this.props.onSelect} />
         </div>)
     } else {
       var result=[];
       for (var key in search) {
-        result.unshift(<AutoCompleteItem key={key} post={search[key]} onSelect={this.props.onSelect} keyValue={this.props.keyValue} />);
+        var item = search[key]
+        var selected = item.id===this.props.selectItemID?true:false;
+
+        if (item.id!==this.props.excludeItemID ){
+          result.unshift(<AutoCompleteItem selected={selected} key={key} post={item} onSelect={this.props.onSelect} inputNumber={this.props.inputNumber}/>);
+        }
       }
     }//end of results
 
@@ -113,9 +120,6 @@ var AutoComplete = React.createClass({
     });
   },
 
-  _onSelect: function(q){
-    alert('s')
-  },
 
   _loader: (<Loader/>)
 
