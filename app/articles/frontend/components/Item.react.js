@@ -43,11 +43,12 @@ var ArticleItem = React.createClass({
                     <li className="columns six">
                       <div className="leftBox">
                         <ul className="row sixteen marginZero">
-                          <li className="columns four addIconBox"><img className="addIcon" src="img/twitter_bird.png" /></li>
+                          <li className="columns four addIconBox"><img className="addIcon" src={item.siteTo.favicon} /></li>
                           <li className="columns twelve nodeTitleBox">
-                            <div className="nodeTitle">{item.siteTo.url}
+                            <div className="nodeTitle">{item.siteTo.title}
                             </div>
                             <div className="nodeUrl">{item.siteTo.url}</div>
+                            
                           </li>
                         </ul>
                       </div>
@@ -58,9 +59,9 @@ var ArticleItem = React.createClass({
                     <li className="columns six">
                       <div className="rightBox">
                         <ul className="row sixteen marginZero">
-                          <li className="columns four addIconBox"><img className="addIcon" src="img/foursquare.png" /></li>
+                          <li className="columns four addIconBox"><img className="addIcon" src={item.siteFrom.favicon}  /></li>
                           <li className="columns twelve nodeTitleBox">
-                            <div className="nodeTitle">{item.siteFrom.url}
+                            <div className="nodeTitle">{item.siteFrom.title}
                             </div>
                             <div className="nodeUrl">{item.siteFrom.url}</div>
                           </li>

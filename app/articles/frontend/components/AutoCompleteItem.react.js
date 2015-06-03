@@ -21,6 +21,12 @@ var AutoCompleteItem = React.createClass({
     inputNumber: ReactPropTypes.number,
   },
 
+  componentDidMount: function() {
+    if (this.props.selected){
+      this.props.onSelect(this.props.post, this.props.inputNumber);
+    }
+  },
+
   /**
    * @return {object}
    */
@@ -30,15 +36,16 @@ var AutoCompleteItem = React.createClass({
       <a href="javascript:void(0);" onClick={this._onClick} >
         <ul  className={cx({
           selected:this.props.selected
-        })+" row sixteen marginZero connectionBox"}>
-          <li className="columns six">
+        })+" row six marginZero connectionBox"}>
+          <li className="columns sixteen">
             <div className="leftBox">
-              <ul className="row sixteen marginZero">
-                <li className="columns four addIconBox"><img className="addIcon" src="img/twitter_bird.png" /></li>
-                <li className="columns twelve nodeTitleBox">
-                  <div className="nodeTitle">
+              <ul className="row  marginZero">
+                <li className="columns two addIconBox"><img className="addIcon" src="img/twitter_bird.png" /></li>
+                <li className="columns fourteen nodeTitleBox">
+                  <div className="nodeTitle truncate">
+                  {post.title}
                   </div>
-                  <div className="nodeUrl">
+                  <div className="nodeUrl truncate">
                   {post.url}</div>
                 </li>
               </ul>
@@ -48,6 +55,7 @@ var AutoCompleteItem = React.createClass({
       </a>
       );
   },
+        
 
   _onClick:function(event){
     var inputNumber = this.props.inputNumber;
@@ -56,7 +64,6 @@ var AutoCompleteItem = React.createClass({
     if (this.props.post.id){
       this.props.onSelect(this.props.post, this.props.inputNumber);
     }
-    
     // this.props.setSelected(this.props.post.id)
   }
 

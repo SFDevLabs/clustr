@@ -330,9 +330,13 @@ Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
     // } else {
     //     query.push('CREATE (siteTwo:Site {nodeTwo})');
     // }
+    
+    // an example using an object instead of an array
 
-    query.push('MERGE (siteOne:Site {url: {nodeOne}.url})');
-    query.push('MERGE (siteTwo:Site {url: {nodeTwo}.url})');
+
+
+    query.push('MERGE (siteOne:Site {url: {nodeOne}.url, title: {nodeOne}.title })');
+    query.push('MERGE (siteTwo:Site {url: {nodeTwo}.url, title: {nodeTwo}.title })');
     query.push('CREATE (siteOne)-[userEdge:USEREDGE{edge}]->(siteTwo)');
     query.push('RETURN userEdge');
     query = query.join('\n');
@@ -341,9 +345,7 @@ Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
     var params = {
         nodeOne: nodeOne,
         nodeTwo: nodeTwo,
-        edge: edge,
-        numOne : nodeOne.id,
-        numTwo : nodeTwo.id?nodeTwo.id:null
+        edge: edge
     };
 
 

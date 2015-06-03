@@ -49,7 +49,7 @@ var AutoComplete = React.createClass({
   propTypes: {
     query: ReactPropTypes.string.isRequired,
     onSelect: ReactPropTypes.func.isRequired,
-    inputNumber: ReactPropTypes.number,
+    inputNumber: ReactPropTypes.number.isRequired,
     selectItemID: ReactPropTypes.number,
     excludeItemID: ReactPropTypes.number
   },
@@ -89,7 +89,7 @@ var AutoComplete = React.createClass({
       }
       result = (<div>
         <i>This is a New Site!</i>
-        <AutoCompleteItem selected={true} post={post} onSelect={this.props.onSelect} />
+        <AutoCompleteItem selected={true} post={post} onSelect={this.props.onSelect} inputNumber={this.props.inputNumber} />
         </div>)
     } else {
       var result=[];

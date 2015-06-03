@@ -21,7 +21,7 @@ function getState(value) {
 var AddURLInput = React.createClass({
 
   propTypes: {
-    inputNumber: ReactPropTypes.number,
+    inputNumber: ReactPropTypes.number.isRequired,
     selectItemID: ReactPropTypes.number,
     onSelect: ReactPropTypes.func,
     excludeItemID: ReactPropTypes.number
@@ -38,7 +38,7 @@ var AddURLInput = React.createClass({
     return (
             <li className="columns six">
               <div className="leftBox border url-add-parent">
-                <ul className="row sixteen marginZero">
+                <ul className="row six marginZero">
                   <li className="columns four url-input">
                   <input
                     type="text" 

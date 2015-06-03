@@ -7,6 +7,7 @@ module.exports = {
   bundle: '/js/bundle.js',
   db: 'mongodb://localhost/clustr',
   graphdb:'http://localhost:7474',
+  alchemyAPIKey:'be2f7973124cb69ffab13bc66a425f9b9760dc2e',
   facebook: {
     clientID: process.env.FACEBOOK_CLIENTID,
     clientSecret: process.env.FACEBOOK_SECRET,

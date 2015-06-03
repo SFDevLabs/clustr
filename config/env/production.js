@@ -8,6 +8,7 @@ module.exports = {
   bundlecss: '/css/bundle.min.css',
   db: process.env.MONGOLAB_URI,
   graphdb:process.env.GRAPHENEDB_URL,
+  alchemyAPIKey:'be2f7973124cb69ffab13bc66a425f9b9760dc2e',
   facebook: {
     clientID: process.env.FACEBOOK_CLIENTID,
     clientSecret: process.env.FACEBOOK_SECRET,

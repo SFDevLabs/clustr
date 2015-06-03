@@ -41,6 +41,7 @@ function destroy(id) {
 var InputRecord = Immutable.Record({
   id : null,
   url : null,
+  title: null
 });
 
 function getInputState(){
@@ -77,25 +78,25 @@ var Add = React.createClass({
 	var selectItemIdTwo = !inputs[1]?null:inputs[1].id;
 	return (
 	  <div className="addPageContainer">
-      <ul className="row sixteen marginZero connectionBox">
-        <li className="columns three"><img src="img/blank.png" /></li>
-        <li className="columns ten">
-          <ul className="row sixteen marginZero connection">
-			<AddURLInput onSelect={this._onSelect} onSave={this._onSave} selectItemID={selectItemIdOne} excludeItemID={selectItemIdTwo} inputNumber={0} autoFocus={true} />
-            <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
-            <AddURLInput onSelect={this._onSelect} onSave={this._onSave} selectItemID={selectItemIdTwo} excludeItemID={selectItemIdOne} inputNumber={1} />
-            <li className="columns one url-submit">
-	        	<a href="javascript:void(0);" onClick={this._onClick} className="querySubmit" type="submit" value="Submit" >
-                	<ul className={cx({active:this._canCreateEdge()})+" row sixteen marginZero"}>
-	                	Connect
-                	</ul>
-                </a>
-             </li>
-          </ul>
-        </li>
-        <a onClick={this._clearInputs}>clear</a>
+	      <ul className="row sixteen marginZero connectionBox">
+	        <li className="columns three"><img src="img/blank.png" /></li>
+	        <li className="columns ten">
+	          <ul className="row eight marginZero connection">
+				<AddURLInput onSelect={this._onSelect} onSave={this._onSave} selectItemID={selectItemIdOne} excludeItemID={selectItemIdTwo} inputNumber={0} autoFocus={true} />
+	            <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
+	            <AddURLInput onSelect={this._onSelect} onSave={this._onSave} selectItemID={selectItemIdTwo} excludeItemID={selectItemIdOne} inputNumber={1} />
+	            <li className="columns one url-submit">
+		        	<a href="javascript:void(0);" onClick={this._onClick} className="querySubmit" type="submit" value="Submit" >
+	                	<ul className={cx({active:this._canCreateEdge()})+" row sixteen marginZero"}>
+		                	Connect
+	                	</ul>
+	                </a>
+	             </li>
+	          </ul>
+	        </li>
+	        <a onClick={this._clearInputs}>clear</a>
 
-      </ul>
+	      </ul>
 	  </div>
 	  )
 	},
@@ -130,15 +131,15 @@ var Add = React.createClass({
 	*/
 	_canCreateEdge: function() {
 
-		return this.state[0]!==undefined && this.state[1]!==undefined && this.state[0].id!==null && this.state[0].id!==null
+		return this.state[0]!==undefined && this.state[1]!==undefined && this.state[0].url!==null && this.state[0].url!==null
 	},
 
 	/**
 	* Event handler for 'change' events coming from the ArticleStore
 	*/
 	_saveComplete: function() {
-		var id = getInputState()[0].id
-		this.transitionTo('article',{id:id},{});
+		//var id = getInputState()[0].id
+		this.transitionTo('articles',{},{});
 	},
 
 	/**
@@ -147,9 +148,6 @@ var Add = React.createClass({
 	_onSelect: function(data, inputNumber) {
 
 		setInput(data, inputNumber);
-
-
-		
 		this.setState(getInputState());
 	}
 
