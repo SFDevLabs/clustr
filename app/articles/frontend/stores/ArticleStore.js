@@ -195,7 +195,6 @@ function fetchOne(id) {
 function url_domain(data) {
   var    a      = document.createElement('a');
          a.href = 'https://'+data;
-         debugger
   return a.hostname.replace(/^[^.]+\./g, "");
 }
 
