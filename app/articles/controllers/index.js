@@ -67,38 +67,13 @@ exports.create = function (req, res){
   var urlTwo = URLParse(req.body.urlTwo);
 
   if (!urlOne || !urlOne){return res.status(204).send(utils.errMsg('Requires Two Valid URLs.'))};
-  
-
-
-  async.series([
-      function(callback){
-          alchemy.title('http://'+urlOne,{},function(err, response){
-            console.log(err, response)
-              callback(null, response.title);
-          })
-          callback(null, 'gg');
-      },
-      function(callback){
-        setTimeout(function(){
-            callback(null, null);
-        }, 500);
-      },
-      function(callback){
-          alchemy.title('http://'+urlTwo,{},function(err, response){
-            console.log(err, response)
-              callback(null, response.title);
-          })
-  }],
-  function(err, results) {
-
-      console.log(results, 'results')
 
       GraphModel.createConnection({
         url:urlOne,
-        title: results[0]
+        title: ""
       },{
         url:urlTwo,
-        title: results[2]
+        title: ""
       },{
 
       }, function(err, result){
@@ -108,7 +83,33 @@ exports.create = function (req, res){
         res.send(result);
       });
 
-  });
+
+  // async.series([
+  //     function(callback){
+  //         alchemy.title('http://'+urlOne,{},function(err, response){
+  //           console.log(err, response)
+  //             callback(null, response.title);
+  //         })
+  //         callback(null, 'gg');
+  //     },
+  //     function(callback){
+  //       setTimeout(function(){
+  //           callback(null, null);
+  //       }, 500);
+  //     },
+  //     function(callback){
+  //         alchemy.title('http://'+urlTwo,{},function(err, response){
+  //           console.log(err, response)
+  //             callback(null, response.title);
+  //         })
+  // }],
+  // function(err, results) {
+
+
+
+
+
+  // });
 
 
   
