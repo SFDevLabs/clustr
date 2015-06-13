@@ -97,23 +97,29 @@ exports.getAll = function (req, res){
 exports.create = function (req, res){
   var urlOne = URLParse(req.body.urlOne);
   var urlTwo = URLParse(req.body.urlTwo);
+  var titleOne = URLParse(req.body.titleOne);
+  var titleTwo = URLParse(req.body.titleTwo);
+  var idOne = URLParse(req.body.idOne);
+  var idTwo = URLParse(req.body.idTwo);
 
   if (!urlOne || !urlOne){return res.status(204).send(utils.errMsg('Requires Two Valid URLs.'))};
       
-      GraphModel.createConnection({
-        url:urlOne,
-        title: ""
-      },{
-        url:urlTwo,
-        title: ""
-      },{
+      var nodeOne = {
+        url: urlOne,
+        title: titleOne
+      };
 
-      }, function(err, result){
-        
-        if (err) {
-          return res.status(500).send(err)
-        }
-        res.send(result);
+      var nodeTwo = {
+        url: urlTwo,
+        title: titleTwo
+      };
+
+      GraphModel.createConnection(nodeOne,nodeTwo,{},
+        function(err, result){
+          if (err) {
+            return res.status(500).send(err)
+          }
+          res.send(result);
       });
 
 

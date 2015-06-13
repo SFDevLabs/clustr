@@ -52,11 +52,13 @@ function create(urlOne, urlTwo, nodeIDOne, nodeIDTwo) {
     method: "POST",
     url: urlBase,
     data: {
-      urlOne:urlOne,
-      urlTwo:urlTwo,
-      nodeIDOne:nodeIDOne, 
-      nodeIDTwo:nodeIDTwo, 
-      _csrf:csrfToken}
+      urlOne: urlOne,
+      urlTwo: urlTwo,
+      idOne: idOne,
+      idTwo: idTwo,
+      nodeIDOne: nodeIDOne, 
+      nodeIDTwo: nodeIDTwo, 
+      _csrf: csrfToken}
   })
   .done(function( result ) {
     //_nodes = _nodes.set(result._id, new ArticleRecord({id : result._id, url : result.url, username: 'userHolder'}));
@@ -302,8 +304,16 @@ AppDispatcher.register(function(action) {
     case TodoConstants.TODO_CREATE:
       var urlOne = action.urlOne.trim();
       var urlTwo = action.urlTwo.trim();
+      var idOne = action.idOne.trim();
+      var idTwo = action.idTwo.trim();
+      var titleOne = action.titleOne.trim();
+      var titleTwo = action.titleTwo.trim();
+
       if (urlOne !== '' && urlTwo !== '') {
-        create(urlOne, urlTwo);
+        create({
+          nodeOne:{},
+          nodeTwo:{}
+        });
       }
       break;
 
