@@ -29,17 +29,18 @@ function queryHandler(url, cb) {
     data: {_csrf:csrfToken, url:url},
   })
   .done(function( results ) {
-    cb(null, results.data);
+    cb(null, results);
   }).error(errorObj.errHandle);
 }
 
 /**
  * Retrieve the current TODO data from the QueryStore
  */
-function getQueryState(data, loader) {
+function getQueryState(data, loader, newItem) {
   return {
     search: data,
-    loader: loader? loader:false
+    loader: loader? loader:false,
+    newItem: newItem? newItem:false
   };
 };
 
@@ -76,6 +77,7 @@ var AutoComplete = React.createClass({
     //var items = [(<AutoCompleteItem/>), (<AutoCompleteItem/>)];
     var loader = this.state.loader;
     var search = this.state.search;
+    var newItem = this.state.newItem;
     var query = this.props.query;
     var result;
     
@@ -83,13 +85,18 @@ var AutoComplete = React.createClass({
       result= null;
     } else if (loader===true) {  //Wait for ajax response
       result = this._loader;
-    }else if ($.isEmptyObject(search)){ //No response from search api.
+    } else if (newItem){
+      result=(
+        <div>
+          <AutoCompleteItem selected={true} post={newItem} onSelect={this.props.onSelect} inputNumber={this.props.inputNumber}/>
+        </div>
+        );
+    } else if ( $.isEmptyObject(search) ){ //No response from search api.
       var post={
         url:query
       }
       result = (<div>
-        <i>This is a New Site!</i>
-        <AutoCompleteItem selected={true} post={post} onSelect={this.props.onSelect} inputNumber={this.props.inputNumber} />
+        <i>Not a valid site!</i>
         </div>)
     } else {
       var result=[];
@@ -115,8 +122,8 @@ var AutoComplete = React.createClass({
    */
   _query: function(q){
     var that= this;
-    queryHandler(q, function(err, data){
-      that.setState(getQueryState(data));
+    queryHandler(q, function(err, result){
+      that.setState(getQueryState(result.data, false, result.newItem));
     });
   },
 

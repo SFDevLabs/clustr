@@ -82,9 +82,9 @@ var Add = React.createClass({
 	        <li className="columns three"><img src="img/blank.png" /></li>
 	        <li className="columns ten">
 	          <ul className="row eight marginZero connection">
-				<AddURLInput onSelect={this._onSelect} onSave={this._onSave} selectItemID={selectItemIdOne} excludeItemID={selectItemIdTwo} inputNumber={0} autoFocus={true} />
+				<AddURLInput onSelect={this._onSelect} selectItemID={selectItemIdOne} excludeItemID={selectItemIdTwo} inputNumber={0} autoFocus={true} />
 	            <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
-	            <AddURLInput onSelect={this._onSelect} onSave={this._onSave} selectItemID={selectItemIdTwo} excludeItemID={selectItemIdOne} inputNumber={1} />
+	            <AddURLInput onSelect={this._onSelect} selectItemID={selectItemIdTwo} excludeItemID={selectItemIdOne} inputNumber={1} />
 	            <li className="columns one url-submit">
 		        	<a href="javascript:void(0);" onClick={this._onClick} className="querySubmit" type="submit" value="Submit" >
 	                	<ul className={cx({active:this._canCreateEdge()})+" row sixteen marginZero"}>
@@ -122,7 +122,7 @@ var Add = React.createClass({
 	*/
 	_onClick: function(valueOne, valueTwo) {
 		if (this._canCreateEdge()){
-			this._onSave(getInputState()[0].url, getInputState()[1].url)
+			this._onSave(getInputState()[0], getInputState()[1])
 		}
 	},
 	/**
