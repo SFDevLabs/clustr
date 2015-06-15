@@ -27,19 +27,27 @@ if (utils.isLoggedIn()) {
 var Header = React.createClass({
 
   render: function () {
-    return <Navbar brand='React-Bootstrap' inverse toggleNavKey={0}>
+    return <Navbar className="navBar" brand='' toggleNavKey={0}>
+      <Nav left>
+        <NavItem className="homeBox" href="articles"><img className="homeLogoFont" src="/img/logo_clustr_font.png"/></NavItem>
+      </Nav>
+      <Nav middle>
+        <NavItem className = "headerSearch">
+           <URLSearchInput
+              id=""
+              placeholder="URL Search..."
+              onSave={this._onSave}
+              className="queryBox"
+              name = "query"
+            />
+          </NavItem>
+        </Nav>
       <Nav right eventKey={0}> {/* This is the eventKey referenced */}
-        <NavItem eventKey={1} href='#'>Link</NavItem>
-        <NavItem eventKey={2} href='#'>Link</NavItem>
-        <DropdownButton eventKey={3} title='Dropdown'>
-          <MenuItem eventKey='1'>Action</MenuItem>
-          <MenuItem eventKey='2'>Another action</MenuItem>
-          <MenuItem eventKey='3'>Something else here</MenuItem>
-          <MenuItem divider />
-          <MenuItem eventKey='4'>Separated link</MenuItem>
-        </DropdownButton>
+        <NavItem eventKey={1} href='add'><img className="statusBoxAddNode" src="img/circleAddButton.png" title="add a node" /></NavItem>
+        <NavItem eventKey={2} href='login'><img className="statusBoxProfile" title="profile" src={loginImg} /></NavItem>
       </Nav>
     </Navbar>
+
   }
 });
 module.exports = Header;
