@@ -33,46 +33,20 @@ var ArticleItem = React.createClass({
     var item = this.props.item;
     var siteToLink="/"+item.siteTo.id;
     var siteFromLink="/"+item.siteFrom.id;
+    var Col = require('react-bootstrap').Col;
+    var Row = require('react-bootstrap').Row;
     return (
-      <div>
-          <ul className="row sixteen marginZero connectionBox">
-              <li className="columns three"><img src="img/blank.png" /></li>
-              <li className="columns ten">
-                <ul className="row sixteen marginZero connection">
-                  <Link to={siteToLink}>
-                    <li className="columns six">
-                      <div className="leftBox">
-                        <ul className="row sixteen marginZero">
-                          <li className="columns four addIconBox"><img className="addIcon" src={item.siteTo.favicon} /></li>
-                          <li className="columns twelve nodeTitleBox">
-                            <div className="nodeTitle">{item.siteTo.title}
-                            </div>
-                            <div className="nodeUrl">{item.siteTo.url}</div>
-                            
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </Link>
-                  <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
-                  <Link to={siteFromLink}>
-                    <li className="columns six">
-                      <div className="rightBox">
-                        <ul className="row sixteen marginZero">
-                          <li className="columns four addIconBox"><img className="addIcon" src={item.siteFrom.favicon}  /></li>
-                          <li className="columns twelve nodeTitleBox">
-                            <div className="nodeTitle">{item.siteFrom.title}
-                            </div>
-                            <div className="nodeUrl">{item.siteFrom.url}</div>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </Link>
-                </ul>
-              </li>
-              <li className="columns three"><img src="img/blank.png" /></li>
-          </ul>
+      <div className="recentConnectionsDiv">
+        <Row className="siteToRow">
+          <div className="siteToFaviconBox"><Link to={siteToLink}><img className="siteToFaviconImg" src={item.siteTo.favicon} /></Link></div>
+          <Link to={siteToLink}><div className="siteToTitle">{item.siteTo.title}</div></Link>
+          <Link to={siteToLink}><div className="siteToURL">{item.siteTo.url}</div></Link>
+        </Row>
+        <Row className="siteFromRow">
+          <div className="siteFromFaviconBox"><Link to={siteFromLink}><img className="siteFromFaviconImg" src={item.siteFrom.favicon} /></Link></div>
+          <Link to={siteFromLink}><div className="siteFromTitle">{item.siteFrom.title}</div></Link>
+          <Link to={siteFromLink}><div className="SiteFromURL">{item.siteFrom.url}</div></Link>
+        </Row>
       </div>
     );
   },

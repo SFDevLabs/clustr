@@ -103,6 +103,32 @@ body {
     .recentConnections{
       background-color: white;
       border: solid 1px #ccc;
+      .siteToRow{
+        background-color: beige;
+        .siteToFaviconBox{
+          float: left;
+          .siteToFaviconImg{}
+        }
+        .siteToTitle{
+          float: left;
+          margin-left: 20px;}
+        .siteToURL{
+          margin-top: 20px;
+        }
+      }
+      .siteFromRow{
+        background-color: pink;
+        .siteFromFaviconBox{
+          float: left;
+          .siteFromFaviconImg{}
+        }
+        .siteFromTitle{
+          float: left;
+          margin-left: 20px;}
+        .siteFromURL{
+          margin-top: 20px;
+        }
+      }
     }
     .leaderBoard{
       background-color: white;
@@ -112,87 +138,6 @@ body {
 
 
 } // end MainBody
-
-//Floating items left wiull need to be removed when we get a real sccofolding in place (like bootstrap). For nwo this will do.
-.recentClustrSearches{
-  border-top: 1px solid rgba(1, 0, 0, .05);
-  margin: 0;
-  margin-top: 50px;
-  font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
-  overflow: hidden;//overflow and margin left 20% is a hack.See comment above
-  .recentSearchesTitle{
-    text-align: center;
-    font-size: 28px;
-    margin-top: 30px;
-    margin-bottom: 10px;
-    padding-left: 10px;
-  }
-  .noMarginContainer{
-      margin-left: 20%;//overflow and margin left 20% is a hack. See comment above
-  }
-
-  .clustrSearches{
-    margin: 0;
-    margin-left: 10px;
-    .recentClustrSearch{
-      border: 1px solid rgba(1, 0, 0, .05); //Duplicated CSS remove this and unify l8tr
-      text-align: left;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      height: 80px;
-    }
-    .clustrTextBox{
-      list-style-type: none;
-      text-overflow: ellipsis;
-      width: 80%;
-      .clustrSearchText{
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        margin-top: 5px;
-        padding-left: 10px;
-        font-size: 16px;
-      }
-      .linkToClustrArticle{
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        margin-top: 5px;
-        padding: 0px;
-        margin-left: 50px;
-      }
-    }
-    .clustrArticleThumbnail{
-      float: left;
-      height: 70px;
-      width: auto;
-      margin-top: 5px;
-      margin-left: 5px;
-    }
-    .clustrSearchUserBox{
-       float:left;
-       border: 1px solid rgba(1, 0, 0, .05); //Duplicated CSS remove this and unify l8tr
-       border-left: 0px solid;
-       margin-top: 10px;
-       margin-bottom: 10px;
-       height: 80px;
-      .clustrSearchUser{
-        list-style-type: none;
-        padding-top: 15px;
-        padding-right: 15px;
-        .clustrSearchUserImg{
-          border-radius: 25px;
-          height: 30px;
-          width: 30px;
-          text-align: center;
-        }
-        .clustrSearchUsername{
-          text-align: center;
-        }
-      }
-    }
-  }
-} // end .recentClustrSearches
 
 .searchResults{
   font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;

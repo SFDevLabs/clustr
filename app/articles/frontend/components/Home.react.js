@@ -98,17 +98,11 @@ var ArticleApp = React.createClass({
 
           <Row className="homeFeeds">
             <Col md={2} className=""></Col>
-            <Col md={4} className="recentConnections">Recent Connections</Col>
+            <Col md={4} className="recentConnections">{posts}</Col>
             <Col md={1} className=""></Col>
             <Col md={4} className="leaderBoard">LeaderBoard</Col>
             <Col md={1} className=""></Col>
           </Row>
-
-          <div className="row recentClustrSearches">
-            <div className="recentSearchesTitle">Recent Connections:
-            </div>
-            {posts}
-          </div>
         </Grid>
       );
 
