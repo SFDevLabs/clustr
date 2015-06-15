@@ -37,8 +37,8 @@ var Header = React.createClass({
               id=""
               placeholder="URL Search..."
               onSave={this._onSave}
-              className="queryBox"
-              name = "query"
+              className="form-control queryBox"
+              name="query"
             />
           </NavItem>
         </Nav>
