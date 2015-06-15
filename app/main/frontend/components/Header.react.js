@@ -8,6 +8,12 @@ var Link = require('react-router').Link;
 var utils = require('../utils');
 var userName =utils.getUserName();
 
+var Navbar = require('react-bootstrap').Navbar;
+var Nav = require('react-bootstrap').Nav;
+var NavItem = require('react-bootstrap').NavItem;
+var MenuItem = require('react-bootstrap').MenuItem;
+var DropdownButton = require('react-bootstrap').DropdownButton;
+
 
 var URLSearchInput = require('../../../articles/frontend/components/URLSearchInput.react');
 
@@ -21,26 +27,19 @@ if (utils.isLoggedIn()) {
 var Header = React.createClass({
 
   render: function () {
-    return <header>
-      <div className="homeBox">
-        <Link to="articles"><img className="homeIcon" src="/img/logo_clustr_icon.png" title="home" /></Link>
-        <span><Link to="articles"><img className="homeLogoFont" src="/img/logo_clustr_font.png"/></Link></span>
-      </div>
-     <div className = "headerSearch">
-         <URLSearchInput
-          id=""
-          placeholder="URL Search..."
-          onSave={this._onSave}
-          className="queryBox"
-          name = "query"
-        />
-      </div>
-      <div className="statusBox .dropdown">
-        <Link to="add"><img className="statusBoxAddNode" src="img/circleAddButton.png" title="add a node" /></Link>
-        <img className="statusBoxActivity" src="img/activity.png" title="check activity" />
-        <img className="statusBoxProfile" title="profile" src={loginImg} />
-      </div>
-    </header>;
+    return <Navbar brand='React-Bootstrap' inverse toggleNavKey={0}>
+      <Nav right eventKey={0}> {/* This is the eventKey referenced */}
+        <NavItem eventKey={1} href='#'>Link</NavItem>
+        <NavItem eventKey={2} href='#'>Link</NavItem>
+        <DropdownButton eventKey={3} title='Dropdown'>
+          <MenuItem eventKey='1'>Action</MenuItem>
+          <MenuItem eventKey='2'>Another action</MenuItem>
+          <MenuItem eventKey='3'>Something else here</MenuItem>
+          <MenuItem divider />
+          <MenuItem eventKey='4'>Separated link</MenuItem>
+        </DropdownButton>
+      </Nav>
+    </Navbar>
   }
 });
 module.exports = Header;
