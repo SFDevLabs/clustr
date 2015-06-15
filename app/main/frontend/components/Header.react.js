@@ -48,7 +48,6 @@ var Header = React.createClass({
         <NavItem eventKey={2} href='login'><img className="statusBoxProfile" title="profile" src={loginImg} /></NavItem>
       </Nav>
     </Navbar>
-
   }
 });
 module.exports = Header;
