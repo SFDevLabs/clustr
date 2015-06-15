@@ -10,6 +10,7 @@ var userName =utils.getUserName();
 
 var Navbar = require('react-bootstrap').Navbar;
 var Nav = require('react-bootstrap').Nav;
+var NavItemLink = require('react-router-bootstrap').NavItemLink;
 var NavItem = require('react-bootstrap').NavItem;
 var MenuItem = require('react-bootstrap').MenuItem;
 var DropdownButton = require('react-bootstrap').DropdownButton;
@@ -29,7 +30,7 @@ var Header = React.createClass({
   render: function () {
     return <Navbar className="navBar" brand='' toggleNavKey={0}>
       <Nav left>
-        <NavItem className="homeBox" href="articles"><img className="homeLogoFont" src="/img/logo_clustr_font.png"/></NavItem>
+        <NavItemLink className="homeBox" to="articles"><img className="homeLogoFont" src="/img/logo_clustr_font.png"/></NavItemLink>
       </Nav>
       <Nav middle>
         <NavItem className = "headerSearch">
@@ -43,11 +44,10 @@ var Header = React.createClass({
           </NavItem>
         </Nav>
       <Nav right eventKey={0}> {/* This is the eventKey referenced */}
-        <NavItem eventKey={1} href='add'><img className="statusBoxAddNode" src="img/circleAddButton.png" title="add a node" /></NavItem>
+        <NavItemLink eventKey={1} to='add'><img className="statusBoxAddNode" src="img/circleAddButton.png" title="add a node" /></NavItemLink>
         <NavItem eventKey={2} href='login'><img className="statusBoxProfile" title="profile" src={loginImg} /></NavItem>
       </Nav>
     </Navbar>
-
   }
 });
 module.exports = Header;

@@ -26,6 +26,8 @@ module.exports = function (app, passport, auth) {
   app.get('/', main.index);
   app.get('/add', main.index);
 
+  app.get('/async', articles.title);
+
   /**
    * Route in local middlewares
    */
