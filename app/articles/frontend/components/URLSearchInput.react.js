@@ -35,7 +35,7 @@ var URLSearchInput = React.createClass({
    */
   render: function() {
     return (
-      <span className="randoSpan">
+      <span>
         <input
           type="text"
           name={this.props.name}
@@ -47,7 +47,6 @@ var URLSearchInput = React.createClass({
           value={this.state.value}
           autoFocus={true}
         />
-        <input onClick={this._route} className="btn btn-default querySubmit" type="submit" value="Search" />
       </span>
     );
   },

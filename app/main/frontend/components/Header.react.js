@@ -35,7 +35,7 @@ var Header = React.createClass({
         <NavItem className = "headerSearch">
            <URLSearchInput
               id=""
-              placeholder="URL Search..."
+              placeholder=""
               onSave={this._onSave}
               className="form-control queryBox"
               name="query"
