@@ -73,24 +73,34 @@ var ArticleApp = React.createClass({
       for (var key in allPosts) {
         posts.unshift(<Item key={key} item={allPosts[key]} />);
       }
-      var home = (
-        <div className="mainBody">
-            <div className="row sixteen logoArea">
-              <span className="columns four"><img src="/img/blank.png" /></span>
-              <span className="columns eight mainLogo">
-                <Link to="add">
-                  <img className="mainAddButton" src="/img/circleAddButton.png" />
-                </Link>
-              </span>
-              <span className="columns four"><img src="/img/blank.png" /></span>
-            </div>
 
-            <div className="row recentClustrSearches">
-              <div className="recentSearchesTitle">Recent Connections:
+      var Grid = require('react-bootstrap').Grid;
+      var Col = require('react-bootstrap').Col;
+      var Row = require('react-bootstrap').Row;
+
+      var home = (
+        <Grid className="mainBody">
+          <Row>
+            <Col md={3} className="leftCol"></Col>
+            <Col md={6} className="midCol">
+             <div className="homeIconBox" href="articles"><img className="homeIconImg" src="/img/logo_clustr.png"/>
+             </div>
+              <URLSearchInput
+              id=""
+              placeholder=""
+              onSave={this._onSave}
+              className="form-control homeSearch"
+              name="query"
+            />
+            </Col>
+            <Col md={3} className="rightCol"></Col>
+          </Row>
+          <div className="row recentClustrSearches">
+            <div className="recentSearchesTitle">Recent Connections:
             </div>
             {posts}
           </div>
-        </div>
+        </Grid>
       );
 
       return home

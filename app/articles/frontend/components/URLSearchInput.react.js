@@ -12,7 +12,7 @@ var ReactPropTypes = React.PropTypes;
 var ENTER_KEY_CODE = 13;
 var Navigation = require('react-router').Navigation;
 
- 
+
 
 var URLSearchInput = React.createClass({
 
@@ -35,9 +35,9 @@ var URLSearchInput = React.createClass({
    */
   render: function() {
     return (
-      <div>
+      <span>
         <input
-          type="text" 
+          type="text"
           name={this.props.name}
           className={this.props.className}
           id={this.props.id}
@@ -47,8 +47,7 @@ var URLSearchInput = React.createClass({
           value={this.state.value}
           autoFocus={true}
         />
-        <input onClick={this._route} className="querySubmit" type="submit" value="Search" />
-      </div>
+      </span>
     );
   },
 
