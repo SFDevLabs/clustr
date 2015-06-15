@@ -82,7 +82,7 @@ var ArticleApp = React.createClass({
         <Grid className="mainBody">
           <Row>
             <Col md={3} className="leftCol"></Col>
-            <Col md={6} className="midCol">
+            <Col md={7} className="midCol">
              <div className="homeIconBox" href="articles"><img className="homeIconImg" src="/img/logo_clustr.png"/>
              </div>
               <URLSearchInput
@@ -93,8 +93,17 @@ var ArticleApp = React.createClass({
               name="query"
             />
             </Col>
-            <Col md={3} className="rightCol"></Col>
+            <Col md={2} className="rightCol"></Col>
           </Row>
+
+          <Row className="homeFeeds">
+            <Col md={2} className=""></Col>
+            <Col md={4} className="recentConnections">Recent Connections</Col>
+            <Col md={1} className=""></Col>
+            <Col md={4} className="leaderBoard">LeaderBoard</Col>
+            <Col md={1} className=""></Col>
+          </Row>
+
           <div className="row recentClustrSearches">
             <div className="recentSearchesTitle">Recent Connections:
             </div>
