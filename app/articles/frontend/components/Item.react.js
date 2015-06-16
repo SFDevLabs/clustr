@@ -39,6 +39,7 @@ var ArticleItem = React.createClass({
     var siteFromLink="/"+item.siteFrom.id;
     var Col = require('react-bootstrap').Col;
     var Row = require('react-bootstrap').Row;
+    var user = item.edge.user;
     return (
       <div className="recentConnectionsDiv">
         <Row className="siteToRow">
@@ -51,6 +52,7 @@ var ArticleItem = React.createClass({
           <Link to={siteFromLink}><div className="siteFromTitle">{item.siteFrom.title}</div></Link>
           <Link to={siteFromLink}><div className="SiteFromURL">{item.siteFrom.url}</div></Link>
         </Row>
+        <div className="pull-right">{user.username}</div>
       </div>
     );
   },

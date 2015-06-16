@@ -31,7 +31,11 @@ var csrfToken = utils.getCsrfToken()
 var EdgeRecord = Immutable.Record({
   siteFromId: null,
   siteToId: null,
-  id:null
+  id:null,
+  user:{
+    username:null,
+    _id:null
+  }
 });
 
 var NodeRecord = Immutable.Record({
@@ -211,6 +215,9 @@ var ArticleStore = assign({}, EventEmitter.prototype, {
       var item = {};
       item.siteFrom = ArticleStore.getOneNodeById(obj.siteFromId) 
       item.siteTo = ArticleStore.getOneNodeById(obj.siteToId) 
+      item.edge = {
+        user: obj.user
+      }
       return item;
     });
     return mappedEdges.toObject();
@@ -247,6 +254,7 @@ var ArticleStore = assign({}, EventEmitter.prototype, {
     }).map(function(obj){
       var item = {};
       item.siteTo = ArticleStore.getOneNodeById(obj.siteToId);
+      item.user = obj.user;
       return item
     });
 

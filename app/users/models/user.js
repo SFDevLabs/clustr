@@ -181,7 +181,17 @@ UserSchema.statics = {
     this.findOne(options.criteria)
       .select(options.select)
       .exec(cb);
+  },
+
+  edgePopulate:function (users, cb) {
+    if (!users.length) {return cb({message:"Must supply a list of valid suer IDs as first param"},null)}
+    console.log(users, 'usersedgepopo')
+    this.find({ _id:{ $in: users } })
+      .select('username')
+      //.lean()
+      .exec(cb);
   }
+
 }
 
 mongoose.model('User', UserSchema);

@@ -38,7 +38,7 @@ require('./config/passport')(passport, config);
 require('./config/express')(app, passport);
 
 // Bootstrap routes
-require(__dirname + '/app/users/routes/index.js')(app, passport, auth); //always do main routes last
+require(__dirname + '/app/users/routes/index.js')(app, passport, auth); //always do user routes first
 glob.sync(__dirname + '/app/*/routes/*', {}).forEach(function (file) {
   if (file.indexOf('app/main/routes'||'app/users/routes')===-1 && ~file.indexOf('.js')) require(file)(app, passport, auth);
 });

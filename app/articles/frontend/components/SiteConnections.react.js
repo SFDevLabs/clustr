@@ -35,7 +35,10 @@ var QueryResult = React.createClass({
 
   render: function() {
     var post = this.props.post.siteTo;
+    var user = this.props.post.user;
     var siteLink="/"+post.id;
+
+
       return (            
             <Link to={siteLink} >
               <div className="searchResultBox">
@@ -50,7 +53,7 @@ var QueryResult = React.createClass({
                           <div className="searchResultTitle">{post.title}</div>
                           <div className="searchResultURL">{post.url}</div>
                         </li>
-                        <li className="columns two userSubmission"><img className="userSubmissionImg" src="/img/eoin_profile.jpg"/>{post.username}</li>
+                        <li className="columns two userSubmission"><img className="userSubmissionImg" src="/img/eoin_profile.jpg"/>{user.username}</li>
                       </ul>
                     </div>
                   </li>

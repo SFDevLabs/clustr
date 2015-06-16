@@ -223,14 +223,17 @@ Site.get = function (id, callback) {
             item.siteFromId = result['siteFrom']._data.metadata.id;
 
             return item
-        });        
+        }); 
+
 
         callback(null, {
             Sites: parsedSitesResult,
             USEREDGE: parsedEdgeResult
         });
+        
     });
 };
+
 
 function relationshipParser(result){
     var item = {};
@@ -304,7 +307,7 @@ Site.getAll = function (callback) {
             item.siteFromId = result['siteFrom']._data.metadata.id;
 
             return item
-        });
+        });            
 
         callback(null, {
             Sites: parsedSitesResult,

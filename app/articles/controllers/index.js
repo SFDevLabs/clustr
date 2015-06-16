@@ -78,16 +78,44 @@ function GetTitleResult(url, cb){
  */
 exports.getAll = function (req, res){
   GraphModel.getAll(function(err, results){
-    // var responseObj = results.map(function(obj){
-    //   var item={};
-    //   item = obj.user._data.data;
-    //   item.id = obj.user._data.metadata.id;
-    //   return item;
-    // });
     
-    res.send(results);
+    populateEdgeWithUsers(results, function(err, resultspopulated){
+      res.send(resultspopulated);
+    })
+    
+    
   });
 }
+
+function populateEdgeWithUsers(results, cb){
+      
+      var userIds = results.USEREDGE.map(function(obj){
+        return obj.userId;
+      })
+      User.edgePopulate(userIds, function(err, userlist){
+
+      results.USEREDGE = results.USEREDGE.map(function(obj){
+        var val = {}
+        
+        userlist.every(function(userObj){ 
+
+          if (userObj.id === obj.userId){
+            val = obj
+            val.user=userObj
+          }
+          
+        })
+        
+        return val;
+      })
+      cb(null, results)
+        
+    })
+}
+
+var mongoose = require('mongoose');
+var User = mongoose.model('User');
+
 
 
 
@@ -101,6 +129,8 @@ exports.create = function (req, res){
   var titleTwo = URLParse(req.body.titleTwo);
   var idOne = URLParse(req.body.idOne);
   var idTwo = URLParse(req.body.idTwo);
+
+
 
   if (!urlOne || !urlOne){return res.status(204).send(utils.errMsg('Requires Two Valid URLs.'))};
       
@@ -116,7 +146,7 @@ exports.create = function (req, res){
         id: idTwo
       };
 
-      GraphModel.createConnection(nodeOne,nodeTwo,{},
+      GraphModel.createConnection(nodeOne,nodeTwo,{userId:userId},
         function(err, result){
           if (err) {
             return res.status(500).send(err)
@@ -157,8 +187,11 @@ exports.create = function (req, res){
 exports.get = function (req, res){
   var id = Number(req.param('uid'));
   GraphModel.get(id, function(err, result){
+    console.log(err, result)
     if(err){return res.status(404).send(err); }
-    res.send(result);
+    populateEdgeWithUsers(result, function(err, resultspopulated){
+      res.send(resultspopulated);
+    })
   });
 }
 
@@ -183,7 +216,6 @@ exports.async = function (req, res){
       },
       function(callback){
           alchemy.title('http://'+urlTwo,{},function(err, response){
-            console.log(err, response)
             var title
             if (err || response.status=='ERROR'){
               title = response.title
@@ -194,9 +226,7 @@ exports.async = function (req, res){
           });
   }],
   function(err, results) {
-    console.log(err, results)
-    res.send({err:err,results:results});
-  
+    res.send({err:err,results:results});  
   });
 
 }
