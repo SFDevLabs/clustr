@@ -24,11 +24,18 @@ var AddURLInput = React.createClass({
     inputNumber: ReactPropTypes.number.isRequired,
     selectItemID: ReactPropTypes.number,
     onSelect: ReactPropTypes.func,
-    excludeItemID: ReactPropTypes.number
+    excludeItemID: ReactPropTypes.number,
+    clearInputs: ReactPropTypes.func
   },
 
   getInitialState: function() {
     return getState('');
+  },
+
+  componentWillReceiveProps: function(newProps) {
+    if  ( newProps.clearInputs &&  newProps.clearInputs() ){
+      this.setState(getState(''));
+    }
   },
 
   /**
