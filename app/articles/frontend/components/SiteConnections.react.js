@@ -34,7 +34,7 @@ var QueryResult = React.createClass({
   },
 
   render: function() {
-    var post = this.props.post.siteTo;
+    var post = this.props.post.site;
     var user = this.props.post.user;
     var siteLink="/"+post.id;
 

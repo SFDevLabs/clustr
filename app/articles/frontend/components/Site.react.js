@@ -128,7 +128,7 @@ var Query = React.createClass({
           </ul>
         </div>
         <hr/>
-        <AddURLInput onSelect={this._onSelect} selectItemID={selectItemIdTwo} excludeItemID={selectItemIdOne} inputNumber={1} autoFocus={true} />
+        <AddURLInput onSelect={this._onSelect} selectItemID={selectItemIdTwo} excludeItemID={selectItemIdOne} inputNumber={1} autoFocus={false} clearInputs={this._clearInputs} />
         <li className="columns one url-submit">
         <a href="javascript:void(0);" onClick={this._onClick} className="querySubmit" type="submit" value="Submit" >
               <ul className={cx({active:this._canCreateEdge()})+" row sixteen marginZero"}>
@@ -142,10 +142,24 @@ var Query = React.createClass({
   },
 
   /**
+  * Tells the AddURLInput to clear its inputs inside the componentWillReceiveProps function
+  * * @param {boolean} User to set the clear to true for the next render pass. Flipped to false automaitcally after values are cleared
+  */
+  _clearInputs:function(val){
+    if (val) { // Set the clear bool for the next render pass
+      this._clearBool=true
+    }else if (this._clearBool){ // return true for the clear and set the 
+      this._clearBool=false
+      return true
+    } else { // return false no need to clear the inputs
+      return this._clearBool
+    }
+  },
+  _clearBool: false, //hard coded
+  /**
    * Event handler for 'change' events coming from the ArticleStore
    */
   _onChange: function() {
-    clearInput();
     this.setState(getQueryState(this.props.params.id));
   },
 
@@ -154,14 +168,7 @@ var Query = React.createClass({
   */
   _onSave: function(inputs) {
         ArticleActions.create(inputs);
-  },
-
-  /**
-  * Invokes save to the server 
-  */
-  _clearInputs: function() {
-        clearInput();
-        this.setState(getInputState());
+        this._clearInputs(true);
   },
 
   /**
