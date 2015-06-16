@@ -37,15 +37,10 @@ var ArticleActions = {
   /**
    * @param  {string} text
    */
-  create: function(urlOne, urlTwo, titleOne, titleTwo, idOne, idTwo) {
+  create: function(inputs) {
     AppDispatcher.dispatch({
       actionType: TodoConstants.EDGE_CREATE,
-      urlOne: urlOne,
-      urlTwo: urlTwo,
-      titleOne: titleOne,
-      titleTwo: titleTwo,
-      idOne: idOne,
-      idTwo: idTwo
+      inputs: inputs
     });
   },
 

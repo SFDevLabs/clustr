@@ -45,7 +45,7 @@ var InputRecord = Immutable.Record({
 });
 
 function getInputState(){
-	return _inputs.toObject();
+	return _inputs.toJSON();
 }
 
 var Add = React.createClass({
@@ -104,8 +104,9 @@ var Add = React.createClass({
 	/**
 	* Invokes save to the server 
 	*/
-	_onSave: function(valueOne, valueTwo) {
-      	ArticleActions.create(valueOne, valueTwo);
+	_onSave: function(inputs) {
+
+      	ArticleActions.create(inputs);
 	},
 
 	/**
@@ -122,7 +123,10 @@ var Add = React.createClass({
 	*/
 	_onClick: function(valueOne, valueTwo) {
 		if (this._canCreateEdge()){
-			this._onSave(getInputState()[0], getInputState()[1])
+
+			var inputs =getInputState();
+
+			this._onSave(inputs)
 		}
 	},
 	/**
