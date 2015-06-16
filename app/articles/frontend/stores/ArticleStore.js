@@ -197,7 +197,7 @@ function fetchOne(id) {
 function url_domain(data) {
   var    a      = document.createElement('a');
          a.href = 'https://'+data;
-  return a.hostname.replace(/^[^.]+\./g, "");
+  return a.hostname;
 }
 
 var ArticleStore = assign({}, EventEmitter.prototype, {
