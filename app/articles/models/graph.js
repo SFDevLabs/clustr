@@ -323,23 +323,24 @@ Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
     var query = [];
 
     if (nodeOne.id){
-        query.push('MATCH siteOne where id(siteOne) = {nodeOneID}');
+        query.push('MATCH siteFrom where id(siteFrom) = {nodeOneID}');
     } else {
-        query.push('CREATE (siteOne:Site {nodeOne}) WITH siteOne');
+        query.push('CREATE (siteFrom:Site {nodeOne}) WITH siteFrom');
     }
     
     if (nodeTwo.id){
-        query.push('MATCH siteTwo where id(siteTwo) = {nodeTwoID}');
+        query.push('MATCH siteTo where id(siteTo) = {nodeTwoID}');
     } else{
-        query.push('CREATE (siteTwo:Site {nodeTwo})');
+        query.push('CREATE (siteTo:Site {nodeTwo})');
     }
     // an example using an object instead of an array
 
 
     // query.push('MERGE (siteOne:Site {url: {nodeOne}.url, title: {nodeOne}.title })');
     // query.push('MERGE (siteTwo:Site {url: {nodeTwo}.url, title: {nodeTwo}.title })');
-    query.push('CREATE (siteOne)-[userEdge:USEREDGE{edge}]->(siteTwo)');
-    query.push('RETURN userEdge');
+    query.push('CREATE (siteFrom)-[USEREDGE:USEREDGE{edge}]->(siteTo)');
+    query.push('RETURN USEREDGE, siteTo, siteFrom');
+    
     query = query.join('\n');
 
     console.log(query);
@@ -358,9 +359,44 @@ Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
         if (err) return callback(err);
         //var user = new Site(results[0]['user']);
         //
-        var data = results[0].userEdge._data.data;
-        data.id = results[0].userEdge._data.metadata.id;
-        callback(null, data);
+        var parsedSitesResult = [];
+        results.forEach(function (result) {
+
+            var data = result['siteFrom']._data.data;
+            data.id = result['siteFrom']._data.metadata.id;
+        
+            if ( arrayObjectIndexOf(parsedSitesResult, data.id, "id")==-1 ){
+                parsedSitesResult.push(data)
+            }
+
+            var data = result['siteTo']._data.data;
+            data.id = result['siteTo']._data.metadata.id;
+            if ( arrayObjectIndexOf(parsedSitesResult, data.id, "id")==-1 ){
+                parsedSitesResult.push(data)
+            }
+        });
+        
+        var parsedEdgeResult = results.map(function (result) {
+
+            var item = {};
+
+            item = result['USEREDGE']._data.data;
+            item.id=result['USEREDGE']._data.metadata.id;
+
+            item.siteToId = result['siteTo']._data.metadata.id;
+            item.siteFromId = result['siteFrom']._data.metadata.id;
+
+            return item
+        }); 
+
+
+        callback(null, {
+            Sites: parsedSitesResult,
+            USEREDGE: parsedEdgeResult
+        });
+        // var data = results[0].userEdge._data.data;
+        // data.id = results[0].userEdge._data.metadata.id;
+        //callback(null, data);
     });
 };
 

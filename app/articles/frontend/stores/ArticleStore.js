@@ -64,10 +64,18 @@ function create(nodeOne, nodeTwo) {
       titleTwo: nodeTwo.title, 
       _csrf: csrfToken}
   })
-  .done(function( result ) {
-    //_nodes = _nodes.set(result._id, new ArticleRecord({id : result._id, url : result.url, username: 'userHolder'}));
+  .done(function( results ) {
 
-    ArticleStore.emitSave(result);
+    results.USEREDGE.forEach(function(item){
+      _edges = _edges.set(item.id, new EdgeRecord(item) );
+    });
+
+    results.Sites.forEach(function(item){
+      item.favicon = 'http://'+url_domain(item.url)+'/favicon.ico'
+      _nodes = _nodes.set(item.id, new NodeRecord(item) );        
+    });
+
+    ArticleStore.emitSave();
   }).error(errorObj.errHandle);
 }
 
@@ -167,9 +175,7 @@ function fetchAllRelations() {
         });
 
         results.Sites.forEach(function(item){
-          
           item.favicon = 'http://'+url_domain(item.url)+'/favicon.ico'
-          
           _nodes = _nodes.set(item.id, new NodeRecord(item) );        
         });
                 
@@ -259,8 +265,8 @@ var ArticleStore = assign({}, EventEmitter.prototype, {
     this.emit(CHANGE_EVENT);
   },
 
-  emitSave: function(edgeId) {
-    this.emit(SAVE_EVENT,edgeId);
+  emitSave: function() {
+    this.emit(SAVE_EVENT);
   },
 
 

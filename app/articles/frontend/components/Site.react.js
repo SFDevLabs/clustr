@@ -81,7 +81,7 @@ var Query = React.createClass({
 
   componentWillUnmount: function() {
     ArticleStore.removeChangeListener(this._onChange);
-    ArticleStore.addSaveListener(this._onChange);
+    ArticleStore.removeSaveListener(this._onChange);
   },
 
   componentWillReceiveProps: function(newProps) {
@@ -145,6 +145,7 @@ var Query = React.createClass({
    * Event handler for 'change' events coming from the ArticleStore
    */
   _onChange: function() {
+    clearInput();
     this.setState(getQueryState(this.props.params.id));
   },
 
