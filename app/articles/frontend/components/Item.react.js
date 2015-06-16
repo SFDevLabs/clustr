@@ -42,17 +42,26 @@ var ArticleItem = React.createClass({
     var user = item.edge.user;
     return (
       <div className="recentConnectionsDiv">
-        <Row className="siteToRow">
-          <div className="siteToFaviconBox"><Link to={siteToLink}><ImageLoader className="siteToFaviconImg" src={item.siteTo.favicon} onError={this._imageLoadError} /></Link></div>
-          <Link to={siteToLink}><div className="siteToTitle">{item.siteTo.title}</div></Link>
-          <Link to={siteToLink}><div className="siteToURL">{item.siteTo.url}</div></Link>
+        <Row className="siteRow">
+          <div className="faviconBox"><Link to={siteToLink}><ImageLoader className="faviconImg" src={item.siteTo.favicon} onError={this._imageLoadError} /></Link></div>
+          <div className="textHolder">
+            <Link to={siteToLink}><div className="siteTitle">{item.siteTo.title}</div></Link>
+            <Link to={siteToLink}><div className="siteURL">{item.siteTo.url}</div></Link>
+          </div>
+
         </Row>
-        <Row className="siteFromRow">
-          <div className="siteFromFaviconBox"><Link to={siteFromLink}><ImageLoader className="siteFromFaviconImg" src={item.siteFrom.favicon} onError={this._imageLoadError} /></Link></div>
-          <Link to={siteFromLink}><div className="siteFromTitle">{item.siteFrom.title}</div></Link>
-          <Link to={siteFromLink}><div className="SiteFromURL">{item.siteFrom.url}</div></Link>
+        <Row className="separator">
+          <div className="verticalBand">
+          </div>
         </Row>
-        <div className="pull-right">{user.username}</div>
+        <Row className="siteRow">
+          <div className="faviconBox"><Link to={siteFromLink}><ImageLoader className="faviconImg" src={item.siteFrom.favicon} onError={this._imageLoadError} /></Link></div>
+          <div className="textHolder">
+            <Link to={siteFromLink}><div className="siteTitle">{item.siteFrom.title}</div></Link>
+           <Link to={siteFromLink}><div className="siteURL">{item.siteFrom.url}</div></Link>
+          </div>
+        </Row>
+        <Row className="edgeUsername">{user.username}</Row>
       </div>
     );
   },

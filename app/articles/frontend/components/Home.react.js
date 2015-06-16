@@ -98,10 +98,9 @@ var ArticleApp = React.createClass({
 
           <Row className="homeFeeds">
             <Col md={2} className=""></Col>
-            <Col md={4} className="recentConnections">{posts}</Col>
+            <Col md={6} className="recentConnections">{posts}</Col>
             <Col md={1} className=""></Col>
-            <Col md={4} className="leaderBoard">LeaderBoard</Col>
-            <Col md={1} className=""></Col>
+            <Col md={3} className="leaderBoard">LeaderBoard</Col>
           </Row>
         </Grid>
       );
