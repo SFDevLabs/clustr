@@ -45,19 +45,19 @@ var NodeRecord = Immutable.Record({
  * Create a TODO item.
  * @param  {string} text The content of the TODO
  */
-function create(urlOne, urlTwo, nodeIDOne, nodeIDTwo) {
+function create(nodeOne, nodeTwo) {
   // Hand waving here -- not showing how this interacts with XHR or persistent
   // Using the current timestamp + random number in place of a real id.
   $.ajax({
     method: "POST",
     url: urlBase,
     data: {
-      urlOne: urlOne,
-      urlTwo: urlTwo,
-      idOne: idOne,
-      idTwo: idTwo,
-      nodeIDOne: nodeIDOne, 
-      nodeIDTwo: nodeIDTwo, 
+      urlOne: nodeOne.url,
+      urlTwo: nodeTwo.url,
+      idOne: nodeOne.id,
+      idTwo: nodeTwo.id,
+      titleOne: nodeOne.title, 
+      titleTwo: nodeTwo.title, 
       _csrf: csrfToken}
   })
   .done(function( result ) {
@@ -301,19 +301,13 @@ AppDispatcher.register(function(action) {
   var text;
 
   switch(action.actionType) {
-    case TodoConstants.TODO_CREATE:
-      var urlOne = action.urlOne.trim();
-      var urlTwo = action.urlTwo.trim();
-      var idOne = action.idOne.trim();
-      var idTwo = action.idTwo.trim();
-      var titleOne = action.titleOne.trim();
-      var titleTwo = action.titleTwo.trim();
-
-      if (urlOne !== '' && urlTwo !== '') {
-        create({
-          nodeOne:{},
-          nodeTwo:{}
-        });
+    case TodoConstants.EDGE_CREATE:
+      inputs = action.inputs;
+      if (inputs[0] && inputs[1] && inputs[0].url !=='' && inputs[1].url !== '') {
+        create(
+          inputs[0],
+          inputs[1]
+        );
       }
       break;
 

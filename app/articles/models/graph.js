@@ -319,24 +319,23 @@ Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
 
     var query = [];
 
-    // if (nodeOne.id){
-    //     query.push('MATCH siteOne where id(siteOne) = {numOne}');
-    // } else {
-    //     query.push('CREATE (siteOne:Site {nodeOne})');
-    // }
+    if (nodeOne.id){
+        query.push('MATCH siteOne where id(siteOne) = {nodeOneID}');
+    } else {
+        query.push('CREATE (siteOne:Site {nodeOne})');
+    }
 
-    // if (nodeTwo.id){
-    //     query.push('MATCH nodeTwo where id(nodeTwo) = {numTwo}');
-    // } else {
-    //     query.push('CREATE (siteTwo:Site {nodeTwo})');
-    // }
+    if (nodeTwo.id){
+        query.push('MATCH nodeTwo where id(nodeTwo) = {nodeTwo.id}');
+    } else {
+        query.push('CREATE (siteTwo:Site {nodeTwo})');
+    }
     
     // an example using an object instead of an array
 
 
-
-    query.push('MERGE (siteOne:Site {url: {nodeOne}.url, title: {nodeOne}.title })');
-    query.push('MERGE (siteTwo:Site {url: {nodeTwo}.url, title: {nodeTwo}.title })');
+    // query.push('MERGE (siteOne:Site {url: {nodeOne}.url, title: {nodeOne}.title })');
+    // query.push('MERGE (siteTwo:Site {url: {nodeTwo}.url, title: {nodeTwo}.title })');
     query.push('CREATE (siteOne)-[userEdge:USEREDGE{edge}]->(siteTwo)');
     query.push('RETURN userEdge');
     query = query.join('\n');
@@ -345,7 +344,9 @@ Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
     var params = {
         nodeOne: nodeOne,
         nodeTwo: nodeTwo,
-        edge: edge
+        edge: edge,
+        nodeOneID:Number(nodeOne.id),
+        nodeOneID:Number(nodeTwo.id)
     };
 
 

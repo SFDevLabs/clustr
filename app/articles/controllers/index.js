@@ -106,12 +106,14 @@ exports.create = function (req, res){
       
       var nodeOne = {
         url: urlOne,
-        title: titleOne
+        title: titleOne,
+        id: idOne
       };
 
       var nodeTwo = {
         url: urlTwo,
-        title: titleTwo
+        title: titleTwo,
+        id: idTwo
       };
 
       GraphModel.createConnection(nodeOne,nodeTwo,{},
