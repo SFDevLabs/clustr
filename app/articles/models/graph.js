@@ -345,7 +345,8 @@ Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
         nodeOne: nodeOne,
         nodeTwo: nodeTwo,
         edge: edge,
-        nodeOneID:Number(nodeOne.id)
+        nodeOneID:Number(nodeOne.id),
+        nodeOneID:Number(nodeTwo.id)
     };
 
 
