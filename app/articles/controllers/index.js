@@ -130,7 +130,7 @@ exports.create = function (req, res){
   var idOne = URLParse(req.body.idOne);
   var idTwo = URLParse(req.body.idTwo);
 
-
+  var userId = req.user.id;
 
   if (!urlOne || !urlOne){return res.status(204).send(utils.errMsg('Requires Two Valid URLs.'))};
       
@@ -187,7 +187,6 @@ exports.create = function (req, res){
 exports.get = function (req, res){
   var id = Number(req.param('uid'));
   GraphModel.get(id, function(err, result){
-    console.log(err, result)
     if(err){return res.status(404).send(err); }
     populateEdgeWithUsers(result, function(err, resultspopulated){
       res.send(resultspopulated);
