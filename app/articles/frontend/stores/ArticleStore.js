@@ -236,16 +236,6 @@ var ArticleStore = assign({}, EventEmitter.prototype, {
    * Get the entire collection of TODOs.
    * @return {object}
    */
-  getOneNodeById: function(id) {
-    var record = _nodes.get(id)
-    if (!id || !record ) return {}; ///return nothing if there is not record.
-    return record.toObject();
-  },
-
-  /**
-   * Get the entire collection of TODOs.
-   * @return {object}
-   */
   getOneNodeRelationsById: function(id) {
     var record = _nodes.get(id)
     if (!id || !record ) return {}; ///return nothing if there is not record.

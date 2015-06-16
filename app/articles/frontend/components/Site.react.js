@@ -18,9 +18,17 @@ var Loader = require('react-loader');
 var URLQueryResult = require('./URLQueryResult.react');
 var SiteConnections = require('./SiteConnections.react');
 var ImageLoader = require('react-imageloader');
+var AddURLInput = require('./AddURLInput.react');
 
 var ArticleStore = require('../stores/ArticleStore');
 var ArticleActions = require('../actions/ArticleActions');
+
+var utils = require('../../../main/frontend/utils');
+var Immutable = require('immutable');
+var _inputs = Immutable.OrderedMap();
+var Navigation = require('react-router').Navigation;
+var cx = require('classnames');
+
 /**
  * Retrieve the current TODO data from the ArticleStore
  */
@@ -29,23 +37,51 @@ function getQueryState(id) {
   if (isNaN(id))return {};
   return {
     post: ArticleStore.getOneNodeById(id),
-    relations: ArticleStore.getOneNodeRelationsById(id)
+    relations: ArticleStore.getOneNodeRelationsById(id),
+    inputs: getInputState()
   };
 }
+
+function setInput(data, inputNumber){
+  _inputs = _inputs.set(inputNumber, new InputRecord(data) );
+}
+
+function clearInput(){
+  _inputs = _inputs.set(0, new InputRecord({}) );
+  _inputs = _inputs.set(1, new InputRecord({}) );
+}
+
+function destroy(id) {
+  _inputs = _inputs.delete(id);
+}
+
+var InputRecord = Immutable.Record({
+  id : null,
+  url : null,
+  title: null
+});
+
+function getInputState(){
+  return _inputs.toJSON();
+}
+
 
 var Query = React.createClass({
   
   getInitialState: function() {
+    if (!utils.isLoggedIn()){utils.loginRedirect('/login')};
     return getQueryState(this.props.params.id);
   },
 
   componentDidMount: function() {
     ArticleStore.addChangeListener(this._onChange);
+    ArticleStore.addSaveListener(this._onChange);
     ArticleActions.fetch(this.props.params.id);
   },
 
   componentWillUnmount: function() {
     ArticleStore.removeChangeListener(this._onChange);
+    ArticleStore.addSaveListener(this._onChange);
   },
 
   componentWillReceiveProps: function(newProps) {
@@ -67,6 +103,9 @@ var Query = React.createClass({
     for (var key in relations) {
       relation.unshift(<SiteConnections key={key} post={relations[key]} />);
     }
+    var item = this.state.inputs[1];
+    var selectItemIdOne = post.id? post.id:null;
+    var selectItemIdTwo = item? item.id:null;
     //var item = post.USEREDGE?(<Item item={post} />):null;  ///Check that we have a full response.
     return (
       <div className="row searchResults">
@@ -89,6 +128,14 @@ var Query = React.createClass({
           </ul>
         </div>
         <hr/>
+        <AddURLInput onSelect={this._onSelect} selectItemID={selectItemIdTwo} excludeItemID={selectItemIdOne} inputNumber={1} autoFocus={true} />
+        <li className="columns one url-submit">
+        <a href="javascript:void(0);" onClick={this._onClick} className="querySubmit" type="submit" value="Submit" >
+              <ul className={cx({active:this._canCreateEdge()})+" row sixteen marginZero"}>
+                Connect
+              </ul>
+            </a>
+         </li>
         {relation}
       </div>)
     
@@ -100,12 +147,57 @@ var Query = React.createClass({
   _onChange: function() {
     this.setState(getQueryState(this.props.params.id));
   },
+
   /**
-   * Event handler called within TodoTextInput.
-   * Defining this here allows TodoTextInput to be used in multiple places
-   * in different ways.
-   * @param  {string} text
-   */
+  * Invokes save to the server 
+  */
+  _onSave: function(inputs) {
+        ArticleActions.create(inputs);
+  },
+
+  /**
+  * Invokes save to the server 
+  */
+  _clearInputs: function() {
+        clearInput();
+        this.setState(getInputState());
+  },
+
+  /**
+  * Invokes the callback passed in as onSave, allowing this component to be
+  * used in different ways.
+  */
+  _onClick: function() {
+    //if (this._canCreateEdge()){
+      var inputs = {
+        0: this.state.post,
+        1: getInputState()[1]
+      };
+      this._onSave(inputs)
+    //}
+  },
+  /**
+  * Invokes the callback passed in as onSave, allowing this component to be
+  * used in different ways.
+  */
+  _canCreateEdge: function() {
+    return this.state[0]!==undefined && this.state[1]!==undefined && this.state[0].url!==null && this.state[0].url!==null
+  },
+
+  /**
+  * Event handler for 'change' events coming from the ArticleStore
+  */
+  _saveComplete: function() {
+    //var id = getInputState()[0].id
+    this.transitionTo('articles',{},{});
+  },
+  /**
+  * @param {object} event
+  */
+  _onSelect: function(data, inputNumber) {
+    setInput(data, inputNumber);
+    this.setState(getQueryState(this.props.params.id));
+  }
   // _onSave: function(text) {
   //   ArticleActions.updateText(this.props.query, text);
   // },

@@ -105,7 +105,6 @@ var Add = React.createClass({
 	* Invokes save to the server 
 	*/
 	_onSave: function(inputs) {
-
       	ArticleActions.create(inputs);
 	},
 
@@ -123,9 +122,7 @@ var Add = React.createClass({
 	*/
 	_onClick: function(valueOne, valueTwo) {
 		if (this._canCreateEdge()){
-
 			var inputs =getInputState();
-
 			this._onSave(inputs)
 		}
 	},
