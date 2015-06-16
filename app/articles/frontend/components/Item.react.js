@@ -11,6 +11,7 @@ var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var ArticleActions = require('../actions/ArticleActions');
 var Link = require('react-router').Link;
+var ImageLoader = require('react-imageloader');
 
 var cx = require('react/lib/cx');
 
@@ -25,6 +26,9 @@ var ArticleItem = React.createClass({
       isEditing: false
     };
   },
+  _imageLoadError : function(e){
+    e.target.src="img/fallback.ico"
+  },
 
   /**
    * @return {object}
@@ -38,12 +42,12 @@ var ArticleItem = React.createClass({
     return (
       <div className="recentConnectionsDiv">
         <Row className="siteToRow">
-          <div className="siteToFaviconBox"><Link to={siteToLink}><img className="siteToFaviconImg" src={item.siteTo.favicon} /></Link></div>
+          <div className="siteToFaviconBox"><Link to={siteToLink}><ImageLoader className="siteToFaviconImg" src={item.siteTo.favicon} onError={this._imageLoadError} /></Link></div>
           <Link to={siteToLink}><div className="siteToTitle">{item.siteTo.title}</div></Link>
           <Link to={siteToLink}><div className="siteToURL">{item.siteTo.url}</div></Link>
         </Row>
         <Row className="siteFromRow">
-          <div className="siteFromFaviconBox"><Link to={siteFromLink}><img className="siteFromFaviconImg" src={item.siteFrom.favicon} /></Link></div>
+          <div className="siteFromFaviconBox"><Link to={siteFromLink}><ImageLoader className="siteFromFaviconImg" src={item.siteFrom.favicon} onError={this._imageLoadError} /></Link></div>
           <Link to={siteFromLink}><div className="siteFromTitle">{item.siteFrom.title}</div></Link>
           <Link to={siteFromLink}><div className="SiteFromURL">{item.siteFrom.url}</div></Link>
         </Row>

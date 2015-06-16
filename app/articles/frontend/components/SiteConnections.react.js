@@ -18,6 +18,7 @@ var Link = require('react-router').Link;
 var QueryActions = require('../actions/QueryActions');
 var Loader = require('react-loader');
 var Link = require('react-router').Link;
+var ImageLoader = require('react-imageloader');
 
 
 var QueryResult = React.createClass({
@@ -28,7 +29,9 @@ var QueryResult = React.createClass({
   /**
    * @return {object}
    */
-  
+  _imageLoadError : function(e){
+    e.target.src="img/fallback.ico"
+  },
 
   render: function() {
     var post = this.props.post.siteTo;
@@ -41,7 +44,7 @@ var QueryResult = React.createClass({
                   <li className="columns eight searchResult">
                     <div className="columns sixteen">
                       <ul className="row sixteen marginZero">
-                        <li className="columns three"><img className="searchResultImg" src={post.favicon} />
+                        <li className="columns three"><ImageLoader className="searchResultImg" src={post.favicon} onError={this._imageLoadError} />
                         </li>
                         <li className="columns eleven searchResultText">
                           <div className="searchResultTitle">{post.title}</div>

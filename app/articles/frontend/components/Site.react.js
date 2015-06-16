@@ -17,6 +17,7 @@ var Link = require('react-router').Link;
 var Loader = require('react-loader');
 var URLQueryResult = require('./URLQueryResult.react');
 var SiteConnections = require('./SiteConnections.react');
+var ImageLoader = require('react-imageloader');
 
 var ArticleStore = require('../stores/ArticleStore');
 var ArticleActions = require('../actions/ArticleActions');
@@ -51,6 +52,10 @@ var Query = React.createClass({
     ArticleActions.fetch(newProps.params.id);
   },
 
+  _imageLoadError : function(e){
+    e.target.src="img/fallback.ico"
+  },
+
   /**
    * @return {object}
    */
@@ -71,13 +76,13 @@ var Query = React.createClass({
             <li className="columns eight searchResult">
               <div className="columns sixteen">
                 <ul className="row sixteen marginZero">
-                  <li className="columns three"><img className="searchResultImg" src={post.favicon} />
+                  <li className="columns three"><ImageLoader className="searchResultImg" src={post.favicon} onError={this._imageLoadError} />
                   </li>
                   <li className="columns eleven searchResultText">
                     <div className="searchResultTitle">{post.title}</div>
                     <div className="searchResultURL">{post.url}</div>
                   </li>
-                  <li className="columns two userSubmission"><img className="userSubmissionImg" src="/img/eoin_profile.jpg"/>{post.username}</li>
+                  <li className="columns two userSubmission"><ImageLoader className="userSubmissionImg" src="/img/eoin_profile.jpg" onError={this._imageLoadError}/>{post.username}</li>
                 </ul>
               </div>
             </li>

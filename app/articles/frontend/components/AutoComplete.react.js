@@ -88,6 +88,7 @@ var AutoComplete = React.createClass({
     } else if (newItem){
       result=(
         <div>
+          <h5>This is a New Site!</h5>
           <AutoCompleteItem selected={true} post={newItem} onSelect={this.props.onSelect} inputNumber={this.props.inputNumber}/>
         </div>
         );
