@@ -322,15 +322,14 @@ Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
     if (nodeOne.id){
         query.push('MATCH siteOne where id(siteOne) = {nodeOneID}');
     } else {
-        query.push('CREATE (siteOne:Site {nodeOne})');
-    }
-
-    if (nodeTwo.id){
-        query.push('MATCH nodeTwo where id(nodeTwo) = {nodeTwo.id}');
-    } else {
-        query.push('CREATE (siteTwo:Site {nodeTwo})');
+        query.push('CREATE (siteOne:Site {nodeOne}) WITH siteOne');
     }
     
+    if (nodeTwo.id){
+        query.push('MATCH siteTwo where id(siteTwo) = {nodeTwoID}');
+    } else{
+        query.push('CREATE (siteTwo:Site {nodeTwo})');
+    }
     // an example using an object instead of an array
 
 
@@ -340,13 +339,15 @@ Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
     query.push('RETURN userEdge');
     query = query.join('\n');
 
+    console.log(query);
+    
 
     var params = {
         nodeOne: nodeOne,
         nodeTwo: nodeTwo,
         edge: edge,
         nodeOneID:Number(nodeOne.id),
-        nodeOneID:Number(nodeTwo.id)
+        nodeTwoID:Number(nodeTwo.id)
     };
 
 
