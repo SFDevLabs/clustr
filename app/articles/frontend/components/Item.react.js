@@ -60,7 +60,11 @@ var ArticleItem = React.createClass({
            <Link to={siteFromLink}><div className="siteURL">{item.siteFrom.url}</div></Link>
           </div>
         </Row>
-        <Row className="edgeUsername">@{user.username}</Row>
+        <Row className="edgeUsername">
+          <Link to="/user/jeffj">
+            @{user.username}
+          </Link> 
+        </Row>
       </div>
     );
   },

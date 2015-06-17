@@ -9,6 +9,7 @@ var ArticleRoutes = (
      <Route name="articles" path="/" handler={require('./components/Main.react')}/>
      <Route name="add" path="/add" handler={require('./components/Add.react')}/>
      <Route name="article" path="/:id" handler={require('./components/Site.react')}/>
+     <Route name="user" path="user/:profileid" handler={require('./components/User.react')}/>
   </Route>
   )
 module.exports = ArticleRoutes;
