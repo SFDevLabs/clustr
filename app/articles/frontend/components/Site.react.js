@@ -29,6 +29,10 @@ var _inputs = Immutable.OrderedMap();
 var Navigation = require('react-router').Navigation;
 var cx = require('classnames');
 
+var Grid = require('react-bootstrap').Grid;
+var Col = require('react-bootstrap').Col;
+var Row = require('react-bootstrap').Row;
+
 /**
  * Retrieve the current TODO data from the ArticleStore
  */
@@ -67,7 +71,7 @@ function getInputState(){
 
 
 var Query = React.createClass({
-  
+
   getInitialState: function() {
     if (!utils.isLoggedIn()){utils.loginRedirect('/login')};
     return getQueryState(this.props.params.id);
@@ -129,16 +133,16 @@ var Query = React.createClass({
         </div>
         <hr/>
         <AddURLInput onSelect={this._onSelect} selectItemID={selectItemIdTwo} excludeItemID={selectItemIdOne} inputNumber={1} autoFocus={false} clearInputs={this._clearInputs} />
-        <li className="columns one url-submit">
         <a href="javascript:void(0);" onClick={this._onClick} className="querySubmit" type="submit" value="Submit" >
-              <ul className={cx({active:this._canCreateEdge()})+" row sixteen marginZero"}>
-                Connect
-              </ul>
+              <Row className={cx({active:this._canCreateEdge()})+""}>
+                <Col md={3} className=""></Col>
+                <Col md={7} className="">Connect</Col>
+                <Col md={2} className=""></Col>
+              </Row>
             </a>
-         </li>
         {relation}
       </div>)
-    
+
   },
 
   /**
@@ -148,7 +152,7 @@ var Query = React.createClass({
   _clearInputs:function(val){
     if (val) { // Set the clear bool for the next render pass
       this._clearBool=true
-    }else if (this._clearBool){ // return true for the clear and set the 
+    }else if (this._clearBool){ // return true for the clear and set the
       this._clearBool=false
       return true
     } else { // return false no need to clear the inputs
@@ -164,7 +168,7 @@ var Query = React.createClass({
   },
 
   /**
-  * Invokes save to the server 
+  * Invokes save to the server
   */
   _onSave: function(inputs) {
         ArticleActions.create(inputs);
