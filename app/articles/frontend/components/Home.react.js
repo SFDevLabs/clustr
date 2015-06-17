@@ -83,8 +83,10 @@ var ArticleApp = React.createClass({
           <Row>
             <Col md={3} className="leftCol"></Col>
             <Col md={7} className="midCol">
-             <div className="homeIconBox" href="articles"><img className="homeIconImg" src="/img/logo_clustr.png"/>
-             </div>
+              <div className="homeIconBox">
+               <Row className="textLogo"><img className="homeIconImg" src="/img/logo_clustr_icon.png"/></Row>
+               <Row className="fontLogo"><img className="homeIconImg" src="/img/logo_clustr_font.png"/></Row>
+              </div>
               <URLSearchInput
               id=""
               placeholder=""
@@ -100,7 +102,7 @@ var ArticleApp = React.createClass({
             <Col md={2} className=""></Col>
             <Col md={6} className="recentConnections">{posts}</Col>
             <Col md={1} className=""></Col>
-            <Col md={3} className="leaderBoard">LeaderBoard</Col>
+            <Col md={3} className="leaderBoard"> Highlighted Users</Col>
           </Row>
         </Grid>
       );
