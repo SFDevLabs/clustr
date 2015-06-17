@@ -234,7 +234,7 @@ var ArticleStore = assign({}, EventEmitter.prototype, {
    */
   getOneNodeById: function(id) {
     var record = _nodes.get(id)
-    if (!id || !record ) return {}; ///return nothing if there is not record.
+    if (!record ) return {}; ///return nothing if there is not record.
     return record.toObject();
   },
 
