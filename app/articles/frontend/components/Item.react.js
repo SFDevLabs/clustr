@@ -48,7 +48,6 @@ var ArticleItem = React.createClass({
             <Link to={siteToLink}><div className="siteTitle">{item.siteTo.title}</div></Link>
             <Link to={siteToLink}><div className="siteURL">{item.siteTo.url}</div></Link>
           </div>
-
         </Row>
         <Row className="separator">
           <div className="verticalBand">
@@ -61,7 +60,7 @@ var ArticleItem = React.createClass({
            <Link to={siteFromLink}><div className="siteURL">{item.siteFrom.url}</div></Link>
           </div>
         </Row>
-        <Row className="edgeUsername">{user.username}</Row>
+        <Row className="edgeUsername">@{user.username}</Row>
       </div>
     );
   },

@@ -112,19 +112,29 @@ body {
         height: 120px;
         margin-bottom: 5px;
       }
+      .recentConnectionsDiv :hover {
+            background-color: beige;
+        }
+      // .siteRow :hover {
+      //       background-color: beige;
+      //   }
       .siteRow{
         margin: 0px;
         height: 40px;
         background-color: white;
+        text-overflow: ellipsis;
+        overflow: hidden;
+
         // border: solid 1px #ccc;
       }
       .edgeUsername{
         padding: 0;
         margin: 0;
+        padding-right: 5px;
+        padding-bottom: 5px;
         height: 15px;
         text-align: right;
         float: bottom;
-        background-color: pink;
       }
 
       .faviconBox{
@@ -133,7 +143,6 @@ body {
         margin-top: 2px;
         margin-left: 2px;
         padding: 2px;
-        border: solid 1px #ccc;
         .faviconImg{
           width:30px;
         }
@@ -141,6 +150,8 @@ body {
       .textHolder{
         max-width: 90%;
         float: left;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
       .siteTitle{
         float: left;
@@ -165,7 +176,7 @@ body {
           padding: 0px;
           margin: 0px;
           margin-left: 15px;
-          width: 10px;
+          width: 6px;
 
         }
       }
