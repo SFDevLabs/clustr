@@ -26,8 +26,6 @@ var utils = require('../../../main/frontend/utils');
 var csrfToken = utils.getCsrfToken()
 
 
-
-
 var EdgeRecord = Immutable.Record({
   siteFromId: null,
   siteToId: null,
