@@ -20,6 +20,9 @@ var Loader = require('react-loader');
 var Link = require('react-router').Link;
 var ImageLoader = require('react-imageloader');
 
+var Grid = require('react-bootstrap').Grid;
+var Col = require('react-bootstrap').Col;
+var Row = require('react-bootstrap').Row;
 
 var QueryResult = React.createClass({
   propTypes: {
@@ -39,27 +42,25 @@ var QueryResult = React.createClass({
     var siteLink="/"+post.id;
 
 
-      return (            
-            <Link to={siteLink} >
-              <div className="searchResultBox">
-                <ul className="row marginZero">
-                  <li className="columns four marginZero"><img src="img/blank.png" /></li>
-                  <li className="columns eight searchResult">
-                    <div className="columns sixteen">
-                      <ul className="row sixteen marginZero">
-                        <li className="columns three"><ImageLoader className="searchResultImg" src={post.favicon} onError={this._imageLoadError} />
-                        </li>
-                        <li className="columns eleven searchResultText">
-                          <div className="searchResultTitle">{post.title}</div>
-                          <div className="searchResultURL">{post.url}</div>
-                        </li>
-                        <li className="columns two userSubmission"><img className="userSubmissionImg" src="/img/eoin_profile.jpg"/>{user.username}</li>
-                      </ul>
+      return (
+              <Row className="siteConnection">
+                <Col md={3}></Col>
+                <Col md={7} className="midCol">
+                  <Row className="resultRow">
+                    <div className="searchResultImgBox"><Link to={siteLink}><ImageLoader className="searchResultImg" src={post.favicon} onError={this._imageLoadError} /></Link>
                     </div>
-                  </li>
-                </ul>
-              </div>
-            </Link>
+                    <div className="searchResultText">
+                      <Link to={siteLink}><div className="searchResultTitle">{post.title}</div></Link>
+                     <Link to={siteLink}><div className="searchResultURL">{post.url}</div></Link>
+                    </div>
+                  </Row>
+                  <Row className="userNameBox">
+                    <div className="userName">@{user.username}
+                    </div>
+                  </Row>
+                </Col>
+                <Col md={2}></Col>
+              </Row>
           )
   }
 

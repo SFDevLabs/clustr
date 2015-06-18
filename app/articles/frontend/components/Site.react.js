@@ -112,6 +112,7 @@ var Query = React.createClass({
     var selectItemIdTwo = item? item.id:null;
     //var item = post.USEREDGE?(<Item item={post} />):null;  ///Check that we have a full response.
     return (
+      <Grid>
       <div className="row searchResults">
         <div className="searchResultBox">
           <ul className="row marginZero">
@@ -141,7 +142,9 @@ var Query = React.createClass({
               </Row>
             </a>
         {relation}
-      </div>)
+      </div>
+      </Grid>
+      )
 
   },
 

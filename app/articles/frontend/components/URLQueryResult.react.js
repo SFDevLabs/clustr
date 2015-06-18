@@ -28,7 +28,7 @@ var QueryResult = React.createClass({
   /**
    * @return {object}
    */
-  
+
 
   render: function() {
     var post = this.props.post;
