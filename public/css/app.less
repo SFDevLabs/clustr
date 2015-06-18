@@ -195,13 +195,12 @@ body {
       border: solid 1px #ccc;
     }
   }
-
-
 } // end MainBody
 
 .searchResults{
   font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
-  margin: 0;
+  margin: 0px;
+  padding: 0px;
   margin-top: 20px;
   .resultsFor {
     font-size: 18px;
@@ -241,6 +240,19 @@ body {
           margin-top: 8px;
           width: 40%;
         }
+      }
+    }
+  }
+  .connectButtonRow{
+    padding: 0px;
+    margin: 0px;
+    .connectButtonBox{
+      padding: 0px;
+      margin: 0px;
+      .connectButton{
+        padding-left: 10px;
+        width: 80px;
+        background-color: orange;
       }
     }
   }
@@ -287,7 +299,9 @@ body {
 
     }
 } // end addPageContainer
+
 .connectionBox{
+  @connectionBoxHeight: 55px;
   margin-top: 20px;
   .connection{
     min-width: 900px !important;
@@ -300,15 +314,15 @@ body {
   .leftBox{
     min-width: 330px;
     border: 1px solid rgba(1, 0, 0, .05);
-    height: 80px;
+    height: @connectionBoxHeight;
   }
   .rightBox{
     min-width: 330px;
     border: 1px solid rgba(1, 0, 0, .05);
-    height: 80px;
+    height: @connectionBoxHeight;
   }
   .nodeTitleBox{
-    height: 80px;
+    height: @connectionBoxHeight;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -331,13 +345,13 @@ body {
   }
 
   .addIconBox{
-    height: 80px;
+    height: @connectionBoxHeight;
     min-width: 40px;
     border-right: 1px solid rgba(1, 0, 0, .05);
     margin-right: -1px;
     .addIcon{
       height: 25px;
-      margin-top: 20px;
+      margin-top: 10px;
     }
   }
 } // end connectionBox
@@ -397,6 +411,22 @@ body {
     .userName{
       float: right;
       padding-right: 10px;
+    }
+  }
+}
+
+.addNodeSection{
+  padding: 0px;
+  margin: 0px;
+  .inputBox{
+    border: 1px solid rgba(1, 0, 0, .05);
+    background-color: beige;
+    .addURLInput{
+      margin-top: 5px;
+      width: 50%;
+    }
+    .responseBox{
+      background-color: blue;
     }
   }
 }

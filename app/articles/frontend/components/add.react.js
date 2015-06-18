@@ -72,7 +72,7 @@ var Add = React.createClass({
 	//move this logix to the back end
 	//var same = (<h4>URLS can not be the same!</h4>)
 	//var  equals = valueOne.length>0 && valueOne===valueTwo?same:null;
-	
+
 	var inputs = this.state;
 	var selectItemIdOne = !inputs[0]?null:inputs[0].id;
 	var selectItemIdTwo = !inputs[1]?null:inputs[1].id;
@@ -102,14 +102,14 @@ var Add = React.createClass({
 	},
 
 	/**
-	* Invokes save to the server 
+	* Invokes save to the server
 	*/
 	_onSave: function(inputs) {
       	ArticleActions.create(inputs);
 	},
 
 	/**
-	* Invokes save to the server 
+	* Invokes save to the server
 	*/
 	_clearInputs: function() {
       	clearInput();
