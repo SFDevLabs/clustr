@@ -47,9 +47,7 @@ var AddURLInput = React.createClass({
    */
   render: function() {
     return (
-            <Row className="addNodeSection">
-              <Col md={3} className="leftCol"></Col>
-              <Col md={7} className="midCol inputBox">
+              <div className="midCol inputBox">
                 <input
                     className="addURLInput"
                     type="text"
@@ -67,9 +65,7 @@ var AddURLInput = React.createClass({
                   onSelect={this.props.onSelect}
                   inputNumber={this.props.inputNumber}
                   />
-              </Col>
-              <Col md={2} className="rightCol"></Col>
-            </Row>
+              </div>
     );
   },
 

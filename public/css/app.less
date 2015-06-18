@@ -197,23 +197,49 @@ body {
   }
 } // end MainBody
 
-.searchResults{
+.searchResultGrid{
+}
+.searchResultHeader{
   font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
   margin: 0px;
   padding: 0px;
   margin-top: 20px;
-  .resultsFor {
-    font-size: 18px;
-    text-align: center;
-  }
-  .resultsText{
-    margin-top: 30px;
-    font-size: 18px;
-    text-align: center;
-  }
+  .resultItemBox{
+    border: solid 1px #ccc;
+    border-bottom: none;
+    padding: 0px;
+    padding-top: 5px;
+    margin: 0px;
+    background-color: beige;
 
+    .searchItemImgBox{
+      float: left;
+      padding-top: 5px;
+      padding-left: 5px;
+      width: 9%;
+      .searchItemImg{
+        height: 30px;
+      }
+    }
+    .searchItemText{
+      max-width: 90%;
+      float: left;
+      font-size: 16px;
+      text-align: left;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      .searchItemURL{
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .searchItemTitle{
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
   .searchResultBox{
-    height: 100px;
     .searchResult{
       height: 100px;
       border: 1px solid rgba(1, 0, 0, .05);
@@ -243,38 +269,40 @@ body {
       }
     }
   }
-  .connectButtonRow{
+  .connectNodeRow{
     padding: 0px;
+    padding-bottom: 15px;
     margin: 0px;
-    .connectButtonBox{
+
+    .connectNodeBox{
+      background-color: beige;
+      border: solid 1px #ccc;
+      border-top: none;
       padding: 0px;
+      padding-bottom: 5px;
+      padding-left: 10px;
       margin: 0px;
+      .inputBox{
+        float: left;
+        .addURLInput{
+          margin-top: 5px;
+          width: 330px;
+        }
+      }
+      .autoCompleteResults{
+        padding: 0px;
+        margin: 0px;
+      }
       .connectButton{
+        float: left;
         padding-left: 10px;
+        margin-left: 15px;
         width: 80px;
         background-color: orange;
       }
     }
   }
 } // end searchResults
-
-
-.url-add-parent{
-
-  ul{
-    display: inline-block;
-  }
-  .autoCompleteResults{
-    .loader{
-      position: relative;
-      margin-top: 150px
-    }
-    .selected{
-      border:1px solid;
-    }
-  }
-}
-
 
 .addPageContainer{
   font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
@@ -326,6 +354,7 @@ body {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    float: left;
     .nodeTitle{
       text-align: left;
       font-size: 20px;
@@ -411,22 +440,6 @@ body {
     .userName{
       float: right;
       padding-right: 10px;
-    }
-  }
-}
-
-.addNodeSection{
-  padding: 0px;
-  margin: 0px;
-  .inputBox{
-    border: 1px solid rgba(1, 0, 0, .05);
-    background-color: beige;
-    .addURLInput{
-      margin-top: 5px;
-      width: 50%;
-    }
-    .responseBox{
-      background-color: blue;
     }
   }
 }

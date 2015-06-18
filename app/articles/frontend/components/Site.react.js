@@ -32,6 +32,7 @@ var cx = require('classnames');
 var Grid = require('react-bootstrap').Grid;
 var Col = require('react-bootstrap').Col;
 var Row = require('react-bootstrap').Row;
+var Button = require('react-bootstrap').Button;
 
 /**
  * Retrieve the current TODO data from the ArticleStore
@@ -103,7 +104,7 @@ var Query = React.createClass({
   render: function() {
     var post = this.state.post;
     var relations = this.state.relations;
-    var relation= [];
+    var relation = [];
     for (var key in relations) {
       relation.unshift(<SiteConnections key={key} post={relations[key]} />);
     }
@@ -112,40 +113,41 @@ var Query = React.createClass({
     var selectItemIdTwo = item? item.id:null;
     //var item = post.USEREDGE?(<Item item={post} />):null;  ///Check that we have a full response.
     return (
-      <Grid>
-        <div className="row searchResults">
-          <div className="searchResultBox">
-            <ul className="row marginZero">
-              <li className="columns four marginZero"><img src="img/blank.png" /></li>
-              <li className="columns eight searchResult">
-                <div className="columns sixteen">
-                  <ul className="row sixteen marginZero">
-                    <li className="columns three"><ImageLoader className="searchResultImg" src={post.favicon} onError={this._imageLoadError} />
-                    </li>
-                    <li className="columns eleven searchResultText">
-                      <div className="searchResultTitle">{post.title}</div>
-                      <div className="searchResultURL">{post.url}</div>
-                    </li>
-                    <li className="columns two userSubmission"><ImageLoader className="userSubmissionImg" src="/img/eoin_profile.jpg" onError={this._imageLoadError}/>{post.username}</li>
-                  </ul>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <hr/>
-          <AddURLInput onSelect={this._onSelect} selectItemID={selectItemIdTwo} excludeItemID={selectItemIdOne} inputNumber={1} autoFocus={false} clearInputs={this._clearInputs} />
-          <a href="javascript:void(0);" onClick={this._onClick} className="querySubmit" type="submit" value="Submit" >
-                <Row className={cx({active:this._canCreateEdge()})+"connectButtonRow"}>
-                  <Col md={3} className=""></Col>
-                  <Col md={7} className="connectButtonBox">
-                    <div className="connectButton">Connect
-                    </div>
-                  </Col>
-                  <Col md={2} className=""></Col>
-                </Row>
-              </a>
+      <Grid className="searchResultGrid">
+        <Row className="searchResultHeader">
+          <Col md={3}></Col>
+          <Col md={7} className="resultItemBox">
+            <div className="searchItemImgBox">
+              <ImageLoader className="searchItemImg" src={post.favicon} onError={this._imageLoadError} />
+            </div>
+
+            <div className="searchItemText">
+              <div className="searchItemTitle">{post.title}</div>
+              <div className="searchItemURL">{post.url}</div>
+            </div>
+          </Col>
+          <Col md={2}></Col>
+
+
+          <Row className={cx({active:this._canCreateEdge()})+"connectNodeRow"}>
+            <Col md={3}></Col>
+            <Col md={7} className="connectNodeBox">
+              <AddURLInput
+                onSelect={this._onSelect}
+                selectItemID={selectItemIdTwo}
+                excludeItemID={selectItemIdOne}
+                inputNumber={1}
+                autoFocus={false}
+                clearInputs={this._clearInputs}
+              />
+              <a href="javascript:void(0);" onClick={this._onClick} className="addNode" type="submit" value="Submit" ><Button className="connectButton">Connect
+              </Button></a>
+            </Col>
+            <Col md={2}></Col>
+          </Row>
+
+        </Row>
           {relation}
-        </div>
       </Grid>
       )
 
