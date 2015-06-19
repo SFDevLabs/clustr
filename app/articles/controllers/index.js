@@ -232,9 +232,3 @@ exports.async = function (req, res){
 
 }
 
-exports.title = function (req, res){
-
-
-}
-
-

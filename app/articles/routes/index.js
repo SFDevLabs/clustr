@@ -26,19 +26,13 @@ module.exports = function (app, passport, auth) {
   app.get('/', main.index);
   app.get('/add', main.index);
 
-  app.get('/async', articles.title);
-
   /**
    * Route in local middlewares
    */
   app.get('/apigraph/query', articles.urlsearch);
 
-
   // Holder logic for working with uniqu links per route
   //
-  // app.get('/vert/:id', articles.show);
-  // app.param('id', articles.load);
-  // app.get('/vert/:id', articles.show);
 
   /**
    * Crud Operations With User Auth
@@ -51,10 +45,7 @@ module.exports = function (app, passport, auth) {
   app.post(graphURL, articles.create);
 
 
-  crudUtils.initRoutesForModel(app, ArticlesModel, auth, 'id', '/api/articles')
-  //crudUtilsGraph.initRoutesForModel(app, GraphModel, auth, '/:id', '/api/articles')
-
-  //crudUtilsGraph.initRoutesForModel(app, ArticlesModel, auth, '/api/articles')
+  crudUtils.initRoutesForModel(app, ArticlesModel, auth, 'id', '/api/articles');
 
   //Register Catch all after Crud
   app.get('/:id', main.index);

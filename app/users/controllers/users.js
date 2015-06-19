@@ -6,21 +6,6 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var utils = require('../../../lib/utils')
-/**
- * Load
- */
-
-exports.load = function (req, res, next, id) {
-  var options = {
-    criteria: { _id : id }
-  };
-  User.load(options, function (err, user) {
-    if (err) return next(err);
-    if (!user) return next(new Error('Failed to load User ' + id));
-    req.profile = user;
-    next();
-  });
-};
 
 /**
  * Create user
@@ -106,4 +91,27 @@ function login (req, res) {
   var redirectTo = req.session.returnTo ? req.session.returnTo : '/';
   delete req.session.returnTo;
   res.redirect(redirectTo);
+};
+
+
+/**
+ *  Show profile
+ */
+exports.userapi = function (req, res, next) {
+  res.send(req.profile._id)
+};
+
+/**
+ * Load
+ */
+exports.load = function (req, res, next, id) {
+  var options = {
+    criteria: { username : id }
+  };
+  User.load(options, function (err, user) {
+    if (err) return next(err);
+    if (!user) return next(new Error('Failed to load User ' + id));
+    req.profile = user;
+    next();
+  });
 };

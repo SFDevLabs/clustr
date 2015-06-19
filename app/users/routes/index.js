@@ -7,10 +7,6 @@
 // set the NODE_PATH to be ./app/controllers (package.json # scripts # start)
 
 var users = require('../controllers/users');
-var main = require('../../main/controllers/index');
-
-
-
 
 /**
  * Expose routes
@@ -85,8 +81,7 @@ module.exports = function (app, passport, auth) {
       failureRedirect: '/login'
     }), users.authCallback);
 
-  app.get('/user/*', main.index);
-
-  //app.param('userId', users.load);
+  app.param('userid', users.load);
+  app.get('/api/user/:userid', users.userapi);
 
 }

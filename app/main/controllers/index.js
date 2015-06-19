@@ -45,5 +45,3 @@ exports.returnTo = function (req, res){
     req.session.returnTo=req.body.returnURL
     return res.status(200).send({status:'ok'});
 };
-
-

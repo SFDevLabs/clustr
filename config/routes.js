@@ -87,13 +87,6 @@ module.exports = function (app, passport) {
 
   app.param('userId', users.load);
 
-  // home route
-  //app.get('/', articles.index);
-
-
-  // article routes
-  // app.param('id', articles.load);
-  // app.get('/vert/:id', articles.show);
   /**
    * Error handling
    */
