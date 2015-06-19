@@ -272,7 +272,7 @@ function arrayObjectIndexOf(myArray, searchTerm, property) {
 Site.getAll = function (callback) {
 
     var query = [
-    ]
+    ];
 
     query.push('MATCH (siteFrom)-[USEREDGE:USEREDGE]->(siteTo)');
     
@@ -391,14 +391,11 @@ Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
             return item
         }); 
 
-
         callback(null, {
             Sites: parsedSitesResult,
             USEREDGE: parsedEdgeResult
         });
-        // var data = results[0].userEdge._data.data;
-        // data.id = results[0].userEdge._data.metadata.id;
-        //callback(null, data);
+
     });
 };
 
