@@ -272,11 +272,17 @@ function arrayObjectIndexOf(myArray, searchTerm, property) {
 Site.getAll = function (callback) {
 
     var query = [
-        'MATCH (siteFrom)-[USEREDGE:USEREDGE]->(siteTo)',
-        'RETURN USEREDGE, siteFrom, siteTo'
-    ].join('\n');
+    ]
 
-    db.query(query, null, function (err, results) {
+    query.push('MATCH (siteFrom)-[USEREDGE:USEREDGE]->(siteTo)');
+    
+    //query.push('WHERE USEREDGE.userId = {user}')
+
+    query.push('RETURN USEREDGE, siteFrom, siteTo');
+    
+    query =query.join('\n');
+
+    db.query(query, {user:'5567c568e5ab07ef668bfe77'}, function (err, results) {
         if (err) return callback(err);
         
         var parsedSitesResult = [];
@@ -299,7 +305,6 @@ Site.getAll = function (callback) {
         var parsedEdgeResult = results.map(function (result) {
 
             var item = {};
-
             item = result['USEREDGE']._data.data;
             item.id=result['USEREDGE']._data.metadata.id;
 
@@ -341,10 +346,7 @@ Site.createConnection = function (nodeOne, nodeTwo, edge, callback) {
     query.push('CREATE (siteFrom)-[USEREDGE:USEREDGE{edge}]->(siteTo)');
     query.push('RETURN USEREDGE, siteTo, siteFrom');
     
-    query = query.join('\n');
-
-    console.log(query);
-    
+    query = query.join('\n');    
 
     var params = {
         nodeOne: nodeOne,

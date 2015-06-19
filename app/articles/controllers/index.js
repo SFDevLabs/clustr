@@ -78,7 +78,10 @@ function GetTitleResult(url, cb){
  */
 exports.getAll = function (req, res){
   GraphModel.getAll(function(err, results){
-    
+
+    if(err){
+      return res.status(500).send(err.toString())
+    }
     populateEdgeWithUsers(results, function(err, resultspopulated){
       res.send(resultspopulated);
     })
@@ -89,27 +92,26 @@ exports.getAll = function (req, res){
 
 function populateEdgeWithUsers(results, cb){
       
-      var userIds = results.USEREDGE.map(function(obj){
-        return obj.userId;
-      })
-      User.edgePopulate(userIds, function(err, userlist){
+    var userIds = results.USEREDGE.map(function(obj){
+      return obj.userId;
+    });
+    User.edgePopulate(userIds, function(err, userlist){
 
       results.USEREDGE = results.USEREDGE.map(function(obj){
         var val = {}
-        
-        userlist.every(function(userObj){ 
 
+        userlist.every(function(userObj){ 
           if (userObj.id === obj.userId){
             val = obj
             val.user=userObj
+            return false
+          }else{
+            return true
           }
-          
         })
-        
         return val;
       })
-      cb(null, results)
-        
+      cb(null, results) 
     })
 }
 

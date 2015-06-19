@@ -15,6 +15,10 @@ var ImageLoader = require('react-imageloader');
 
 var cx = require('react/lib/cx');
 
+var USerStore = require('../stores/UserStore');
+var USerAction = require('../actions/UserActions');
+
+
 var ArticleItem = React.createClass({
 
   propTypes: {
