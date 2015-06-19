@@ -68,7 +68,7 @@ function destroyCompleted() {
    * @return {object}
    */
 
-function fetchOne(id) {
+function fetch(id) {
     var that= this
     if (!id) return {}; ///return nothing if there is not record.
     $.ajax({
@@ -76,16 +76,17 @@ function fetchOne(id) {
         url: urlBase+id,
     })
     .done(function( results ) {
-      results.USEREDGE.forEach(function(item){
-        _edges = _edges.set(item.id, new EdgeRecord(item) );
-      });
+      
+      // results.USEREDGE.forEach(function(item){
+      //   _edges = _edges.set(item.id, new EdgeRecord(item) );
+      // });
 
-      results.Sites.forEach(function(item){
-          item.favicon = 'http://'+url_domain(item.url)+'/favicon.ico'
-          _nodes = _nodes.set(item.id, new NodeRecord(item) );        
-      });
+      // results.Sites.forEach(function(item){
+      //     item.favicon = 'http://'+url_domain(item.url)+'/favicon.ico'
+      //     _nodes = _nodes.set(item.id, new NodeRecord(item) );        
+      // });
 
-      ArticleStore.emitChange();
+      UserStore.emitChange();
     })
 }
 
@@ -95,7 +96,7 @@ function url_domain(data) {
   return a.hostname;
 }
 
-var ArticleStore = assign({}, EventEmitter.prototype, {
+var UserStore = assign({}, EventEmitter.prototype, {
 
 
   /**
@@ -140,10 +141,9 @@ AppDispatcher.register(function(action) {
   switch(action.actionType) {
 
     case TodoConstants.TODO_HISTORY_SET:
-      goToHistory(action.index);
-      ArticleStore.emitChange();
+      var id = action.id;
+      fetch(id);
       break;
-
 
     default:
       // no op
@@ -151,4 +151,4 @@ AppDispatcher.register(function(action) {
 });
 
 
-module.exports = ArticleStore;
+module.exports = UserStore;

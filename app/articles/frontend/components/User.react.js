@@ -35,6 +35,10 @@ var ArticleItem = React.createClass({
    * @return {object}
    */
   render: function() {
+
+
+    var  profile = this.props.params.profileid
+
     // var item = this.props.item;
     // var siteToLink="/"+item.siteTo.id;
     // var siteFromLink="/"+item.siteFrom.id;
@@ -43,7 +47,7 @@ var ArticleItem = React.createClass({
     // var user = item.edge.user;
     return (
       <div className="userProfile">
-        Jeff Rulz
+        {profile}
       </div>
     );
   }
