@@ -28,12 +28,14 @@ var QueryResult = React.createClass({
   /**
    * @return {object}
    */
-  
+
 
   render: function() {
     var post = this.props.post;
     var siteLink="/"+post.id;
-      return (<div>
+      return (
+          <div>
+            THIS WHOLE PAGE NEEDS REDOING
             <div className="columns sixteen resultsFor"></div>
             <Link to={siteLink} >
               <div className="searchResultBox">
@@ -55,7 +57,8 @@ var QueryResult = React.createClass({
                 </ul>
               </div>
             </Link>
-          </div>)
+          </div>
+          )
   }
 
 });

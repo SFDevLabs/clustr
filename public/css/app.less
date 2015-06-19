@@ -195,26 +195,51 @@ body {
       border: solid 1px #ccc;
     }
   }
-
-
 } // end MainBody
 
-.searchResults{
+.searchResultGrid{
+}
+.searchResultHeader{
   font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
-  margin: 0;
+  margin: 0px;
+  padding: 0px;
   margin-top: 20px;
-  .resultsFor {
-    font-size: 18px;
-    text-align: center;
-  }
-  .resultsText{
-    margin-top: 30px;
-    font-size: 18px;
-    text-align: center;
-  }
+  .resultItemBox{
+    border: solid 1px #ccc;
+    border-bottom: none;
+    padding: 0px;
+    padding-top: 5px;
+    margin: 0px;
+    background-color: beige;
 
+    .searchItemImgBox{
+      float: left;
+      padding-top: 5px;
+      padding-left: 10px;
+      width: 9%;
+      .searchItemImg{
+        height: 30px;
+      }
+    }
+    .searchItemText{
+      max-width: 90%;
+      float: left;
+      font-size: 16px;
+      text-align: left;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      .searchItemURL{
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .searchItemTitle{
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
   .searchResultBox{
-    height: 100px;
     .searchResult{
       height: 100px;
       border: 1px solid rgba(1, 0, 0, .05);
@@ -244,25 +269,40 @@ body {
       }
     }
   }
+  .connectNodeRow{
+    padding: 0px;
+    padding-bottom: 15px;
+    margin: 0px;
+
+    .connectNodeBox{
+      background-color: beige;
+      border: solid 1px #ccc;
+      border-top: none;
+      padding: 0px;
+      padding-bottom: 5px;
+      padding-left: 10px;
+      margin: 0px;
+      .inputBox{
+        float: left;
+        .addURLInput{
+          margin-top: 5px;
+          width: 330px;
+        }
+      }
+      .autoCompleteResults{
+        padding: 0px;
+        margin: 0px;
+      }
+      .connectButton{
+        float: left;
+        padding-left: 10px;
+        margin-left: 15px;
+        width: 80px;
+        background-color: orange;
+      }
+    }
+  }
 } // end searchResults
-
-
-.url-add-parent{
-
-  ul{
-    display: inline-block;
-  }
-  .autoCompleteResults{
-    .loader{
-      position: relative;
-      margin-top: 150px
-    }
-    .selected{
-      border:1px solid;
-    }
-  }
-}
-
 
 .addPageContainer{
   font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
@@ -287,7 +327,9 @@ body {
 
     }
 } // end addPageContainer
+
 .connectionBox{
+  @connectionBoxHeight: 55px;
   margin-top: 20px;
   .connection{
     min-width: 900px !important;
@@ -300,18 +342,19 @@ body {
   .leftBox{
     min-width: 330px;
     border: 1px solid rgba(1, 0, 0, .05);
-    height: 80px;
+    height: @connectionBoxHeight;
   }
   .rightBox{
     min-width: 330px;
     border: 1px solid rgba(1, 0, 0, .05);
-    height: 80px;
+    height: @connectionBoxHeight;
   }
   .nodeTitleBox{
-    height: 80px;
+    height: @connectionBoxHeight;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    float: left;
     .nodeTitle{
       text-align: left;
       font-size: 20px;
@@ -331,13 +374,13 @@ body {
   }
 
   .addIconBox{
-    height: 80px;
+    height: @connectionBoxHeight;
     min-width: 40px;
     border-right: 1px solid rgba(1, 0, 0, .05);
     margin-right: -1px;
     .addIcon{
       height: 25px;
-      margin-top: 20px;
+      margin-top: 10px;
     }
   }
 } // end connectionBox
@@ -345,4 +388,58 @@ body {
 .truncate{
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.siteConnection{
+  margin: 0px;
+  padding: 0px;
+  .midCol{
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(1, 0, 0, .05);
+  }
+  .resultRow{
+    margin: 0px;
+    padding: 0px;
+  }
+  .searchResultImgBox{
+    margin: 0px;
+    padding: 0px;
+    width: 9%;
+    float: left;
+    .searchResultImg{
+      margin-top: 10px;
+      margin-left: 5px;
+      height: 30px;
+    }
+  }
+  .searchResultText{
+    margin: 0px;
+    padding: 0px;
+    max-width: 90%;
+    float: left;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    .searchResultTitle{
+      padding-top: 5px;
+      display: block;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .searchResultURL{
+    }
+  }
+  .userNameBox{
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    .userName{
+      float: right;
+      padding-right: 10px;
+    }
+  }
 }
