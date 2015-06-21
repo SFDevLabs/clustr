@@ -41,30 +41,29 @@ var QueryResult = React.createClass({
     var user = this.props.post.user;
     var siteLink="/"+post.id;
     var userLink = "/user/"+user.username;
-
-
-      return (
-              <Row className="siteConnection">
-                <Col md={3}></Col>
-                <Col md={7} className="midCol">
-                  <Row className="resultRow">
-                    <div className="searchResultImgBox"><Link to={siteLink}><ImageLoader className="searchResultImg" src={post.favicon} onError={this._imageLoadError} /></Link>
-                    </div>
-                    <div className="searchResultText">
-                      <Link to={siteLink}><div className="searchResultTitle">{post.title}</div></Link>
-                     <Link to={siteLink}><div className="searchResultURL">{post.url}</div></Link>
-                    </div>
-                  </Row>
-                  <Row className="userNameBox">                    
-                  <Link to={userLink}>
-                   <div className="userName">@{user.username}
-                    </div>
-                  </Link> 
-                  </Row>
-                </Col>
-                <Col md={2}></Col>
-              </Row>
-          )
+    var posthref="//"+post.url
+    return (
+            <Row className="siteConnection">
+              <Col md={3}></Col>
+              <Col md={7} className="midCol">
+                <Row className="resultRow">
+                  <div className="searchResultImgBox"><Link to={siteLink}><ImageLoader className="searchResultImg" src={post.favicon} onError={this._imageLoadError} /></Link>
+                  </div>
+                  <div className="searchResultText">
+                    <Link to={siteLink}><div className="searchResultTitle">{post.title}</div></Link>
+                    <a target="_blank" href={posthref}><div className="searchResultURL">{post.url}</div></a>
+                  </div>
+                </Row>
+                <Row className="userNameBox">                    
+                <Link to={userLink}>
+                 <div className="userName">@{user.username}
+                  </div>
+                </Link> 
+                </Row>
+              </Col>
+              <Col md={2}></Col>
+            </Row>
+        )
   }
 
 });

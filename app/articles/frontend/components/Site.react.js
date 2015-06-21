@@ -111,6 +111,8 @@ var Query = React.createClass({
     var item = this.state.inputs[1];
     var selectItemIdOne = post.id? post.id:null;
     var selectItemIdTwo = item? item.id:null;
+    var posthref="//"+post.url
+
     //var item = post.USEREDGE?(<Item item={post} />):null;  ///Check that we have a full response.
     return (
       <Grid className="searchResultGrid">
@@ -123,7 +125,7 @@ var Query = React.createClass({
 
             <div className="searchItemText">
               <div className="searchItemTitle">{post.title}</div>
-              <div className="searchItemURL">{post.url}</div>
+              <a target="_blank" href={posthref}><div className="searchItemURL">{post.url}</div></a>
             </div>
           </Col>
           <Col md={2}></Col>
