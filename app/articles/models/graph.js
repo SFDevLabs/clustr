@@ -281,9 +281,10 @@ Site.getAll = function (q ,callback) {
 
     query.push('MATCH (siteFrom)-[USEREDGE:USEREDGE]->(siteTo)');//basic user queary
     
-    if( q.userID ){ //Filter by userid if we have one from the request
-        query.push('WHERE USEREDGE.userId = {userID}')        
-    };
+    // At some point the graph will grow to large for universal queries but for now this will work.
+    // if( q.userID ){ //Filter by userid if we have one from the request
+    //     query.push('WHERE USEREDGE.userId = {userID}')        
+    // };
 
     query.push('RETURN USEREDGE, siteFrom, siteTo'); //Defined the return objects
     
