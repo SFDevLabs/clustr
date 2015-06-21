@@ -40,7 +40,7 @@ var AutoCompleteItem = React.createClass({
           <li className="columns sixteen">
             <div className="leftBox">
               <ul className="row  marginZero">
-                <li className="columns two addIconBox"><img className="addIcon" src="img/logo_clustr_icon.png" />{console.log(post)}</li>
+                <li className="columns two addIconBox"><img className="addIcon" src="img/logo_clustr_icon.png" /></li>
                 <li className="columns fourteen nodeTitleBox">
                   <div className="nodeTitle truncate">
                   {post.title}

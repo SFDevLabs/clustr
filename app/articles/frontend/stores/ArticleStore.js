@@ -242,7 +242,6 @@ var ArticleStore = assign({}, EventEmitter.prototype, {
    * @return {object}
    */
   getAllEdges: function(username) {    
-
     var edgesFiltered = username?_edges.filter(function(obj){
       return obj.user.username===username;
     }):_edges;
