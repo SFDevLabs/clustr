@@ -275,23 +275,27 @@ function edgesConnected(_edges, id){
 };
         
 Site.getAll = function (q ,callback) {
+    //Why?  We need and empty extensible query object;
     var query = [
     ];
-    console.log(q);
-    query.push('MATCH (siteFrom)-[USEREDGE:USEREDGE]->(siteTo)');
+
+    query.push('MATCH (siteFrom)-[USEREDGE:USEREDGE]->(siteTo)');//basic user queary
     
-    if( q.userID ){
+    if( q.userID ){ //Filter by userid if we have one from the request
         query.push('WHERE USEREDGE.userId = {userID}')        
     };
 
-    query.push('RETURN USEREDGE, siteFrom, siteTo');
+    query.push('RETURN USEREDGE, siteFrom, siteTo'); //Defined the return objects
     
     query =query.join('\n');
 
     db.query(query, q, function (err, results) {
         if (err) return callback(err);
 
-        var parsedEdgeResult = results.map(function (result) {
+        /*
+            Horible Hacky logic and duplicated code.  This is intended to be rapidly changed as we extend the extent of graph queary and how to post proccess the result.
+         */
+        var parsedEdgeResult = results.map(function (result) { // We need to build an edge list for the api
 
             var item = {};
             item = result['USEREDGE']._data.data;
@@ -304,11 +308,11 @@ Site.getAll = function (q ,callback) {
         });
 
         var parsedSitesResult = [];
-        results.forEach(function (result) {
+        results.forEach(function (result) { // We need to build a list of nodes for each request.
 
             var data = result['siteFrom']._data.data;
             data.id = result['siteFrom']._data.metadata.id;
-            data.connectionCount = parsedEdgeResult.filter(function(edge){
+            data.connectionCount = parsedEdgeResult.filter(function(edge){// Counting connections.  Not dry
                 return data.id===edge.siteToId || data.id===edge.siteFromId;
             }).length;
 
@@ -318,7 +322,7 @@ Site.getAll = function (q ,callback) {
 
             var data = result['siteTo']._data.data;
             data.id = result['siteTo']._data.metadata.id;
-            data.connectionCount = parsedEdgeResult.filter(function(edge){
+            data.connectionCount = parsedEdgeResult.filter(function(edge){// Counting connections.  Not dry
                 return data.id===edge.siteToId || data.id===edge.siteFromId;
             }).length;
 
@@ -326,24 +330,10 @@ Site.getAll = function (q ,callback) {
                 parsedSitesResult.push(data)
             }
         });
-        
-
-
-        // parsedSitesResult.map(function(obj){
-
-        //     parsedEdgeResult.filter
-
-        //     obj
-
-        //     return obj;
-
-        // });
-
-            // results.map(function(){
-                
-            // });
-            // data.count = edgesConnected(result['siteFrom']._data.data);          
-
+        /*
+            End of the horror. The horror
+         */
+         */
         callback(null, {
             Sites: parsedSitesResult,
             USEREDGE: parsedEdgeResult
