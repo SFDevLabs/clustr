@@ -30,6 +30,7 @@ var ArticleActions = {
   relationsFetchAll: function(id) {
     AppDispatcher.dispatch({
       actionType: TodoConstants.RELATIONS_FETCHALL,
+      id: id
     });
   },
   

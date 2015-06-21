@@ -41,7 +41,7 @@ module.exports = function (app, passport, auth) {
 
   var graphURL= '/apigraph/articles';
   app.get(graphURL+"/:uid", articles.get);
-  app.get(graphURL, articles.getAll);
+  app.get(graphURL, articles.load, articles.getAll);
   app.post(graphURL, articles.create);
 
 

@@ -269,20 +269,21 @@ function arrayObjectIndexOf(myArray, searchTerm, property) {
 }
 
         
-Site.getAll = function (callback) {
-
+Site.getAll = function (q ,callback) {
     var query = [
     ];
-
+    console.log(q);
     query.push('MATCH (siteFrom)-[USEREDGE:USEREDGE]->(siteTo)');
     
-    //query.push('WHERE USEREDGE.userId = {user}')
+    if( q.userID ){
+        query.push('WHERE USEREDGE.userId = {userID}')        
+    };
 
     query.push('RETURN USEREDGE, siteFrom, siteTo');
     
     query =query.join('\n');
 
-    db.query(query, {user:'5567c568e5ab07ef668bfe77'}, function (err, results) {
+    db.query(query, q, function (err, results) {
         if (err) return callback(err);
         
         var parsedSitesResult = [];

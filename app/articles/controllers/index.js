@@ -5,6 +5,7 @@
 
  var mongoose = require('mongoose');
  var Article = mongoose.model('Articles');
+ var User = mongoose.model('User');
  var utils = require('../../../lib/utils');
  var GraphModel = require('../models/graph');
  var URLParse = utils.URLParse
@@ -13,22 +14,6 @@ var config = require('../../../config/config');
 var AlchemyAPI = require('alchemy-api');
 var alchemy = new AlchemyAPI(config.alchemyAPIKey);
 var async = require('async');
-/**
- * Load
- */
-
-// exports.load = function (req, res, next, id){
-//   var User = mongoose.model('User');
-//   console.log('next')
-//   //res.send('1')
-//   next();
-//   // Article.load(id, function (err, article) {
-//   //   if (err) return next(err);
-//   //   if (!article) return next(new Error('not found'));
-//   //   req.article = article;
-//   //   next();
-//   // });
-// };
 
 
 exports.urlsearch = function (req, res){
@@ -77,18 +62,43 @@ function GetTitleResult(url, cb){
  * List
  */
 exports.getAll = function (req, res){
-  GraphModel.getAll(function(err, results){
-
+  //var userName = req.param('userName');
+  //
+  var q={};
+  if (req.profile){ q.userID=req.profile.id };
+  
+  GraphModel.getAll(q, function(err, results){
     if(err){
       return res.status(500).send(err.toString())
-    }
+    };
     populateEdgeWithUsers(results, function(err, resultspopulated){
       res.send(resultspopulated);
-    })
-    
+    });
     
   });
 }
+
+/**
+ * Load
+ */
+
+exports.load = function (req, res, next){  
+  var username = req.param('userName');
+  var options={criteria:null};
+  console.log(username,'username');
+  if (username){
+    options.criteria={username:username};
+    User.load(options, function (err, user) {
+      if (err) return next(err);
+      if (!user) return next(new Error('not found'));
+      req.profile = user;
+      next();
+    });
+  }else{
+    next();
+  }
+
+};
 
 function populateEdgeWithUsers(results, cb){
       
@@ -103,7 +113,8 @@ function populateEdgeWithUsers(results, cb){
         userlist.every(function(userObj){ 
           if (userObj.id === obj.userId){
             val = obj
-            val.user=userObj
+            val.user=userObj.toJSON();
+            delete val.user._id
             return false
           }else{
             return true
@@ -111,6 +122,7 @@ function populateEdgeWithUsers(results, cb){
         })
         return val;
       })
+      
       cb(null, results) 
     })
 }

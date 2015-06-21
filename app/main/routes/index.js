@@ -42,9 +42,10 @@ module.exports = function (app, passport, auth) {
 
   // assume 404 since no middleware responded
   app.use(function (req, res, next) {
-    res.status(404).render(__dirname+'/../views/404', {
+
+    res.status(404).render('main/views/404', {
       url: req.originalUrl,
-      error: 'Not found'
+      error: 'Path Not found'
     });
   });
 }

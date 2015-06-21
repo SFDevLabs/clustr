@@ -164,10 +164,14 @@ function destroyCompleted() {
    * Get the entire collection of from server.
    * @return {object}
    */
-function fetchAllRelations() {
+function fetchAllRelations(userName) {
+      var userName = userName?userName:null;
       $.ajax({
         method: "GET",
         url: urlBase,
+        data: {
+          userName: userName
+        }
       })
       .done(function( results ) {
         results.USEREDGE.forEach(function(item){
@@ -182,6 +186,26 @@ function fetchAllRelations() {
         ArticleStore.emitChange();
       }).error(errorObj.errHandle);
 };
+
+// function fetchAllRelationsByUser(userID) {
+//       $.ajax({
+//         method: "GET",
+//         url: urlBase,
+//         user: userID
+//       })
+//       .done(function( results ) {
+//         results.USEREDGE.forEach(function(item){
+//           _edges = _edges.set(item.id, new EdgeRecord(item) );
+//         });
+
+//         results.Sites.forEach(function(item){
+//           item.favicon = 'http://'+url_domain(item.url)+'/favicon.ico'
+//           _nodes = _nodes.set(item.id, new NodeRecord(item) );        
+//         });
+                
+//         ArticleStore.emitChange();
+//       }).error(errorObj.errHandle);
+// };
 
 function fetchOne(id) {
     var that= this
@@ -216,8 +240,14 @@ var ArticleStore = assign({}, EventEmitter.prototype, {
    * Get the entire collection of TODOs.
    * @return {object}
    */
-  getAllEdges: function() {
-    var mappedEdges = _edges.map(function(obj){
+  getAllEdges: function(username) {    
+
+    var edgesFiltered = username?_edges.filter(function(obj){
+      return obj.user.username===username;
+    }):_edges;
+
+
+    var mappedEdges = edgesFiltered.map(function(obj){
       var item = {};
       item.siteFrom = ArticleStore.getOneNodeById(obj.siteFromId);
       item.siteTo = ArticleStore.getOneNodeById(obj.siteToId);
@@ -332,11 +362,13 @@ AppDispatcher.register(function(action) {
       break;
 
     case TodoConstants.RELATIONS_FETCHALL:
-      fetchAllRelations(action.id);
+      var id = action.id?action.id:null;
+      fetchAllRelations(id);
       break;
 
     case TodoConstants.TODO_FETCH:
-      fetchOne(action.id);
+      var id = action.id;
+      fetchOne(id);
       break;
 
     default:

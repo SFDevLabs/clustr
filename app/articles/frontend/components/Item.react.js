@@ -26,8 +26,11 @@ var ArticleItem = React.createClass({
       isEditing: false
     };
   },
+  fallbackIco: "/img/fallback.ico",
   _imageLoadError : function(e){
-    e.target.src="img/fallback.ico"
+    if (e.target.src.search(this.fallbackIco)===-1){
+      e.target.src=this.fallbackIco
+    }
   },
 
   /**
@@ -40,6 +43,7 @@ var ArticleItem = React.createClass({
     var Col = require('react-bootstrap').Col;
     var Row = require('react-bootstrap').Row;
     var user = item.edge.user;
+    var userLink = "/user/"+user.username;
     return (
       <div className="recentConnectionsDiv">
         <Row className="siteRow">
@@ -61,7 +65,7 @@ var ArticleItem = React.createClass({
           </div>
         </Row>
         <Row className="edgeUsername">
-          <Link to="/user/jeffj">
+          <Link to={userLink}>
             @{user.username}
           </Link> 
         </Row>
