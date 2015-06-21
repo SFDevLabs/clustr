@@ -51,6 +51,7 @@ var ArticleItem = React.createClass({
           <div className="textHolder">
             <Link to={siteToLink}><div className="siteTitle">{item.siteTo.title}</div></Link>
             <Link to={siteToLink}><div className="siteURL">{item.siteTo.url}</div></Link>
+            <div className="siteCount">{item.siteTo.connectionCount}</div>         
           </div>
         </Row>
         <Row className="separator">
@@ -60,8 +61,10 @@ var ArticleItem = React.createClass({
         <Row className="siteRow">
           <div className="faviconBox"><Link to={siteFromLink}><ImageLoader className="faviconImg" src={item.siteFrom.favicon} onError={this._imageLoadError} /></Link></div>
           <div className="textHolder">
-            <Link to={siteFromLink}><div className="siteTitle">{item.siteFrom.title}</div></Link>
+           <Link to={siteFromLink}><div className="siteTitle">{item.siteFrom.title}</div></Link>
            <Link to={siteFromLink}><div className="siteURL">{item.siteFrom.url}</div></Link>
+           <div className="siteCount">{item.siteFrom.connectionCount}</div>         
+
           </div>
         </Row>
         <Row className="edgeUsername">

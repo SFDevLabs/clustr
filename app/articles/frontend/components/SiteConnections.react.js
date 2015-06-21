@@ -40,6 +40,7 @@ var QueryResult = React.createClass({
     var post = this.props.post.site;
     var user = this.props.post.user;
     var siteLink="/"+post.id;
+    var userLink = "/user/"+user.username;
 
 
       return (
@@ -54,9 +55,11 @@ var QueryResult = React.createClass({
                      <Link to={siteLink}><div className="searchResultURL">{post.url}</div></Link>
                     </div>
                   </Row>
-                  <Row className="userNameBox">
-                    <div className="userName">@{user.username}
+                  <Row className="userNameBox">                    
+                  <Link to={userLink}>
+                   <div className="userName">@{user.username}
                     </div>
+                  </Link> 
                   </Row>
                 </Col>
                 <Col md={2}></Col>

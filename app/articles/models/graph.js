@@ -268,6 +268,11 @@ function arrayObjectIndexOf(myArray, searchTerm, property) {
     return -1;
 }
 
+function edgesConnected(_edges, id){
+    _edges.filter(function(obj){
+      return obj.siteFromId === record.id || obj.siteToId === record.id;
+    });
+};
         
 Site.getAll = function (q ,callback) {
     var query = [
@@ -285,24 +290,7 @@ Site.getAll = function (q ,callback) {
 
     db.query(query, q, function (err, results) {
         if (err) return callback(err);
-        
-        var parsedSitesResult = [];
-        results.forEach(function (result) {
 
-            var data = result['siteFrom']._data.data;
-            data.id = result['siteFrom']._data.metadata.id;
-        
-            if ( arrayObjectIndexOf(parsedSitesResult, data.id, "id")==-1 ){
-                parsedSitesResult.push(data)
-            }
-
-            var data = result['siteTo']._data.data;
-            data.id = result['siteTo']._data.metadata.id;
-            if ( arrayObjectIndexOf(parsedSitesResult, data.id, "id")==-1 ){
-                parsedSitesResult.push(data)
-            }
-        });
-        
         var parsedEdgeResult = results.map(function (result) {
 
             var item = {};
@@ -313,7 +301,48 @@ Site.getAll = function (q ,callback) {
             item.siteFromId = result['siteFrom']._data.metadata.id;
 
             return item
-        });            
+        });
+
+        var parsedSitesResult = [];
+        results.forEach(function (result) {
+
+            var data = result['siteFrom']._data.data;
+            data.id = result['siteFrom']._data.metadata.id;
+            data.connectionCount = parsedEdgeResult.filter(function(edge){
+                return data.id===edge.siteToId || data.id===edge.siteFromId;
+            }).length;
+
+            if ( arrayObjectIndexOf(parsedSitesResult, data.id, "id")==-1 ){
+                parsedSitesResult.push(data)
+            }
+
+            var data = result['siteTo']._data.data;
+            data.id = result['siteTo']._data.metadata.id;
+            data.connectionCount = parsedEdgeResult.filter(function(edge){
+                return data.id===edge.siteToId || data.id===edge.siteFromId;
+            }).length;
+
+            if ( arrayObjectIndexOf(parsedSitesResult, data.id, "id")==-1 ){
+                parsedSitesResult.push(data)
+            }
+        });
+        
+
+
+        // parsedSitesResult.map(function(obj){
+
+        //     parsedEdgeResult.filter
+
+        //     obj
+
+        //     return obj;
+
+        // });
+
+            // results.map(function(){
+                
+            // });
+            // data.count = edgesConnected(result['siteFrom']._data.data);          
 
         callback(null, {
             Sites: parsedSitesResult,

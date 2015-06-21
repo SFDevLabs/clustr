@@ -42,7 +42,8 @@ var NodeRecord = Immutable.Record({
   id:null,
   url:null,
   title:null,
-  favicon:null
+  favicon:null,
+  connectionCount:null
 });
 
 /**
