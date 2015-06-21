@@ -162,11 +162,11 @@ Site.prototype.getFollowingAndOthers = function (callback) {
 Site.findByURL = function (url, callback) {
     var query = [
         'MATCH (siteFrom:Site)',
-        'WHERE siteFrom.url =~ {url}',
+        'WHERE siteFrom.url = {url}',
         'RETURN siteFrom'
     ].join('\n');
 
-    db.query(query, {url:url+'.*'}, function (err, results) {
+    db.query(query, {url:url}, function (err, results) {
         if (err) return callback(err);
         var parsedQueryResult = [];
         
@@ -333,7 +333,7 @@ Site.getAll = function (q ,callback) {
         /*
             End of the horror. The horror
          */
-         */
+
         callback(null, {
             Sites: parsedSitesResult,
             USEREDGE: parsedEdgeResult
