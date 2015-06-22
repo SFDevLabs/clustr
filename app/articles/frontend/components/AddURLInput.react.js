@@ -16,6 +16,8 @@ var Grid = require('react-bootstrap').Grid;
 var Col = require('react-bootstrap').Col;
 var Row = require('react-bootstrap').Row;
 
+var Input = require('react-bootstrap').Input;
+
 function getState(value) {
   return {
     value: value
@@ -48,7 +50,7 @@ var AddURLInput = React.createClass({
   render: function() {
     return (
               <div className="midCol inputBox">
-                <input
+                <Input
                     className="addURLInput"
                     type="text"
                     placeholder={this.props.placeholder}

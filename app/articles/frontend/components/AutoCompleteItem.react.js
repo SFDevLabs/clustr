@@ -33,30 +33,25 @@ var AutoCompleteItem = React.createClass({
   render: function() {
     var post = this.props.post
     return (
-      <a href="javascript:void(0);" onClick={this._onClick} >
-        <ul  className={cx({
-          selected:this.props.selected
-        })+" row six marginZero connectionBox"}>
-          <li className="columns sixteen">
-            <div className="leftBox">
-              <ul className="row  marginZero">
-                <li className="columns two addIconBox"><img className="addIcon" src="img/logo_clustr_icon.png" /></li>
-                <li className="columns fourteen nodeTitleBox">
-                  <div className="nodeTitle truncate">
-                  {post.title}
-                  </div>
-                  <div className="nodeUrl truncate">
-                  {post.url}</div>
-                </li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </a>
+      <li className={cx({
+          selected:this.props.selected,
+          media: true
+        })}>
+        <div className="media-left media-middle addIconBox">
+          <a href="#">
+            <img className="media-object addIcon" src="img/logo_clustr_icon.png" alt="..."></img>
+          </a>
+        </div>
+        <div className="media-body">
+          <h4 className="media-heading">{post.title}</h4>
+          {post.url}
+        </div>
+      </li>
+
       );
+
+
   },
-
-
   _onClick:function(event){
     var inputNumber = this.props.inputNumber;
     var url = this.props.post.url;

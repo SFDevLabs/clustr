@@ -22,6 +22,10 @@ var Immutable = require('immutable');
 var _inputs = Immutable.OrderedMap();
 var cx = require('classnames');
 
+var Grid = require('react-bootstrap').Grid;
+var Col = require('react-bootstrap').Col;
+var Row = require('react-bootstrap').Row;
+
 var Navigation = require('react-router').Navigation;
 
 
@@ -77,27 +81,24 @@ var Add = React.createClass({
 	var selectItemIdOne = !inputs[0]?null:inputs[0].id;
 	var selectItemIdTwo = !inputs[1]?null:inputs[1].id;
 	return (
-	  <div className="addPageContainer">
-	      <ul className="row sixteen marginZero connectionBox">
-	        <li className="columns three"><img src="img/blank.png" /></li>
-	        <li className="columns ten">
-	          <ul className="row eight marginZero connection">
-				<AddURLInput  onSelect={this._onSelect} selectItemID={selectItemIdOne} excludeItemID={selectItemIdTwo} inputNumber={0} autoFocus={true} />
-	            <li className="columns three"><img className="connectMetaphor" src="img/connect_metaphor.png" /></li>
-	            <AddURLInput onSelect={this._onSelect} selectItemID={selectItemIdTwo} excludeItemID={selectItemIdOne} inputNumber={1} />
-	            <li className="columns one url-submit">
-		        	<a href="javascript:void(0);" onClick={this._onClick} className="querySubmit" type="submit" value="Submit" >
-	                	<ul className={cx({active:this._canCreateEdge()})+" row sixteen marginZero"}>
-		                	Connect
-	                	</ul>
-	                </a>
-	             </li>
-	          </ul>
-	        </li>
-	        <a onClick={this._clearInputs}>clear</a>
+    <Grid className="mainBody">
+      <Row className="connectionBox">
+        <Col md={5} >
+			<AddURLInput  onSelect={this._onSelect} selectItemID={selectItemIdOne} excludeItemID={selectItemIdTwo} inputNumber={0} autoFocus={true} />
+        </Col>
+        <Col md={2} >
+        <img className="connectMetaphor" className="connectMetaphor" src="img/connect_metaphor.png" />
+        </Col>
+        <Col md={5} >
+	    	<AddURLInput onSelect={this._onSelect} selectItemID={selectItemIdTwo} excludeItemID={selectItemIdOne} inputNumber={1} />
+        </Col>
+      </Row>
 
-	      </ul>
-	  </div>
+
+    </Grid>
+
+
+
 	  )
 	},
 
