@@ -184,6 +184,7 @@ UserSchema.statics = {
   },
 
   edgePopulate:function (users, cb) {
+    console.log(users, 'users')
     if (!users.length) {return cb({message:"Must supply a list of valid suer IDs as first param"},null)}
     this.find({ _id:{ $in: users } })
       .select('username')

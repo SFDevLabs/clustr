@@ -109,7 +109,7 @@ function populateEdgeWithUsers(results, cb){
 
       results.USEREDGE = results.USEREDGE.map(function(obj){
         var val = {}
-
+        console.log(err, userlist)
         userlist.every(function(userObj){ 
           if (userObj.id === obj.userId){
             val = obj
