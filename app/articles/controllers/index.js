@@ -103,7 +103,7 @@ exports.load = function (req, res, next){
 function populateEdgeWithUsers(results, cb){
       
     var userIds = results.USEREDGE.map(function(obj){
-      return obj.userId;
+      return obj.userId?obj.userId:null;
     });
     User.edgePopulate(userIds, function(err, userlist){
 
@@ -111,7 +111,7 @@ function populateEdgeWithUsers(results, cb){
         var val = {}
         console.log(err, userlist)
         userlist.every(function(userObj){ 
-          if (userObj!==undefined&& userObj.id!==undefined && userObj.id === obj.userId){
+          if (userObj.id === obj.userId){
             val = obj
             val.user=userObj.toJSON();
             delete val.user._id
