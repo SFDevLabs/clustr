@@ -93,18 +93,16 @@ var AutoComplete = React.createClass({
         </div>
         );
     } else if ( $.isEmptyObject(search) ){ //No response from search api.
-      var post={
-        url:query
-      }
+      
       result = (<div>
         <i>Not a valid site!</i>
         </div>)
+      
     } else {
       var result=[];
       for (var key in search) {
         var item = search[key]
-        var selected = item.id===this.props.selectItemID?true:false;
-
+        var selected = true//item.id===this.props.selectItemID?true:false;
         if (item.id!==this.props.excludeItemID ){
           result.unshift(<AutoCompleteItem selected={selected} key={key} post={item} onSelect={this.props.onSelect} inputNumber={this.props.inputNumber}/>);
         }
@@ -125,11 +123,19 @@ var AutoComplete = React.createClass({
     var that= this;
     queryHandler(q, function(err, result){
       that.setState(getQueryState(result.data, false, result.newItem));
+      
+      var inputItem;
+      if (result.newItem){
+        inputItem=result.newItem
+      }else if(result.data.length>0){
+        inputItem=result.data[0]
+      }
+      that.props.onSelect(inputItem, that.props.inputNumber);
     });
   },
 
 
-  _loader: (<Loader/>)
+  _loader: (<Loader className="loader"/>)
 
 });
 

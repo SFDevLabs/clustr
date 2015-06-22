@@ -18,9 +18,10 @@ var Row = require('react-bootstrap').Row;
 
 var Input = require('react-bootstrap').Input;
 
-function getState(value) {
+function getState(value, drag) {
   return {
-    value: value
+    value: value,
+    dragging: drag?drag:false
   };
 }
 
@@ -48,9 +49,11 @@ var AddURLInput = React.createClass({
    * @return {object}
    */
   render: function() {
+    var notifyBorder = this.state.dragging?this.constructor.styles.dragBorder:null;
     return (
-              <div className="midCol inputBox">
+              <div className="midCol inputBox" onDrop={this._dropAction} onDragOver={this._dragAction} onDragLeave={this._dragLeaveAction} >
                 <Input
+                    style={notifyBorder}
                     className="addURLInput"
                     type="text"
                     placeholder={this.props.placeholder}
@@ -58,6 +61,7 @@ var AddURLInput = React.createClass({
                     onKeyDown={this._onKeyDown}
                     value={this.state.value}
                     autoFocus={this.props.autoFocus}
+
                   />
                 <AutoComplete
                   className="responseBox"
@@ -66,10 +70,38 @@ var AddURLInput = React.createClass({
                   query={this.state.value}
                   onSelect={this.props.onSelect}
                   inputNumber={this.props.inputNumber}
+
                   />
               </div>
     );
   },
+
+  /**
+  * @param {object} event
+  */
+  _dragAction: function(/*object*/ event, key) {
+    event.preventDefault();
+    this.setState(getState(this.state.value, true));
+  },
+  /**
+  * @param {object} event
+  */
+  _dragLeaveAction: function(/*object*/ event, key) {
+    event.preventDefault();
+    this.setState(getState(this.state.value, false));
+  },
+
+  /**
+  * @param {object} event
+  */
+  _dropAction: function(/*object*/ event, key) {
+    event.preventDefault();
+    var url = event.dataTransfer.getData('URL');
+    this.setState(getState(url, false));
+  },
+
+  
+
 
   /**
   * @param {object} event
@@ -79,5 +111,11 @@ var AddURLInput = React.createClass({
   }
 
 });
+
+AddURLInput.styles = {
+  dragBorder:{
+    "border": "1px solid red"
+  }
+}
 
 module.exports = AddURLInput;

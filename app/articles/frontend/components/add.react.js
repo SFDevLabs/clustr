@@ -25,9 +25,9 @@ var cx = require('classnames');
 var Grid = require('react-bootstrap').Grid;
 var Col = require('react-bootstrap').Col;
 var Row = require('react-bootstrap').Row;
+var Button = require('react-bootstrap').Button;
 
 var Navigation = require('react-router').Navigation;
-
 
 function setInput(data, inputNumber){
 	_inputs = _inputs.set(inputNumber, new InputRecord(data) );
@@ -81,24 +81,20 @@ var Add = React.createClass({
 	var selectItemIdOne = !inputs[0]?null:inputs[0].id;
 	var selectItemIdTwo = !inputs[1]?null:inputs[1].id;
 	return (
-    <Grid className="mainBody">
-      <Row className="connectionBox">
-        <Col md={5} >
-			<AddURLInput  onSelect={this._onSelect} selectItemID={selectItemIdOne} excludeItemID={selectItemIdTwo} inputNumber={0} autoFocus={true} />
-        </Col>
-        <Col md={2} >
+    <Grid className="mainBody connectionBox">
+      <Row className="">
+			<AddURLInput onSelect={this._onSelect} selectItemID={selectItemIdOne} excludeItemID={selectItemIdTwo} inputNumber={0} autoFocus={true} />
+       </Row>
+       <Row>
         <img className="connectMetaphor" className="connectMetaphor" src="img/connect_metaphor.png" />
-        </Col>
-        <Col md={5} >
+       </Row>
+       <Row>
 	    	<AddURLInput onSelect={this._onSelect} selectItemID={selectItemIdTwo} excludeItemID={selectItemIdOne} inputNumber={1} />
-        </Col>
-      </Row>
-
-
+		</Row>
+		<Row>
+		 	<Button onClick={this._onClick} className={cx({enabled:this._canCreateEdge(),connect:true})}>Connect URLs</Button>
+		</Row>
     </Grid>
-
-
-
 	  )
 	},
 
@@ -112,10 +108,10 @@ var Add = React.createClass({
 	/**
 	* Invokes save to the server
 	*/
-	_clearInputs: function() {
-      	clearInput();
-      	this.setState(getInputState());
-	},
+	// _clearInputs: function() {
+ //      	clearInput();
+ //      	this.setState(getInputState());
+	// },
 
 	/**
 	* Invokes the callback passed in as onSave, allowing this component to be
@@ -123,7 +119,7 @@ var Add = React.createClass({
 	*/
 	_onClick: function(valueOne, valueTwo) {
 		if (this._canCreateEdge()){
-			var inputs =getInputState();
+			var inputs = getInputState();
 			this._onSave(inputs)
 		}
 	},
@@ -133,7 +129,7 @@ var Add = React.createClass({
 	*/
 	_canCreateEdge: function() {
 
-		return this.state[0]!==undefined && this.state[1]!==undefined && this.state[0].url!==null && this.state[0].url!==null
+		return this.state[0]!==undefined && this.state[1]!==undefined && this.state[0].url!==null && this.state[1].url!==null
 	},
 
 	/**
