@@ -342,14 +342,33 @@ body {
 .connectionBox{
   @connectionBoxHeight: 55px;
   margin-top: 20px;
+  .inputBox{
+    border: 1px solid #eee;
+    input{
+      width: 250px;
+      margin: 20px 10px 20px 10px;
+    }
+  }
+  .loader{
+      margin-top: 30px;
+    }
   .connection{
     min-width: 900px !important;
   }
   .connectMetaphor{
-    width: 80%;
-    margin-top: 30px;
+    width: 200px;
+    margin: 30px;
     min-width: 130px;
   }
+  .connect{
+    opacity: .5;
+    cursor: pointer;
+    &.enabled{
+          opacity: 1;
+          cursor: pointer;
+    }
+  }
+  
   .leftBox{
     min-width: 330px;
     border: 1px solid rgba(1, 0, 0, .05);
@@ -376,6 +395,7 @@ body {
       text-align: left;
       padding-left: 10px;
     }
+
   }
   .url-input{
       margin: 25px;
