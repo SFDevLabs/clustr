@@ -111,7 +111,7 @@ function populateEdgeWithUsers(results, cb){
         var val = {}
         console.log(err, userlist)
         userlist.every(function(userObj){ 
-          if (userObj.id === obj.userId){
+          if (userObj!==undefined && userObj.id === obj.userId){
             val = obj
             val.user=userObj.toJSON();
             delete val.user._id
