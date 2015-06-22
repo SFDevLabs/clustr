@@ -19,6 +19,9 @@ var URLSearchInput = require('./URLSearchInput.react');
 var Item = require('./Item.react');
 var Link = require('react-router').Link;
 
+var Grid = require('react-bootstrap').Grid;
+var Col = require('react-bootstrap').Col;
+var Row = require('react-bootstrap').Row;
 /**
  * Retrieve the current TODO data from the ArticleStore
  */
@@ -73,10 +76,6 @@ var ArticleApp = React.createClass({
       for (var key in allPosts) {
         posts.unshift(<Item key={key} item={allPosts[key]} />);
       }
-
-      var Grid = require('react-bootstrap').Grid;
-      var Col = require('react-bootstrap').Col;
-      var Row = require('react-bootstrap').Row;
 
       var home = (
         <Grid className="mainBody">
