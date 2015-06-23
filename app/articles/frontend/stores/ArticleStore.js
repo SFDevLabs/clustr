@@ -61,8 +61,8 @@ function create(nodeOne, nodeTwo) {
       urlTwo: nodeTwo.url,
       idOne: nodeOne.id,
       idTwo: nodeTwo.id,
-      titleOne: nodeOne.title, 
-      titleTwo: nodeTwo.title, 
+      titleOne: nodeOne.title,
+      titleTwo: nodeTwo.title,
       _csrf: csrfToken}
   })
   .done(function( results ) {
@@ -72,8 +72,8 @@ function create(nodeOne, nodeTwo) {
     });
 
     results.Sites.forEach(function(item){
-      item.favicon = 'http://'+url_domain(item.url)+'/favicon.ico'
-      _nodes = _nodes.set(item.id, new NodeRecord(item) );        
+      item.favicon = 'http://www.google.com/s2/favicons?domain='+url_domain(item.url)
+      _nodes = _nodes.set(item.id, new NodeRecord(item) );
     });
 
     ArticleStore.emitSave();
@@ -181,9 +181,9 @@ function fetchAllRelations(userName) {
 
         results.Sites.forEach(function(item){
           item.favicon = 'http://'+url_domain(item.url)+'/favicon.ico'
-          _nodes = _nodes.set(item.id, new NodeRecord(item) );        
+          _nodes = _nodes.set(item.id, new NodeRecord(item) );
         });
-                
+
         ArticleStore.emitChange();
       }).error(errorObj.errHandle);
 };
@@ -201,9 +201,9 @@ function fetchAllRelations(userName) {
 
 //         results.Sites.forEach(function(item){
 //           item.favicon = 'http://'+url_domain(item.url)+'/favicon.ico'
-//           _nodes = _nodes.set(item.id, new NodeRecord(item) );        
+//           _nodes = _nodes.set(item.id, new NodeRecord(item) );
 //         });
-                
+
 //         ArticleStore.emitChange();
 //       }).error(errorObj.errHandle);
 // };
@@ -222,7 +222,7 @@ function fetchOne(id) {
 
       results.Sites.forEach(function(item){
           item.favicon = 'http://'+url_domain(item.url)+'/favicon.ico'
-          _nodes = _nodes.set(item.id, new NodeRecord(item) );        
+          _nodes = _nodes.set(item.id, new NodeRecord(item) );
       });
 
       ArticleStore.emitChange();
@@ -241,7 +241,7 @@ var ArticleStore = assign({}, EventEmitter.prototype, {
    * Get the entire collection of TODOs.
    * @return {object}
    */
-  getAllEdges: function(username) {    
+  getAllEdges: function(username) {
     var edgesFiltered = username?_edges.filter(function(obj){
       return obj.user.username===username;
     }):_edges;
