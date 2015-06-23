@@ -180,7 +180,7 @@ function fetchAllRelations(userName) {
         });
 
         results.Sites.forEach(function(item){
-          item.favicon = 'http://'+url_domain(item.url)+'/favicon.ico'
+          item.favicon = 'http://www.google.com/s2/favicons?domain='+url_domain(item.url)
           _nodes = _nodes.set(item.id, new NodeRecord(item) );
         });
 
@@ -200,7 +200,7 @@ function fetchAllRelations(userName) {
 //         });
 
 //         results.Sites.forEach(function(item){
-//           item.favicon = 'http://'+url_domain(item.url)+'/favicon.ico'
+//           item.favicon = 'http://www.google.com/s2/favicons?domain='+url_domain(item.url)
 //           _nodes = _nodes.set(item.id, new NodeRecord(item) );
 //         });
 
@@ -221,7 +221,7 @@ function fetchOne(id) {
       });
 
       results.Sites.forEach(function(item){
-          item.favicon = 'http://'+url_domain(item.url)+'/favicon.ico'
+          item.favicon = 'http://www.google.com/s2/favicons?domain='+url_domain(item.url)
           _nodes = _nodes.set(item.id, new NodeRecord(item) );
       });
 
